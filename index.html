@@ -1,1 +1,199 @@
 
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अभ्यास क्रांती - Abhyas Kranti</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #fbbf24;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        header h1 {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            padding: 30px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.1);
+        }
+        .icon {
+            font-size: 40px;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .card-content strong {
+            display: block;
+            font-size: 1.25rem;
+            margin-bottom: 5px;
+        }
+        .card-content span {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: #334155;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+        }
+        .share-section {
+            text-align: center;
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 20px;
+        }
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 10px;
+            transition: opacity 0.3s;
+        }
+        .btn-wa { background: #25d366; color: white; }
+        .btn-tg { background: #0088cc; color: white; }
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>अभ्यास क्रांती (Abhyas Kranti)</h1>
+            <p>क्रांती शिक्षणाची, प्रगती ग्रामीण महाराष्ट्राची!</p>
+            <div style="margin-top: 15px; font-weight: bold; color: white;">By Dr. Dnyaneshwar Gawalikar</div>
+        </header>
+
+        <div class="badge-container">
+            <span class="badge">✓ 100% Free</span>
+            <span class="badge">✓ Official Govt. Links</span>
+            <span class="badge">✓ Mobile Friendly</span>
+            <span class="badge">✓ Made for Rural India</span>
+        </div>
+
+        <div class="grid" style="margin-top: 50px;">
+            <div class="card">
+                <div class="icon">📚</div>
+                <div class="card-content">
+                    <strong>E-Books & Syllabus</strong>
+                    <span>ई-पुस्तके आणि अधिकृत अभ्यासक्रम</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">✍️</div>
+                <div class="card-content">
+                    <strong>Practice Tests</strong>
+                    <span>MPSC, UPSC, Banking सराव परीक्षा</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">📺</div>
+                <div class="card-content">
+                    <strong>Video Lessons</strong>
+                    <span>व्हिडिओ धडे आणि डिजिटल लर्निंग</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎖️</div>
+                <div class="card-content">
+                    <strong>Defence & Police</strong>
+                    <span>अग्निवीर आणि पोलीस भरती मार्गदर्शन</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">🔬</div>
+                <div class="card-content">
+                    <strong>Research Hub</strong>
+                    <span>UGC CARE आणि संशोधकांसाठी दालन</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="icon">📰</div>
+                <div class="card-content">
+                    <strong>Current Affairs</strong>
+                    <span>दैनंदिन चालू घडामोडी आणि बातम्या</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="share-section">
+            <h3>या क्रांतीत सहभागी व्हा आणि इतरांना शेअर करा</h3>
+            <button class="btn btn-wa">WhatsApp वर शेअर करा</button>
+            <button class="btn btn-tg">Telegram वर शेअर करा</button>
+        </div>
+
+        <footer>
+            © 2026 Abhyas Kranti | IIT Patna Capstone Project | Dr. Dnyaneshwar Gawalikar
+        </footer>
+    </div>
+
+</body>
+</html>
