@@ -35,6 +35,7 @@ def main():
                 score = 1 if q1 == "मुंबई" else 0
                 st.success(f"तुमचा स्कोर: {score}/1")
                 
+                # निकाल जतन करणे
                 conn = sqlite3.connect('abhyas_kranti.db')
                 c = conn.cursor()
                 c.execute("INSERT INTO results (name, score, total) VALUES (?, ?, ?)", ("विद्यार्थी", score, 1))
@@ -52,6 +53,7 @@ def main():
         finally:
             conn.close()
 
+    # फुटर माहिती
     st.sidebar.markdown("---")
     st.sidebar.write("© 2026 Abhyas Kranti | IIT Patna")
     st.sidebar.write("Capstone Project | Dr. Dnyaneshwar Gawalikar")
