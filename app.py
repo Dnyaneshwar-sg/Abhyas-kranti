@@ -563,8 +563,7 @@ import streamlit as st
 import requests
 
 # निवडा बॉक्स (Sidebar/Selectbox)
-choice = st.sidebar.selectbox("निवडा", ["होम", "AI मार्गदर्शक", "सराव परीक्षा", "निकाल","माहिती"])
-
+choice = st.sidebar.selectbox("निवडा", menu = ["होम", "सराव परीक्षा", "निकाल", "माहिती", "AI मार्गदर्शक"]
 if choice == "AI मार्गदर्शक":
     st.title("🤖 AI मार्गदर्शक")
     
@@ -574,7 +573,7 @@ if choice == "AI मार्गदर्शक":
     if st.button("उत्तर मिळवा"):
         if user_question:
             # तुमच्या Make.com वेबहुकची लिंक इथे टाका
-            webhook_url = "तुमची_वेबहुक_लिंक" 
+          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  = "तुमची_वेबहुक_लिंक" 
             response = requests.post(webhook_url, json={"question": user_question})import streamlit as st
 import requests
 
