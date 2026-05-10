@@ -183,7 +183,16 @@ st.markdown("""
 
 # ३. बहुभाषिक एआय प्रॉम्पट (Core Logic)
 def get_ai_multilingual_prompt(language, topic):
-    """
+    """import requests
+
+def get_ai_response(user_message, session_id):
+    url = "तुमची_N8N_WEBHOOK_URL_येथे_टाका"
+    payload = {
+        "message": user_message,
+        "sessionId": session_id
+    }
+    response = requests.post(url, json=payload)
+    return response.json()['output']
     विद्यार्थ्यांच्या शंकांचे निरसन करण्यासाठी बहुभाषिक प्रॉम्पट.
     इथे 'topic' हे विद्यार्थ्यांच्या प्रश्नाचे नाव आहे.
     """
