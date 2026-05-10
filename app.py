@@ -487,3 +487,41 @@ elif section == "📊 प्रगती":
 
 # ७. फुटर
 st.markdown("<div class='footer'>© 2026 Abhyas Kranti | IIT Patna Capstone Project | Dr. Dnyaneshwar Gawalikar</div>", unsafe_allow_headers=True)
+import streamlit as st
+
+# १. जागतिक दर्जाचा लूक देण्यासाठी पेज कॉन्फिगरेशन
+st.set_page_config(
+    page_title="अभ्यास क्रांती | AI Mentor",
+    page_icon="📚",
+    layout="wide" # स्क्रीनचा पूर्ण वापर करण्यासाठी
+)
+
+# २. मास्टर एआय प्रॉम्पट (System Instruction)
+system_prompt = """
+तुम्ही 'अभ्यास क्रांती' या जागतिक दर्जाच्या शैक्षणिक प्लॅटफॉर्मचे अधिकृत AI मार्गदर्शक आहात. 
+तुमची कार्यपद्धती खालीलप्रमाणे असेल:
+
+१. मल्टि-लँग्वेज सपोर्ट: वापरकर्त्याच्या भाषेत (मराठी/हिंदी/इंग्रजी) प्रतिसाद द्या. 
+   मराठीत उत्तर देताना तांत्रिक शब्द कंसात इंग्रजीत लिहा (उदा. प्रकाशसंश्लेषण (Photosynthesis)).
+२. स्ट्रक्चर्ड फॉरमॅट: उत्तरांमध्ये Bold मजकूर, Bullet Points आणि आवश्यक तिथे Tables चा वापर करा.
+३. स्पर्धा परीक्षा फोकस: माहिती देताना ती MPSC, UPSC किंवा तत्सम परीक्षांच्या दृष्टीने महत्त्वाची कशी आहे, हे स्पष्ट करा.
+४. संवाद: प्रत्येक उत्तराच्या शेवटी विद्यार्थ्याला विचार करायला लावणारा एक उपयोजनात्मक प्रश्न (Application-based question) विचारा.
+५. व्हिज्युअल लूक: प्रतिसाद सुटसुटीत आणि वाचनीय असावा.
+"""
+
+# ३. इंटरफेस डिझाइन
+st.title("🚀 अभ्यास क्रांती एआय मेंटॉर")
+st.markdown("---")
+
+# युजर इनपुट
+user_input = st.chat_input("तुमचा अभ्यासाचा प्रश्न येथे विचारा...")
+
+if user_input:
+    # येथे तुमच्या एआय मॉडेलला (Gemini/OpenAI) कॉल जाईल
+    # मॉडेलला पाठवताना: system_prompt + user_input असे पाठवावे.
+    
+    with st.chat_message("assistant"):
+        st.write(f"येथे एआय 'अभ्यास क्रांती' च्या शैलीत उत्तर देईल...")
+        # उदाहरण:
+        # response = model.generate_content(system_prompt + user_input)
+        # st.markdown(response.text)
