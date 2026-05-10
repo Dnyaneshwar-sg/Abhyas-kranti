@@ -356,3 +356,8 @@ st.markdown("""
         Guided by Dr. Dnyaneshwar Gawalikar
     </div>
     """, unsafe_allow_headers=True)
+# हा कोड तुमच्या AI लॉजिकमध्ये वापरा
+messages = [
+    {"role": "system", "content": "You are the Abhyas Kranti Global AI Mentor. Respond in Marathi/Hindi/English as requested. Focus on UPSC, NEET, and School Education."},
+    {"role": "user", "content": f"विषय: {student_question}. भाषा: {selected_language}. कृपया जागतिक दर्जाचे मार्गदर्शन द्या."}
+]
