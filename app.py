@@ -108,7 +108,152 @@ selection = st.sidebar.radio("विभाग निवडा:", ["Home", "E-Boo
 if selection == "Home":
     st.subheader("स्वागत आहे!")
     st.write("हे पोर्टल ग्रामीण भागातील विद्यार्थ्यांना १ ली ते UPSC पर्यंतच्या सर्व शैक्षणिक गरजांसाठी मोफत मार्गदर्शन पुरवते.")
+    import streamlit as st
+import random # For fallback quiz generation
+
+# १. जागतिक दर्जाची पेज कॉन्फिगरेशन
+st.set_page_config(
+    page_title="Abhyas Kranti | ग्लोबल एड्युकेशन प्लॅटफॉर्म",
+    page_icon="🌍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# २. प्रीमियम डिझाइनसाठी Custom CSS (Global Look)
+st.markdown("""
+<style>
+    /* मुख्य बॅकग्राउंड आणि फॉन्ट */
+    .stApp {
+        background-color: #0d1117;
+        color: #c9d1d9;
+        font-family: 'Poppins', sans-serif;
+    }
     
+    /* युनिक हेडर डिझाइन */
+    .header-style {
+        text-align: center;
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        padding: 30px;
+        border-radius: 15px;
+        margin-bottom: 25px;
+        border-bottom: 3px solid #fbbf24;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    
+    /* बटनांचे जागतिक डिझाइन */
+    .stButton>button {
+        width: 100%;
+        border-radius: 20px;
+        height: 3.5em;
+        background-color: #fbbf24;
+        color: black !important;
+        font-weight: bold;
+        border: none;
+        box-shadow: 0 2px 10px rgba(251,191,36,0.3);
+        transition: all 0.3s ease-in-out;
+    }
+    .stButton>button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px rgba(251,191,36,0.6);
+    }
+    
+    /* इन्फो बॉक्स स्टाइल */
+    div.stAlert {
+        border-radius: 15px;
+        background-color: #1f2937;
+        color: #fbbf24;
+        border: 1px solid #fbbf24;
+    }
+    
+    /* फुटर */
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #111827;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 0.8rem;
+        z-index: 99;
+    }
+</style>
+""", unsafe_allow_headers=True)
+
+# ३. बहुभाषिक एआय प्रॉम्पट (Core Logic)
+def get_ai_multilingual_prompt(language, topic):
+    """
+    विद्यार्थ्यांच्या शंकांचे निरसन करण्यासाठी बहुभाषिक प्रॉम्पट.
+    इथे 'topic' हे विद्यार्थ्यांच्या प्रश्नाचे नाव आहे.
+    """
+    prompts = {
+        'मराठी': f"""तुम्ही एक जागतिक दर्जाचे एआय शैक्षणिक मार्गदर्शक आहात. मला '{topic}' या विषयावर एका १० वर्षांच्या मुलाला समजेल इतक्या सोप्या भाषेत पण सविस्तर माहिती मराठीत द्या. माहिती देताना उदाहरणे आणि महत्त्वाचे मुद्दे वापरा.""",
+        'हिंदी': f"""आप एक ग्लोबल एआई एजुकेशनल गाइड हैं। मुझे '{topic}' इस विषय पर 10 साल के बच्चे को समझ आए इतनी सरल भाषा में लेकिन विस्तृत जानकारी हिंदी में दें। जानकारी देते समय उदाहरणों और महत्वपूर्ण बिंदुओं का उपयोग करें।""",
+        'English': f"""You are a global AI educational guide. Provide me with detailed information on the topic '{topic}' in simple language that a 10-year-old child would understand, but in detail, in English. Use examples and key points while providing information."""
+    }
+    # जर तुमच्याकडे Supabase/OpenAI API असेल तर इथे कनेक्ट करा,
+    # नाहीतर आपण एक 'फलक' (Placeholder) मजकूर वापरू.
+    return prompts.get(language, prompts['English'])
+
+# ४. मुख्य मजकूर (जागतिक हेडर)
+st.markdown("<div class='header-style'>\n"
+            "<h1 style='color: #fbbf24; font-size: 2.5rem; margin: 0;'>अभ्यास क्रांती - ग्लोबलाइज्ड एज्युकेशन</h1>\n"
+            "<p style='color: #94a3b8; font-size: 1.1rem; margin-top: 10px;'>एक जागतिक दर्जाचे शैक्षणिक व्यासपीठ, जिथे भाषा आता अडथळा नाही.</p>\n"
+            "</div>", unsafe_allow_headers=True)
+
+# ५. नेव्हिगेशन आणि विभाग
+col1, col2, col3 = st.columns([1.5, 3, 1.5]) # साइडबारऐवजी मुख्य स्क्रीनवर मेनू
+
+with col2:
+    selected_language = st.selectbox("तुमची भाषा निवडा / Select your language:", ["मराठी", "हिंदी", "English"])
+    
+    # विभाग निवड
+    section = st.radio("विभाग निवडा / Select Section:", ["📚 मुख्य", "🧠 एआय शंका निरसन", "🖥️ सराव परीक्षा"])
+    st.write("---")
+
+    if section == "📚 मुख्य":
+        st.subheader("सर्वसमावेशक शिक्षण विभाग")
+        st.info("येथे तुम्हाला यूपीएससी/एमपीएससी, नीट, जेई आणि शालेय शिक्षण या सर्व परीक्षांचे जागतिक दर्जाचे साहित्य मोफत मिळेल.")
+
+    elif section == "🧠 एआय शंका निरसन":
+        st.subheader("🧠 बहुभाषिक एआय शंका निरसन (Multilingual AI Help)")
+        
+        # विद्यार्थ्यांचा प्रश्न
+        student_question = st.text_input("तुमची शंका किंवा विषय लिहा / Enter your doubt or topic:")
+        
+        if st.button("शंका निरसन करा (Solve Doubt)"):
+            if student_question:
+                # प्रॉम्पट तयार करणे
+                prompt = get_ai_multilingual_prompt(selected_language, student_question)
+                
+                with st.spinner("एआय तुमचा अभ्यासक्रम तयार करत आहे..."):
+                    # येथे तुमची OpenAI API कॉल कनेक्ट करा
+                    # OpenAI_API_KEY = "तुमचा_API_KEY" # सिक्रेट्समध्ये टाका
+                    # ... API कॉल ...
+                    
+                    # तात्पुरता रिस्पॉन्स (Placeholder response)
+                    # जर API नसेल तर हे दाखवले जाईल:
+                    fallback_response = f"({selected_language}): '{student_question}' या विषयावर अधिक माहिती लवकरच उपलब्ध होईल. कृपया OpenAI API की (OpenAI API Key) तुमच्या 'Secrets' मध्ये टाका."
+                    
+                    st.markdown(f"<div style='background-color: #1f2937; padding: 20px; border-radius: 10px; border: 1px solid #fbbf24;'>\n"
+                                f"<strong>एआय उत्तर / AI Response:</strong><br><br>\n"
+                                f"{fallback_response}\n"
+                                f"</div>", unsafe_allow_headers=True)
+                    
+                    # जागतिक लूकसाठी एक 'सेलिब्रेशन' इफेक्ट
+                    st.balloons()
+            else:
+                st.warning("कृपया विषय लिहा / Please enter a topic.")
+
+    elif section == "🖥️ सराव परीक्षा":
+        st.subheader("🖥️ सराव परीक्षा केंद्र (Global Practice Tests)")
+        st.write("जागतिक दर्जाचे प्रश्नसंच सोडवून तुमची प्रगती तपासा.")
+
+# ६. फुटर
+st.markdown("<div class='footer'>\n"
+            "© 2026 Abhyas Kranti | Global Education Initiative | Guided by Dr. Dnyaneshwar Gawalikar\n"
+            "</div>", unsafe_allow_headers=True)
     col1, col2, col3 = st.columns(3)
     with col1:
         st.info("📚 **E-Books**\nबालभारती व NCERT पुस्तके")
