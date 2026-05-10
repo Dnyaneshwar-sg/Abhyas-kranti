@@ -66,3 +66,71 @@ def main():
 
 if __name__ == '__main__':
     main()
+import streamlit as st
+import pandas as pd
+
+# Page Configuration (जागतिक दर्जाचे सेटिंग)
+st.set_page_config(
+    page_title="अभ्यास क्रांती | Abhyas Kranti",
+    page_icon="🎓",
+    layout="wide"
+)
+
+# Custom CSS for Professional Look
+st.markdown("""
+    <style>
+    .main {
+        background-color: #0f172a;
+    }
+    .stButton>button {
+        width: 100%;
+        border-radius: 10px;
+        height: 3em;
+        background-color: #fbbf24;
+        color: black;
+        font-weight: bold;
+    }
+    .title-text {
+        text-align: center;
+        color: #fbbf24;
+    }
+    </style>
+    """, unsafe_allow_headers=True)
+
+# Header Section
+st.markdown("<h1 class='title-text'>अभ्यास क्रांती (Abhyas Kranti)</h1>", unsafe_allow_headers=True)
+st.markdown("<p style='text-align: center; color: #94a3b8;'>क्रांती शिक्षणाची, प्रगती ग्रामीण महाराष्ट्राची! | By Dr. Dnyaneshwar Gawalikar</p>", unsafe_allow_headers=True)
+
+# Sidebar for Navigation
+st.sidebar.title("Main Menu")
+selection = st.sidebar.radio("विभाग निवडा:", ["Home", "E-Books", "Practice Tests", "AI Study Planner", "UPSC/MPSC Guidance"])
+
+if selection == "Home":
+    st.subheader("स्वागत आहे!")
+    st.write("हे पोर्टल ग्रामीण भागातील विद्यार्थ्यांना १ ली ते UPSC पर्यंतच्या सर्व शैक्षणिक गरजांसाठी मोफत मार्गदर्शन पुरवते.")
+    
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.info("📚 **E-Books**\nबालभारती व NCERT पुस्तके")
+    with col2:
+        st.success("📝 **Practice Tests**\nNEET, JEE, MPSC सराव")
+    with col3:
+        st.warning("🤖 **AI Planner**\nतुमच्या अभ्यासाचे नियोजन")
+
+elif selection == "AI Study Planner":
+    st.subheader("🤖 AI Study Planner (Capstone Project)")
+    goal = st.text_input("तुमचे ध्येय काय आहे? (उदा. NEET 2027, MPSC)")
+    days = st.slider("किती दिवसांचे नियोजन हवे आहे?", 7, 90, 30)
+    
+    if st.button("Generate Plan"):
+        st.write(f"तुमच्या {goal} साठी {days} दिवसांचा मास्टर प्लॅन तयार होत आहे...")
+        # इथे तुमचे Supabase किंवा AI लॉजिक कनेक्ट होईल
+
+elif selection == "Practice Tests":
+    st.subheader("📝 सराव परीक्षा विभाग")
+    test_type = st.selectbox("परीक्षा निवडा", ["Class 7 Spelling Test", "NEET Mock Test", "MPSC General Studies"])
+    st.write(f"{test_type} साठी उपलब्ध साहित्य लवकरच लोड होईल.")
+
+# Footer Section
+st.markdown("---")
+st.markdown("<p style='text-align: center; font-size: 0.8em;'>© 2026 Abhyas Kranti | IIT Patna Capstone Project | Managed by Academic Research & Innovation Cell</p>", unsafe_allow_headers=True)
