@@ -361,3 +361,129 @@ messages = [
     {"role": "system", "content": "You are the Abhyas Kranti Global AI Mentor. Respond in Marathi/Hindi/English as requested. Focus on UPSC, NEET, and School Education."},
     {"role": "user", "content": f"विषय: {student_question}. भाषा: {selected_language}. कृपया जागतिक दर्जाचे मार्गदर्शन द्या."}
 ]
+import streamlit as st
+import pandas as pd
+import sqlite3
+
+# १. पेज कॉन्फिगरेशन (Global Standard)
+st.set_page_config(
+    page_title="Abhyas Kranti | Global AI Portal",
+    page_icon="🌍",
+    layout="wide"
+)
+
+# २. प्रीमियम डार्क थीम आणि डिझाइन (Custom CSS)
+st.markdown("""
+<style>
+    .stApp { background-color: #0d1117; color: #c9d1d9; }
+    .header-box {
+        text-align: center;
+        background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        padding: 40px;
+        border-radius: 20px;
+        border-bottom: 4px solid #fbbf24;
+        margin-bottom: 30px;
+    }
+    .stButton>button {
+        width: 100%;
+        border-radius: 25px;
+        background-color: #fbbf24;
+        color: black !important;
+        font-weight: bold;
+        border: none;
+        height: 3.5em;
+        transition: 0.3s;
+    }
+    .stButton>button:hover { transform: scale(1.02); background-color: #f59e0b; }
+    .footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 0.9rem; }
+</style>
+""", unsafe_allow_headers=True)
+
+# ३. डेटाबेस सेटअप (SQLite - स्थानिक साठवणुकीसाठी)
+def init_db():
+    try:
+        conn = sqlite3.connect('abhyas_kranti.db')
+        c = conn.cursor()
+        c.execute('''CREATE TABLE IF NOT EXISTS user_activity 
+                     (id INTEGER PRIMARY KEY, topic TEXT, lang TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)''')
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        st.error(f"Database Error: {e}")
+
+init_db()
+
+# ४. मुख्य हेडर
+st.markdown("""
+<div class='header-box'>
+    <h1 style='color: #fbbf24; font-size: 3rem;'>अभ्यास क्रांती</h1>
+    <p style='font-size: 1.2rem; color: #94a3b8;'>क्रांती शिक्षणाची, प्रगती ग्रामीण महाराष्ट्राची! | Global AI Mentor</p>
+</div>
+""", unsafe_allow_headers=True)
+
+# ५. नेव्हिगेशन (Sidebar)
+with st.sidebar:
+    st.image("https://img.icons8.com/fluency/96/education.png", width=100)
+    st.title("Settings")
+    selected_lang = st.selectbox("भाषा निवडा / Language", ["मराठी", "हिंदी", "English"])
+    section = st.radio("विभाग / Section", ["🏠 होम", "🤖 AI शंका निरसन", "📚 अभ्यास साहित्य", "📊 प्रगती"])
+
+# ६. विभागानुसार मजकूर
+if section == "🏠 होम":
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.info("🎯 **UPSC/MPSC**\nप्रशासकीय सेवेसाठी परिपूर्ण मार्गदर्शन.")
+    with col2:
+        st.success("🧬 **NEET/JEE**\nवैद्यकीय व अभियांत्रिकी प्रवेश पूर्व तयारी.")
+    with col3:
+        st.warning("🏫 **School Education**\n१ ली ते १० वी पर्यंतचे सर्व विषय.")
+    
+    st.write("---")
+    st.subheader("आमचे ध्येय")
+    st.write("ग्रामीण भागातील प्रत्येक विद्यार्थ्याला जागतिक दर्जाचे शिक्षण मोफत उपलब्ध करून देणे हेच आमचे उद्दिष्ट आहे.")
+
+elif section == "🤖 AI शंका निरसन":
+    st.subheader(f"🧠 AI Doubt Solver ({selected_lang})")
+    user_input = st.text_input("तुमची शंका किंवा विषय येथे लिहा...")
+    
+    if st.button("उत्तर मिळवा"):
+        if user_input:
+            with st.spinner("AI विचार करत आहे..."):
+                # System Prompt Logic
+                system_prompt = f"You are the Abhyas Kranti Global AI Mentor. Answer the following topic in {selected_lang} with world-class depth and simplicity: {user_input}"
+                
+                # Database मध्ये नोंद करणे
+                conn = sqlite3.connect('abhyas_kranti.db')
+                conn.execute("INSERT INTO user_activity (topic, lang) VALUES (?, ?)", (user_input, selected_lang))
+                conn.commit()
+                conn.close()
+                
+                # दर्शवण्यासाठी मजकूर
+                st.markdown(f"""
+                <div style='background-color: #1f2937; padding: 20px; border-radius: 15px; border-left: 5px solid #fbbf24;'>
+                <strong>AI उत्तर:</strong><br><br>
+                हे एक 'एआय मॉडेल' आहे. प्रत्यक्ष उत्तरासाठी तुमची OpenAI API Key 'Secrets' मध्ये जोडा.<br>
+                विषय: {user_input}<br>
+                भाषा: {selected_lang}
+                </div>
+                """, unsafe_allow_headers=True)
+                st.balloons()
+        else:
+            st.warning("कृपया काहीतरी लिहा.")
+
+elif section == "📚 अभ्यास साहित्य":
+    st.subheader("📚 ई-पुस्तके आणि नोट्स")
+    st.write("सर्व पुस्तके PDF स्वरूपात लवकरच उपलब्ध होतील.")
+
+elif section == "📊 प्रगती":
+    st.subheader("📊 तुमची शैक्षणिक प्रगती")
+    try:
+        conn = sqlite3.connect('abhyas_kranti.db')
+        df = pd.read_sql_query("SELECT topic, lang, timestamp FROM user_activity ORDER BY timestamp DESC", conn)
+        st.table(df)
+        conn.close()
+    except:
+        st.write("अद्याप कोणतीही नोंद नाही.")
+
+# ७. फुटर
+st.markdown("<div class='footer'>© 2026 Abhyas Kranti | IIT Patna Capstone Project | Dr. Dnyaneshwar Gawalikar</div>", unsafe_allow_headers=True)
