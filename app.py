@@ -563,7 +563,7 @@ import streamlit as st
 import requests
 
 # निवडा बॉक्स (Sidebar/Selectbox)
-choice = st.sidebar.selectbox("निवडा", ["होम", "AI मार्गदर्शक", "सराव परीक्षा", "निकाल"])
+choice = st.sidebar.selectbox("निवडा", ["होम", "AI मार्गदर्शक", "सराव परीक्षा", "निकाल","माहिती"])
 
 if choice == "AI मार्गदर्शक":
     st.title("🤖 AI मार्गदर्शक")
