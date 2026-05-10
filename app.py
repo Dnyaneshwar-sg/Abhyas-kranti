@@ -534,3 +534,5 @@ if user_input:
         # उदाहरण:
         # response = model.generate_content(system_prompt + user_input)
         # st.markdown(response.text)
+# ही लिंक तुमच्या स्क्रीनशॉटवरून घेतलेली आहे
+MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/b2he5nnwn7i32bg6mangcu7kcccyma7d"
