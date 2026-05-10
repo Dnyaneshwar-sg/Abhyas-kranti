@@ -47,7 +47,7 @@ def main():
     elif choice == "🤖 AI मार्गदर्शक":
         st.header("🤖 AI मार्गदर्शक (Multi-language)")
         st.write("तुमचा प्रश्न मराठी, हिंदी किंवा इंग्रजीमध्ये विचारा.")
-        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
+       " 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"
         user_input = st.text_input("तुमचा प्रश्न इथे टाईप करा:", placeholder="उदा. स्कॉलरशिप परीक्षेची तयारी कशी करू?")
         
         if st.button("उत्तर मिळवा"):
