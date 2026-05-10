@@ -575,7 +575,26 @@ if choice == "AI मार्गदर्शक":
         if user_question:
             # तुमच्या Make.com वेबहुकची लिंक इथे टाका
             webhook_url = "तुमची_वेबहुक_लिंक" 
+            response = requests.post(webhook_url, json={"question": user_question})import streamlit as st
+import requests
+
+# निवडा बॉक्स (Sidebar/Selectbox)
+choice = st.sidebar.selectbox("निवडा", ["होम", "AI मार्गदर्शक", "सराव परीक्षा", "निकाल"])
+
+if choice == "AI मार्गदर्शक":
+    st.title("🤖 AI मार्गदर्शक")
+    
+    # इथे इनपुट बॉक्स येईल
+    user_question = st.text_input("तुमचा स्पर्धा परीक्षेचा प्रश्न विचारा:")
+    
+    if st.button("उत्तर मिळवा"):
+        if user_question:
+            # तुमच्या Make.com वेबहुकची लिंक इथे टाका
+            webhook_url = "तुमची_वेबहुक_लिंक" 
             response = requests.post(webhook_url, json={"question": user_question})
+            st.write(response.text)
+        else:
+            st.warning("कृपया प्रश्न टाईप करा.")
             st.write(response.text)
         else:
             st.warning("कृपया प्रश्न टाईप करा.")
