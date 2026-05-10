@@ -536,3 +536,26 @@ if user_input:
         # st.markdown(response.text)
 # ही लिंक तुमच्या स्क्रीनशॉटवरून घेतलेली आहे
 MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/b2he5nnwn7i32bg6mangcu7kcccyma7d"
+import streamlit as st
+import requests
+
+# १. तुमची वेबहुक लिंक येथे सेव्ह केली आहे
+MAKE_WEBHOOK_URL = "https://hook.eu2.make.com/b2he5nnwn7i32bg6mangcu7kcccyma7d"
+
+def ask_ai(question):
+    # 'question' हा डेटा मेक.कॉमला पाठवण्यासाठी
+    payload = {"question": question}
+    try:
+        response = requests.post(MAKE_WEBHOOK_URL, json=payload)
+        return response.text
+    except Exception as e:
+        return f"कनेक्शन एरर: {e}"
+
+# ३. ॲपचा इंटरफेस
+st.title("अभ्यास क्रांती AI")
+user_query = st.text_input("तुमचा प्रश्न विचारा:")
+
+if st.button("उत्तर मिळवा"):
+    if user_query:
+        answer = ask_ai(user_query)
+        st.write(answer)
