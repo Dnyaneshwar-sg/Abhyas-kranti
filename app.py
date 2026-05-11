@@ -9,7 +9,8 @@ import plotly.express as px
 from pathlib import Path
 
 st.set_page_config(
-    page_title="अभ्यास क्रांती",
+    page_title="अभ्यास क्रांती"
+    ,st.title("🚀 Abhyas Kranti NEW")
     page_icon="📚",
     layout="wide"
 )
