@@ -54,9 +54,8 @@ def main():
             if user_input:
                 with st.spinner('AI विचार करत आहे...'):
                     # --- तुमची MAKE.COM WEBHOOK LINK इथे पेस्ट करा ---
-                    webhook_url = "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" 
+                    webhook_url “https://hook.eu2.make.com/ece4xd8coueyvk75ao8g9behgp7dfsbe"
                     
-                    try:
                         payload = {"question": user_input}
                         response = requests.post(webhook_url, json=payload)
                         
