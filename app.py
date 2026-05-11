@@ -1,104 +1,355 @@
 
 import streamlit as st
-import requests
-import sqlite3
 import pandas as pd
-from datetime import date
+import sqlite3
+import requests
+from datetime import datetime
+from streamlit_option_menu import option_menu
+import plotly.express as px
+from pathlib import Path
 
-# १. डेटाबेस सेटअप (ऑफलाइन प्रगती साठवण्यासाठी)
-def init_db():
-    conn = sqlite3.connect('abhyas_kranti.db')
-    c = conn.cursor()
-    c.execute('''CREATE TABLE IF NOT EXISTS progress 
-                 (date TEXT, subject TEXT, status TEXT)''')
-    conn.commit()
-    conn.close()
+st.set_page_config(
+    page_title="अभ्यास क्रांती",
+    page_icon="📚",
+    layout="wide"
+)
 
-# २. मुख्य ॲप डिझाइन
-def main():
-    st.set_page_config(page_title="अभ्यास क्रांती", page_icon="🎓", layout="wide")
-    
-    # CSS फॉर ग्रामीण भाग (Low Data Usage & Clean Look)
-    st.markdown("""
-        <style>
-        .main { background-color: #f5f7f9; }
-        .stButton>button { width: 100%; border-radius: 5px; height: 3em; background-color: #007bff; color: white; }
-        </style>
-        """, unsafe_allow_html=True)
+# -----------------------------
+# Folders
+# -----------------------------
+Path("notes").mkdir(exist_ok=True)
+Path("downloads").mkdir(exist_ok=True)
 
-    st.title("🎓 अभ्यास क्रांती")
-    st.subheader("ग्रामीण भागातील विद्यार्थ्यांसाठी मोफत डिजिटल व्यासपीठ")
+# -----------------------------
+# Database Setup
+# -----------------------------
+conn = sqlite3.connect("database.db", check_same_thread=False)
+cursor = conn.cursor()
 
-    # ३. साइडबार मेनू
-    menu = ["🏠 होम", "🤖 AI मार्गदर्शक", "📚 शालेय शिक्षण (१ली-१२वी)", "🏆 स्पर्धा परीक्षा (MPSC/UPSC)", "🎖️ संरक्षण दल (Army/Navy/Air Force)", "🧬 NEET/JEE/NDA", "📊 माझा स्टडी प्लॅन"]
-    choice = st.sidebar.selectbox("विभाग निवडा", menu)
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    exam TEXT,
+    study_hours INTEGER,
+    completed_chapters INTEGER,
+    mock_score INTEGER
+)
+""")
+conn.commit()
 
-    init_db()
+# -----------------------------
+# Language Support
+# -----------------------------
+languages = {
+    "English": {
+        "title": "Abhyas Kranti",
+        "welcome": "Free Education Platform for Rural Students",
+        "chat_placeholder": "Ask your question..."
+    },
+    "मराठी": {
+        "title": "अभ्यास क्रांती",
+        "welcome": "ग्रामीण विद्यार्थ्यांसाठी मोफत शिक्षण प्लॅटफॉर्म",
+        "chat_placeholder": "तुमचा प्रश्न विचारा..."
+    },
+    "हिन्दी": {
+        "title": "अभ्यास क्रांति",
+        "welcome": "ग्रामीण छात्रों के लिए मुफ्त शिक्षा मंच",
+        "chat_placeholder": "अपना प्रश्न पूछें..."
+    }
+}
 
-    # --- विभाग १: होम ---
-    if choice == "🏠 होम":
-        st.write("### स्वागत आहे विद्यार्थी मित्रांनो!")
-        st.info("हे ॲप विशेषतः ग्रामीण भागातील गरीब आणि होतकरू विद्यार्थ्यांसाठी बनवले आहे. इथे तुम्हाला सर्व शिक्षण मोफत मिळेल.")
-        st.image("https://img.icons8.com/clouds/200/education.png")
-        st.write("#### उपलब्ध सुविधा:")
-        st.write("* १ ली ते PhD पर्यंतचे मार्गदर्शन\n* सर्व स्पर्धा परीक्षांच्या नोट्स\n* २४/७ AI मार्गदर्शक मदत")
+selected_lang = st.sidebar.selectbox(
+    "🌐 Language",
+    list(languages.keys())
+)
 
-    # --- विभाग २: AI मार्गदर्शक (Make.com Integration) ---
-    elif choice == "🤖 AI मार्गदर्शक":
-        st.header("🤖 AI मार्गदर्शक (Multi-language)")
-        st.write("तुमचा प्रश्न मराठी, हिंदी किंवा इंग्रजीमध्ये विचारा.")
-       " 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"
-        user_input = st.text_input("तुमचा प्रश्न इथे टाईप करा:", placeholder="उदा. स्कॉलरशिप परीक्षेची तयारी कशी करू?")
-        
-        if st.button("उत्तर मिळवा"):
-            if user_input:
-                with st.spinner('AI विचार करत आहे...'):
-                    # --- तुमची MAKE.COM WEBHOOK LINK इथे पेस्ट करा ---
-                    webhook_url “https://hook.eu2.make.com/ece4xd8coueyvk75ao8g9behgp7dfsbe"
-                    
-                        payload = {"question": user_input}
-                        response = requests.post(webhook_url, json=payload)
-                        
-                        if response.status_code == 200:
-                            st.success("उत्तर:")
-                            st.write(response.text)
-                        else:
-                            st.error("Make.com शी संपर्क होऊ शकला नाही. कृपया लिंक तपासा.")
-                    except Exception as e:
-                        st.error(f"Error: {e}")
-            else:
-                st.warning("कृपया प्रश्न टाईप करा.")
+lang = languages[selected_lang]
 
-    # --- विभाग ३: परीक्षा विभाग (नमुना नोट्स) ---
-    elif choice in ["📚 शालेय शिक्षण (१ली-१२वी)", "🏆 स्पर्धा परीक्षा (MPSC/UPSC)", "🎖️ संरक्षण दल (Army/Navy/Air Force)"]:
-        st.header(f"📖 {choice}")
-        st.write("येथे तुम्हाला मोफत नोट्स आणि सराव पेपर्स मिळतील.")
-        
-        # ऑफलाइन साठवण्यासाठी कॅश मेमरी वापर
-        @st.cache_data
-        def get_notes():
-            return "महत्त्वाच्या नोट्स: १. परीक्षेचा अभ्यासक्रम समजून घ्या. २. रोज सराव करा. ३. मागील वर्षाचे पेपर सोडवा."
-        
-        st.info(get_notes())
-        st.button("नोट्स PDF डाउनलोड करा (ऑफलाइन वापरासाठी)")
+# -----------------------------
+# Sidebar Navigation
+# -----------------------------
+with st.sidebar:
+    selected = option_menu(
+        menu_title="📚 Abhyas Kranti",
+        options=[
+            "Home",
+            "Exams",
+            "Notes",
+            "AI Mentor",
+            "Study Planner",
+            "Progress Dashboard"
+        ],
+        icons=[
+            "house",
+            "book",
+            "file-earmark",
+            "robot",
+            "calendar",
+            "bar-chart"
+        ],
+        default_index=0
+    )
 
-    # --- विभाग ४: स्टडी प्लॅन (Database use) ---
-    elif choice == "📊 माझा स्टडी प्लॅन":
-        st.header("📅 माझा स्टडी प्लॅन")
-        sub = st.text_input("विषयाचे नाव:")
-        stat = st.selectbox("स्थिती", ["सुरू करायचे आहे", "अभ्यास चालू आहे", "पूर्ण झाले"])
-        
-        if st.button("प्लॅन सेव्ह करा"):
-            conn = sqlite3.connect('abhyas_kranti.db')
-            c = conn.cursor()
-            c.execute("INSERT INTO progress VALUES (?, ?, ?)", (date.today(), sub, stat))
-            conn.commit()
-            st.success("तुमची प्रगती सेव्ह झाली आहे (ऑफलाइन उपलब्ध)!")
-            
-        st.write("### माझी प्रगती")
-        conn = sqlite3.connect('abhyas_kranti.db')
-        df = pd.read_sql_query("SELECT * FROM progress", conn)
-        st.table(df)
-https://hook.eu2.make.com/ece4xd8coueyvk75ao8g9behgp7dfsbe
-if __name__ == '__main__':
-    main()
+# -----------------------------
+# HOME
+# -----------------------------
+if selected == "Home":
+
+    st.title(f"🚀 {lang['title']}")
+    st.subheader(lang["welcome"])
+
+    st.info("Empowering Maharashtra rural students through free education and AI learning.")
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric("Students Supported", "10,000+")
+
+    with col2:
+        st.metric("Free Notes", "500+")
+
+    with col3:
+        st.metric("AI Support", "24/7")
+
+    st.markdown("---")
+
+    st.header("🎯 Features")
+
+    st.write("""
+    - 📚 Competitive Exam Preparation
+    - 🤖 AI Mentor
+    - 📥 Offline Notes
+    - 📅 Study Planner
+    - 📊 Progress Tracking
+    - 🌐 Multi-language Support
+    """)
+
+    st.success("“Education is the most powerful weapon to change the world.”")
+
+# -----------------------------
+# EXAMS
+# -----------------------------
+elif selected == "Exams":
+
+    st.title("📚 Exams Section")
+
+    exam_tabs = st.tabs([
+        "School",
+        "Higher Education",
+        "Competitive Exams"
+    ])
+
+    with exam_tabs[0]:
+        st.subheader("🏫 School Education")
+        st.write("""
+        - Class 1 to 12
+        - SSC
+        - HSC
+        - Scholarship Exams
+        """)
+
+    with exam_tabs[1]:
+        st.subheader("🎓 Higher Education")
+        st.write("""
+        - CET
+        - NEET
+        - JEE
+        - NDA
+        - CUET
+        - NET
+        - SET
+        """)
+
+    with exam_tabs[2]:
+        st.subheader("🏆 Competitive Exams")
+        st.write("""
+        - UPSC
+        - MPSC
+        - Army
+        - Navy
+        - Air Force
+        - CDS
+        """)
+
+# -----------------------------
+# NOTES
+# -----------------------------
+elif selected == "Notes":
+
+    st.title("📝 Notes & Study Material")
+
+    uploaded_file = st.file_uploader(
+        "Upload PDF Notes",
+        type=["pdf"]
+    )
+
+    if uploaded_file is not None:
+        save_path = Path("notes") / uploaded_file.name
+
+        with open(save_path, "wb") as f:
+            f.write(uploaded_file.read())
+
+        st.success(f"{uploaded_file.name} uploaded successfully!")
+
+    st.subheader("📂 Available Notes")
+
+    notes_files = list(Path("notes").glob("*.pdf"))
+
+    if notes_files:
+        for file in notes_files:
+            with open(file, "rb") as f:
+                st.download_button(
+                    label=f"📥 Download {file.name}",
+                    data=f,
+                    file_name=file.name,
+                    mime="application/pdf"
+                )
+    else:
+        st.info("No notes uploaded yet.")
+
+# -----------------------------
+# AI MENTOR
+# -----------------------------
+elif selected == "AI Mentor":
+
+    st.title("🤖 AI Mentor")
+
+    st.info("Connect your Make.com webhook in Streamlit Secrets.")
+
+    webhook_url = st.secrets.get("WEBHOOK_URL", "")
+
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.write(msg["content"])
+
+    user_input = st.chat_input(lang["chat_placeholder"])
+
+    if user_input:
+
+        st.session_state.messages.append({
+            "role": "user",
+            "content": user_input
+        })
+
+        with st.chat_message("user"):
+            st.write(user_input)
+
+        try:
+            response = requests.post(
+                webhook_url,
+                json={"question": user_input},
+                timeout=30
+            )
+
+            reply = response.json().get(
+                "reply",
+                "No response received."
+            )
+
+        except Exception as e:
+            reply = f"Error: {e}"
+
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": reply
+        })
+
+        with st.chat_message("assistant"):
+            st.write(reply)
+
+# -----------------------------
+# STUDY PLANNER
+# -----------------------------
+elif selected == "Study Planner":
+
+    st.title("📅 Smart Study Planner")
+
+    exam = st.text_input("Exam Name")
+    weak_subject = st.text_input("Weak Subject")
+    hours = st.slider("Daily Study Hours", 1, 12, 4)
+    target = st.number_input("Target Marks", 0, 720, 500)
+
+    if st.button("Generate Study Plan"):
+
+        st.success("Study Plan Generated!")
+
+        st.write(f"""
+        ## 📌 Daily Plan
+
+        - Morning: Revision
+        - Afternoon: Practice Questions
+        - Evening: Mock Tests
+        - Night: NCERT Reading
+
+        ## 🎯 Target
+        - Exam: {exam}
+        - Weak Subject: {weak_subject}
+        - Daily Hours: {hours}
+        - Target Score: {target}
+        """)
+
+# -----------------------------
+# PROGRESS DASHBOARD
+# -----------------------------
+elif selected == "Progress Dashboard":
+
+    st.title("📊 Student Progress Dashboard")
+
+    with st.form("student_form"):
+
+        name = st.text_input("Student Name")
+        exam = st.text_input("Exam")
+        study_hours = st.slider("Study Hours", 1, 12, 5)
+        chapters = st.slider("Completed Chapters", 0, 100, 10)
+        mock_score = st.slider("Mock Test Score", 0, 720, 300)
+
+        submit = st.form_submit_button("Save Progress")
+
+    if submit:
+
+        cursor.execute("""
+        INSERT INTO students (
+            name,
+            exam,
+            study_hours,
+            completed_chapters,
+            mock_score
+        )
+        VALUES (?, ?, ?, ?, ?)
+        """, (
+            name,
+            exam,
+            study_hours,
+            chapters,
+            mock_score
+        ))
+
+        conn.commit()
+
+        st.success("Progress Saved Successfully!")
+
+    df = pd.read_sql_query(
+        "SELECT * FROM students",
+        conn
+    )
+
+    if not df.empty:
+
+        st.subheader("📋 Student Records")
+        st.dataframe(df)
+
+        fig = px.bar(
+            df,
+            x="name",
+            y="mock_score",
+            title="Mock Test Scores"
+        )
+
+        st.plotly_chart(fig, use_container_width=True)
+
+    else:
+        st.info("No student data available.")
