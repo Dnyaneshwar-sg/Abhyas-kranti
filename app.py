@@ -54,7 +54,7 @@ def main():
             if user_input:
                 with st.spinner('AI विचार करत आहे...'):
                     # --- तुमची MAKE.COM WEBHOOK LINK इथे पेस्ट करा ---
-                    webhook_url = "तुमची_मेक_कॉम_वेबहुक_लिंक_इथे_टाका" 
+                    webhook_url = "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" 
                     
                     try:
                         payload = {"question": user_input}
