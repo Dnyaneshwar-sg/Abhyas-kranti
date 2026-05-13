@@ -277,14 +277,13 @@ st.session_state.messages.append({
 
 with st.chat_message("assistant"):
     st.write(reply)
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+  user_input = st.chat_input("Ask your question")
 
-    model = genai.GenerativeModel("gemini-1.5-flash")
+if user_input:
+    response = model.generate_content(user_input)
+    reply = response.text
 
-
-try:
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
+    st.write(reply) 
     model = genai.GenerativeModel("gemini-1.5-flash")
 
     response = model.generate_content(user_input)
