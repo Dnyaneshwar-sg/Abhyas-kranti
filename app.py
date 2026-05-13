@@ -317,7 +317,11 @@ with st.chat_message("assistant"):
 # STUDY PLANNER
 # ------------------------
 
-elif selected == "Study Planner":
+# ------------------------
+# STUDY PLANNER
+# ------------------------
+
+if selected == "Study Planner":
     st.title("📅 Smart Study Planner")
 
     exam = st.text_input("Exam Name")
