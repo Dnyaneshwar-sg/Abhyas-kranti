@@ -278,7 +278,7 @@ st.session_state.messages.append({
 with st.chat_message("assistant"):
     st.write(reply)
     model = genai.GenerativeModel("gemini-1.5-flash")
-user_input = st.chat_input("Ask your question")
+
 
 
 
