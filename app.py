@@ -237,8 +237,7 @@ elif selected == "AI Mentor":
             "content": user_input
         })
 
-        with st.chat_message("user"):
-            st.write(user_input)
+       
 try:
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
