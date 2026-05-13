@@ -250,7 +250,8 @@ try:
 
 except Exception as e:
     reply = f"Error: {e}"
-
+if "messages" not in st.session_state:
+    st.session_state.messages = []
 st.session_state.messages.append({
     "role": "assistant",
     "content": reply
