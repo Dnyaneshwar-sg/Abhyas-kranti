@@ -248,7 +248,7 @@ if send and user_input:
         response = model.generate_content(user_input)
 
         reply = response.text
-
+        st.write(reply)
     except Exception as e:
         reply = f"Error: {e}"
 
