@@ -280,10 +280,7 @@ with st.chat_message("assistant"):
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
     model = genai.GenerativeModel("gemini-1.5-flash")
-user_input = st.chat_input("Ask your question")
-    response = model.generate_content(user_input)
 
-    reply = response.text
 
 try:
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
