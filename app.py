@@ -287,10 +287,7 @@ if user_input:
     reply = response.text
 
     st.write(reply)
-    st.write(reply)
-    response = model.generate_content(user_input)
-
-    reply = response.text
+ 
 
 
 
