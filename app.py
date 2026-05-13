@@ -7,7 +7,7 @@ from datetime import datetime
 from streamlit_option_menu import option_menu
 import plotly.express as px
 from pathlib import Path
-
+import google.generativeai as genai
 st.set_page_config(
     page_title="अभ्यास क्रांती"
     ,
