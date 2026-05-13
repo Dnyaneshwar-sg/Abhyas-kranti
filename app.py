@@ -280,10 +280,13 @@ with st.chat_message("assistant"):
     model = genai.GenerativeModel("gemini-1.5-flash")
 user_input = st.chat_input("Ask your question")
 
+user_input = st.chat_input("Ask your question")
+
 if user_input:
     response = model.generate_content(user_input)
     reply = response.text
 
+    st.write(reply)
     st.write(reply)
     response = model.generate_content(user_input)
 
