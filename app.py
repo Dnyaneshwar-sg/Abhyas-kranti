@@ -258,7 +258,6 @@ if send and user_input:
     })
 
 with st.chat_message("assistant"):
-    print(reply)
     st.write(reply)
 
 # STUDY PLANNER
