@@ -230,7 +230,10 @@ elif selected == "AI Mentor":
 
   
 user_input = st.text_input("Ask your question")
+send = st.button("Send")
 if send and user_input:
+
+
 
     st.session_state.messages.append({
         "role": "user",
