@@ -277,15 +277,14 @@ st.session_state.messages.append({
 
 with st.chat_message("assistant"):
     st.write(reply)
-  user_input = st.chat_input("Ask your question")
+    model = genai.GenerativeModel("gemini-1.5-flash")
+user_input = st.chat_input("Ask your question")
 
 if user_input:
     response = model.generate_content(user_input)
     reply = response.text
 
-    st.write(reply) 
-    model = genai.GenerativeModel("gemini-1.5-flash")
-
+    st.write(reply)
     response = model.generate_content(user_input)
 
     reply = response.text
