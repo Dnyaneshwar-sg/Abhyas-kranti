@@ -235,7 +235,7 @@ if user_input:
             "role": "user",
             "content": user_input
         })
-
+reply = ""
        
 try:
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
