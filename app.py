@@ -233,19 +233,12 @@ user_input = st.text_input("Ask your question")
 send = st.button("Send")
 if send and user_input:
 
-
-
     st.session_state.messages.append({
         "role": "user",
         "content": user_input
     })
 
     try:
-        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-        model = genai.GenerativeModel("gemini-1.5-flash")
-
-  try:
         genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
         model = genai.GenerativeModel("gemini-1.5-flash")
@@ -263,7 +256,7 @@ if send and user_input:
             st.write(reply)
 
     except Exception as e:
-        reply = f"Error: {e}"
+        st.error(f"Error: {e}")
 # STUDY PLANNER
 # ------------------------
 
