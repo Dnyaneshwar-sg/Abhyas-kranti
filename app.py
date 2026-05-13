@@ -240,9 +240,34 @@ elif selected == "AI Mentor":
         with st.chat_message("user"):
             st.write(user_input)
 try:
-   
+  genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    response = model.generate_content(user_input)
+
+    reply = response.text
+
 except Exception as e:
     reply = f"Error: {e}"
+
+st.session_state.messages.append({
+    "role": "assistant",
+    "content": reply
+})
+
+with st.chat_message("assistant"):
+    st.write(reply)
+   
+
+
+st.session_state.messages.append({
+    "role": "assistant",
+    "content": reply
+})
+
+with st.chat_message("assistant"):
+    st.write(reply)
 
 st.session_state.messages.append({
     "role": "assistant",
