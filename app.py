@@ -289,8 +289,7 @@ if user_input:
 
     reply = response.text
 
-except Exception as e:
-    reply = f"Error: {e}"
+
 
 st.session_state.messages.append({
     "role": "assistant",
