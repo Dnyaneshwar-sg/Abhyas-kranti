@@ -230,7 +230,7 @@ elif selected == "AI Mentor":
 
   
 user_input = st.chat_input("Ask your question")
-    if user_input:
+if user_input:
         st.session_state.messages.append({
             "role": "user",
             "content": user_input
