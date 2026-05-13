@@ -239,22 +239,20 @@ elif selected == "AI Mentor":
 
         with st.chat_message("user"):
             st.write(user_input)
+try:
+    import google.generativeai as genai
 
-        try:
-            response = requests.post(
-                webhook_url,
-                json={"question": user_input},
-                timeout=30
-            )
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-            reply = response.json().get(
-                "reply",
-                "No response received."
-            )
+    model = genai.GenerativeModel("gemini-1.5-flash")
 
-        except Exception as e:
-            reply = f"Error: {e}"
+    response = model.generate_content(user_input)
 
+    reply = response.text
+
+except Exception as e:
+    reply = f"Error: {e}"
+      
         st.session_state.messages.append({
             "role": "assistant",
             "content": reply
