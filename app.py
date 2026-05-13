@@ -282,12 +282,13 @@ user_input = st.chat_input("Ask your question")
 
 
 
+user_input = st.chat_input("Ask your question")
+
 if user_input:
     response = model.generate_content(user_input)
     reply = response.text
 
     st.write(reply)
- 
 
 
 
