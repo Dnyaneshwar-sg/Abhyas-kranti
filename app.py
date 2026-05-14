@@ -237,7 +237,10 @@ elif selected == "AI Mentor":
 response = model.generate_content(user_input)
 reply = response.text
 
-with st.chat_message("assistant"):
+response = model.generate_content(user_input)
+reply = response.text
+
+st.write(reply)
 response = model.generate_content(user_input)
 reply = response.text
 
