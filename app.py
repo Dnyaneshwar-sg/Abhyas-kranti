@@ -239,14 +239,13 @@ genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(user_input)
 reply = response.text
+ with st.chat_message("assistant"):
+     st.write(reply)
 
-        with st.chat_message("assistant"):
-            st.write(reply)
-
-        st.session_state.messages.append({
-            "role": "assistant",
-            "content": reply
-        })
+  st.session_state.messages.append({
+     "role": "assistant",
+     "content": reply
+ })
      
 # STUDY PLANNER
 # ------------------------
