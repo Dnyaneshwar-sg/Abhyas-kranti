@@ -456,7 +456,7 @@ try:
 except Exception as e:
 
     st.error(f"Error: {e}")
-    if "last_request" not in st.session_state:
+if "last_request" not in st.session_state:
     st.session_state.last_request = datetime.now()
     Path("notes").mkdir(
     exist_ok=True
