@@ -441,7 +441,7 @@ password = st.sidebar.text_input(
 if password != APP_PASSWORD:
     st.warning("Enter password")
     st.stop()
-    try:
+  
 
     # FULL APP CODE
 
