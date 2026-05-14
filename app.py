@@ -431,3 +431,27 @@ if len(user_input) > 1000:
     st.warning("Question too long.")
 if name.strip() == "":
     st.error("Name required")
+APP_PASSWORD = "abhyas123"
+
+password = st.sidebar.text_input(
+    "Admin Password",
+    type="password"
+)
+
+if password != APP_PASSWORD:
+    st.warning("Enter password")
+    st.stop()
+    try:
+
+    # FULL APP CODE
+
+except Exception as e:
+
+    st.error(f"Application Error: {e}")
+    if "last_request" not in st.session_state:
+    st.session_state.last_request = datetime.now()
+    Path("notes").mkdir(
+    exist_ok=True
+)
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []    
