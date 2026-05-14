@@ -243,9 +243,9 @@ if send and user_input:
     model = genai.GenerativeModel("gemini-1.5-flash")
 
     response = model.generate_content(user_input)
-    st.write(response)
+
     reply = response.text
-    st.write(reply)
+
     with st.chat_message("assistant"):
         st.write(reply)
     st.session_state.messages.append({
