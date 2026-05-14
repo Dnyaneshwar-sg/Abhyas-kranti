@@ -216,6 +216,10 @@ elif menu == "Notes":
 
     Path("notes").mkdir(exist_ok=True)
 
+    MAX_FILE_SIZE = 5 * 1024 * 1024
+
+    ALLOWED_EXTENSIONS = ["pdf"]
+
     uploaded_file = st.file_uploader(
         "Upload PDF Notes",
         type=["pdf"]
@@ -223,12 +227,25 @@ elif menu == "Notes":
 
     if uploaded_file is not None:
 
-        save_path = Path("notes") / uploaded_file.name
+        file_extension = uploaded_file.name.split(".")[-1].lower()
 
-        with open(save_path, "wb") as f:
-            f.write(uploaded_file.read())
+        if file_extension not in ALLOWED_EXTENSIONS:
 
-        st.success("File Uploaded")
+            st.error("Only PDF files are allowed.")
+
+        elif uploaded_file.size > MAX_FILE_SIZE:
+
+            st.error("File size exceeds 5 MB.")
+
+        else:
+
+            save_path = Path("notes") / uploaded_file.name
+
+            with open(save_path, "wb") as f:
+
+                f.write(uploaded_file.read())
+
+            st.success("File Uploaded Successfully")
 
     st.subheader("Available Notes")
 
