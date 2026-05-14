@@ -234,7 +234,14 @@ elif selected == "AI Mentor":
 
         model = genai.GenerativeModel("gemini-1.5-flash")
 
-        response = model.generate_content(user_input)
+       if user_input.strip() == "":
+    st.warning("Please enter a question")
+else:
+    response = model.generate_content(user_input)
+    reply = response.text
+
+    with st.chat_message("assistant"):
+        st.write(reply)
 
         reply = response.text
 
