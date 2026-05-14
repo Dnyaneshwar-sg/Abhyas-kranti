@@ -68,7 +68,7 @@ elif selected == "AI Mentor":
           model = genai.GenerativeModel("models/gemini-1.5-flash")
 
 response = model.generate_content(user_input)
-            reply = response.text
+reply = response.text          
 
             st.success("Answer")
 
