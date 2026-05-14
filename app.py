@@ -445,9 +445,17 @@ if password != APP_PASSWORD:
 
     # FULL APP CODE
 
+try:
+
+    response = model.generate_content(user_input)
+
+    st.success("Answer")
+
+    st.write(response.text)
+
 except Exception as e:
 
-    st.error(f"Application Error: {e}")
+    st.error(f"Error: {e}")
     if "last_request" not in st.session_state:
     st.session_state.last_request = datetime.now()
     Path("notes").mkdir(
