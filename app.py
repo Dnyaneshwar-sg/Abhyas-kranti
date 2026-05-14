@@ -218,7 +218,7 @@ elif selected == "AI Mentor":
     st.title("🤖 AI Mentor")
 
     st.info("Connect your Make.com webhook in Streamlit Secrets.")
-    if "messages" not in st.session_state:
+if "messages" not in st.session_state:
     st.session_state.messages = []
     webhook_url = st.secrets.get("WEBHOOK_URL", "")
 
