@@ -213,35 +213,24 @@ elif selected == "Notes":
 # -----------------------------
 # AI MENTOR
 # -----------------------------
-elif selected == "AI Mentor":
+user_input = st.text_input("Ask your question")
+send = st.button("Send")
 
-    st.title("🤖 AI Mentor")
-
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
-
-    for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.write(msg["content"])
-
-    user_input = st.text_input("Ask your question")
-    send = st.button("Send")
 if send and user_input.strip():
 
-        with st.chat_message("user"):
-            st.write(user_input)
+    with st.chat_message("user"):
+        st.write(user_input)
 
-        st.session_state.messages.append({
-            "role": "user",
-            "content": user_input
-        })
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-model = genai.GenerativeModel("gemini-1.5-flash")
-response = model.generate_content(user_input)
-reply = response.text
-st.write(reply)
-st.session_state.messages.append({
-   "role": "assistant",
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    response = model.generate_content(user_input)
+
+    reply = response.text
+
+    with st.chat_message("assistant"):
+        st.write(reply)
    "content": reply
   })
      
