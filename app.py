@@ -429,3 +429,5 @@ if uploaded_file is not None:
         st.success("File Uploaded Successfully")
 if len(user_input) > 1000:
     st.warning("Question too long.")
+if name.strip() == "":
+    st.error("Name required")
