@@ -235,7 +235,7 @@ elif selected == "AI Mentor":
 
         with st.chat_message("assistant"):   
             st.write(reply)
-        elif selected == "study planner":
+        elif selected == "Study Planner":
         
     st.title("📅 Smart Study Planner")
 
