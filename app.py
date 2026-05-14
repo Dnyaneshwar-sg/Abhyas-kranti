@@ -133,8 +133,8 @@ if selected == "Home":
 # EXAMS
 # -----------------------------
 with st.chat_message("assistant"):
-if "reply" in locals():
-    st.write(reply)   
+    if "reply" in locals():
+        st.write(reply)
 
 # -------------------------
 # STUDY PLANNER
