@@ -213,35 +213,28 @@ elif selected == "Notes":
 # -----------------------------
 # AI MENTOR
 # -----------------------------
-user_input = st.text_input("Ask your question")
-send = st.button("Send")
+elif selected == "AI Mentor":
 
-if send and user_input.strip():
+    st.title("🤖 AI Mentor")
 
-    with st.chat_message("user"):
-        st.write(user_input)
+    user_input = st.text_input("Ask your question")
+    send = st.button("Send")
 
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+    if send and user_input.strip():
 
-    model = genai.GenerativeModel("gemini-1.5-flash")
+        with st.chat_message("user"):
+            st.write(user_input)
 
-    response = model.generate_content(user_input)
+        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-    reply = response.text
+        model = genai.GenerativeModel("gemini-1.5-flash")
 
-    with st.chat_message("assistant"):
-        st.write(reply)
-   "content": reply
-  })
-     
-# STUDY PLANNER
-# ------------------------
+        response = model.generate_content(user_input)
 
-# ------------------------
-# STUDY PLANNER
-# ------------------------
+        reply = response.text
 
-if selected == "Study Planner":
+        with st.chat_message("assistant"):
+            st.write(reply)
     st.title("📅 Smart Study Planner")
 
     exam = st.text_input("Exam Name")
