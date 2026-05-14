@@ -239,11 +239,12 @@ if send and user_input:
         genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
         model = genai.GenerativeModel("gemini-1.5-flash")
-try:
-            response = model.generate_content(user_input)
+response = model.generate_content(user_input)
+
+        try:
             reply = response.text
-        except Exception as e:
-            reply = f"Error: {e}"
+        except:
+            reply = "No response generated"
         st.session_state.messages.append({
             "role": "assistant",
             "content": reply
