@@ -139,7 +139,7 @@ with st.chat_message("assistant"):
 # STUDY PLANNER
 # -------------------------
 
-elif selected == "Study Planner":
+if selected == "Study Planner":
     exam_tabs = st.tabs([
         "School",
         "Higher Education",
