@@ -217,43 +217,15 @@ elif selected == "AI Mentor":
 
     st.title("🤖 AI Mentor")
 
-    st.info("Connect your Make.com webhook in Streamlit Secrets.")
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-    webhook_url = st.secrets.get("WEBHOOK_URL", "")
+    user_input = st.text_input("Ask your question")
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = []
+    send = st.button("Send")
 
-    for msg in st.session_state.messages:
-        with st.chat_message(msg["role"]):
-            st.write(msg["content"])
+    if send and user_input:
 
-  
-user_input = st.text_input("Ask your question")
-send = st.button("Send")
+        with st.chat_message("user"):
+            st.write(user_input)
 
-if send and user_input:
-
-    with st.chat_message("user"):
-        st.write(user_input)
-
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-    model = genai.GenerativeModel("gemini-1.5-flash")
-
-    response = model.generate_content(user_input)
-
-    reply = response.text
-
-    with st.chat_message("assistant"):
-        st.write(reply)
-    st.session_state.messages.append({
-        "role": "user",
-        "content": user_input
-    })
-
-    try:
         genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
         model = genai.GenerativeModel("gemini-1.5-flash")
@@ -262,15 +234,8 @@ if send and user_input:
 
         reply = response.text
 
-        st.session_state.messages.append({
-            "role": "assistant",
-            "content": reply
-        })
-
-       
-
-    except Exception as e:
-        st.error(f"Error: {e}")
+        with st.chat_message("assistant"):
+            st.write(reply)
 # STUDY PLANNER
 # ------------------------
 
