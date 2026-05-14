@@ -406,3 +406,6 @@ section[data-testid="stSidebar"] {
 
 </style>
 """, unsafe_allow_html=True)
+MAX_FILE_SIZE = 5 * 1024 * 1024
+
+ALLOWED_EXTENSIONS = ["pdf"]
