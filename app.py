@@ -238,11 +238,11 @@ response = model.generate_content(user_input)
 reply = response.text
 
 with st.chat_message("assistant"):
-    st.write(reply)
-        reply = response.text
+response = model.generate_content(user_input)
+reply = response.text
 
 with st.chat_message("assistant"):
-    st.write(reply)
+    st.write(reply)  
 
 if selected == "Study Planner":
         
