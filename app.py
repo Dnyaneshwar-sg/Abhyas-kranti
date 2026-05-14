@@ -19,7 +19,6 @@ st.set_page_config(
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
 model = genai.GenerativeModel("models/gemini-1.5-flash")
-
 # ---------------- DATABASE ----------------
 
 conn = sqlite3.connect("abhyas_kranti.db", check_same_thread=False)
