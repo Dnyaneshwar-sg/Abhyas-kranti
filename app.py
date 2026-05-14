@@ -237,9 +237,9 @@ elif selected == "AI Mentor":
             "content": user_input
         })
 
-        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+       genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-       model = genai.GenerativeModel("gemini-1.5-flash")
+        model = genai.GenerativeModel("gemini-1.5-flash")
 
         response = model.generate_content(user_input)
 
