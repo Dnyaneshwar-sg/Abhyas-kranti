@@ -217,24 +217,41 @@ elif selected == "AI Mentor":
 
     st.title("🤖 AI Mentor")
 
-   user_input = st.text_input("Ask your question")
-send = st.button("Send")
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
 
-if send and user_input:
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.write(msg["content"])
 
-    with st.chat_message("user"):
-        st.write(user_input)
+    user_input = st.text_input("Ask your question")
+    send = st.button("Send")
 
-    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+    if send and user_input:
 
-    model = genai.GenerativeModel("gemini-1.5-flash-latest")
+        with st.chat_message("user"):
+            st.write(user_input)
 
-    response = model.generate_content(user_input)
+        st.session_state.messages.append({
+            "role": "user",
+            "content": user_input
+        })
 
-    reply = response.text
+        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-    with st.chat_message("assistant"):
-        st.write(reply)
+        model = genai.GenerativeModel("gemini-1.5-flash-latest")
+
+        response = model.generate_content(user_input)
+
+        reply = response.text
+
+        with st.chat_message("assistant"):
+            st.write(reply)
+
+        st.session_state.messages.append({
+            "role": "assistant",
+            "content": reply
+        })
 # STUDY PLANNER
 # ------------------------
 
