@@ -301,4 +301,108 @@ elif menu == "Progress Dashboard":
             title="Student Performance"
         )
 
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, use_container_width=True)# ---------------- MODERN UI ----------------
+
+st.markdown("""
+<style>
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
+.block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #0f172a,
+        #111827,
+        #1e293b
+    );
+    color: white;
+}
+
+h1, h2, h3, h4, h5 {
+    color: white !important;
+    font-weight: 700;
+}
+
+p, label, div {
+    color: #e5e7eb !important;
+}
+
+section[data-testid="stSidebar"] {
+    background: rgba(15, 23, 42, 0.95);
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.stButton > button {
+    width: 100%;
+    border-radius: 14px;
+    height: 3rem;
+    border: none;
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #7c3aed
+    );
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.stTextInput > div > div > input {
+    border-radius: 12px;
+    background-color: rgba(255,255,255,0.08);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.stSelectbox > div > div {
+    border-radius: 12px;
+}
+
+.metric-card {
+    background: rgba(255,255,255,0.08);
+    padding: 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+}
+
+.hero-box {
+    background: linear-gradient(
+        135deg,
+        rgba(37,99,235,0.25),
+        rgba(124,58,237,0.25)
+    );
+    padding: 40px;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 30px;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 15px;
+}
+
+</style>
+""", unsafe_allow_html=True)
