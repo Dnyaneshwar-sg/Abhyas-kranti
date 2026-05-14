@@ -236,12 +236,9 @@ if send and user_input:
             "content": user_input
         })
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-        model = genai.GenerativeModel("gemini-1.5-flash")
-
-        response = model.generate_content(user_input)
-
-        reply = response.text
+model = genai.GenerativeModel("gemini-1.5-flash")
+response = model.generate_content(user_input)
+reply = response.text
 
         with st.chat_message("assistant"):
             st.write(reply)
