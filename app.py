@@ -221,21 +221,21 @@ elif selected == "AI Mentor":
 
     send = st.button("Send")
 
-    if send and user_input:
+ if send and user_input:
 
-        with st.chat_message("user"):
-            st.write(user_input)
+    with st.chat_message("user"):
+        st.write(user_input)
 
-        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-       model = genai.GenerativeModel("gemini-1.5-flash-latest")
+    model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
-        response = model.generate_content(user_input)
+    response = model.generate_content(user_input)
 
-        reply = response.text
+    reply = response.text
 
-        with st.chat_message("assistant"):
-            st.write(reply)
+    with st.chat_message("assistant"):
+        st.write(reply)
 # STUDY PLANNER
 # ------------------------
 
