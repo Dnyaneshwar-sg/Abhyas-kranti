@@ -427,3 +427,5 @@ if uploaded_file is not None:
             f.write(uploaded_file.read())
 
         st.success("File Uploaded Successfully")
+if len(user_input) > 1000:
+    st.warning("Question too long.")
