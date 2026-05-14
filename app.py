@@ -226,8 +226,7 @@ elif selected == "AI Mentor":
 
     user_input = st.text_input("Ask your question")
     send = st.button("Send")
-
-    if send and user_input:
+if send and user_input:
 
         with st.chat_message("user"):
             st.write(user_input)
@@ -237,7 +236,7 @@ elif selected == "AI Mentor":
             "content": user_input
         })
 
-      genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
         model = genai.GenerativeModel("gemini-1.5-flash")
 
