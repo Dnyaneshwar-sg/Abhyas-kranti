@@ -241,8 +241,8 @@ if send and user_input:
         model = genai.GenerativeModel("gemini-1.5-flash")
 response = model.generate_content(user_input)
 reply = response.text
-        except:
-            reply = "No response generated"
+       
+          
         st.session_state.messages.append({
             "role": "assistant",
             "content": reply
