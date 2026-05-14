@@ -225,9 +225,9 @@ elif menu == "Notes":
 
  
 
-        file_extension = uploaded_file.name.split(".")[-1].lower()
+   if uploaded_file is not None:
 
-        if file_extension not in ALLOWED_EXTENSIONS:
+    file_extension = uploaded_file.name.split(".")[-1].lower()
 
             st.error("Only PDF files are allowed.")
 
