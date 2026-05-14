@@ -132,10 +132,14 @@ if selected == "Home":
 # -----------------------------
 # EXAMS
 # -----------------------------
-elif selected == "Exams":
+with st.chat_message("assistant"):
+    st.write(reply)
 
-    st.title("📚 Exams Section")
+# -------------------------
+# STUDY PLANNER
+# -------------------------
 
+elif selected == "Study Planner":
     exam_tabs = st.tabs([
         "School",
         "Higher Education",
