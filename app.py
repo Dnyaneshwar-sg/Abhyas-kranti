@@ -409,3 +409,21 @@ section[data-testid="stSidebar"] {
 MAX_FILE_SIZE = 5 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = ["pdf"]
+if uploaded_file is not None:
+
+    file_extension = uploaded_file.name.split(".")[-1].lower()
+
+    if file_extension not in ALLOWED_EXTENSIONS:
+        st.error("Only PDF files are allowed.")
+
+    elif uploaded_file.size > MAX_FILE_SIZE:
+        st.error("File size exceeds 5 MB.")
+
+    else:
+
+        save_path = Path("notes") / uploaded_file.name
+
+        with open(save_path, "wb") as f:
+            f.write(uploaded_file.read())
+
+        st.success("File Uploaded Successfully")
