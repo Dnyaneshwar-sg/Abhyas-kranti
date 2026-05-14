@@ -230,9 +230,9 @@ elif selected == "AI Mentor":
         with st.chat_message("user"):
             st.write(user_input)
 
-        genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-       model = genai.GenerativeModel("gemini-1.5-flash-latest")
+model = genai.GenerativeModel("gemini-1.5-flash-latest")
 
 response = model.generate_content(user_input)
 reply = response.text
