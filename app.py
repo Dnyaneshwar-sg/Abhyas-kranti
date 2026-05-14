@@ -234,9 +234,9 @@ user_input = st.text_input("Ask your question")
 send = st.button("Send")
 
 if send and user_input:
- with st.chat_message("assistant"):
-            st.write(reply)
-   
+
+    with st.chat_message("user"):
+        st.write(user_input)
 
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
@@ -246,12 +246,8 @@ if send and user_input:
 
     reply = response.text
 
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": reply
-    })
-
-    st.write(reply)
+    with st.chat_message("assistant"):
+        st.write(reply)
     st.session_state.messages.append({
         "role": "user",
         "content": user_input
