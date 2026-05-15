@@ -217,17 +217,28 @@ elif menu == "Notes":
     Path("notes").mkdir(exist_ok=True)
 
     
+# ---------------- NOTES ----------------
+
+elif menu == "Notes":
+
+    st.title("📚 Notes")
+
+    Path("notes").mkdir(exist_ok=True)
+
+    MAX_FILE_SIZE = 5 * 1024 * 1024
+
+    ALLOWED_EXTENSIONS = ["pdf"]
 
     uploaded_file = st.file_uploader(
         "Upload PDF Notes",
         type=["pdf"]
     )
 
- 
+    if uploaded_file is not None:
 
-   if uploaded_file is not None:
+        file_extension = uploaded_file.name.split(".")[-1].lower()
 
-    file_extension = uploaded_file.name.split(".")[-1].lower()
+        if file_extension not in ALLOWED_EXTENSIONS:
 
             st.error("Only PDF files are allowed.")
 
@@ -249,6 +260,17 @@ elif menu == "Notes":
 
     notes = list(Path("notes").glob("*.pdf"))
 
+    for note in notes:
+
+        with open(note, "rb") as f:
+
+            st.download_button(
+                label=f"Download {note.name}",
+                data=f,
+                file_name=note.name,
+                mime="application/pdf"
+            )
+  
     for note in notes:
 
         with open(note, "rb") as f:
