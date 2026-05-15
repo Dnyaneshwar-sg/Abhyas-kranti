@@ -342,8 +342,9 @@ Research Scholars and Global Education Aspirants.
 # ==============================
 
 search = st.text_input(
-    "",
-    placeholder="🔍 Search exams, scholarships, books, careers..."
+    "Search",
+    placeholder="🔍 Search exams, scholarships, books, careers...",
+    key="main_search_box"
 )
 
 # ==============================
