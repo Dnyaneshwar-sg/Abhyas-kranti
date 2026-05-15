@@ -13,7 +13,674 @@ st.set_page_config(
     page_title="Abhyas Kranti NEW",
     page_icon="📘",
     layout="wide"
+)# ==============================
+# ABHYAS KRANTI NEW
+# PREMIUM CAPSTONE UI SECTION
+# PASTE BELOW st.set_page_config()
+# ==============================
+
+st.markdown("""
+<style>
+
+/* -----------------------------
+GLOBAL
+----------------------------- */
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+.stApp {
+    background:
+        radial-gradient(circle at top right, rgba(255,193,7,0.12), transparent 25%),
+        linear-gradient(135deg,#050816,#0d132b,#10172f);
+    color: white;
+}
+
+/* -----------------------------
+SIDEBAR
+----------------------------- */
+
+section[data-testid="stSidebar"] {
+    background: rgba(8,12,25,0.95);
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* -----------------------------
+HERO
+----------------------------- */
+
+.hero-box {
+    padding: 70px;
+    border-radius: 32px;
+
+    background:
+        radial-gradient(circle at top right,
+        rgba(255,193,7,0.18),
+        transparent 28%),
+        linear-gradient(
+        145deg,
+        rgba(255,255,255,0.05),
+        rgba(255,255,255,0.02)
+    );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.45);
+
+    margin-bottom: 40px;
+}
+
+.hero-badge {
+    display: inline-block;
+
+    padding: 10px 20px;
+
+    border-radius: 999px;
+
+    border: 1px solid rgba(255,193,7,0.4);
+
+    background: rgba(255,193,7,0.08);
+
+    color: #ffc107;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    margin-bottom: 25px;
+}
+
+.hero-title {
+    font-size: 72px;
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    color: #ffc107;
+}
+
+.hero-subtitle {
+    font-size: 30px;
+    color: #ffd54f;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-description {
+    font-size: 20px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.8;
+    max-width: 1000px;
+}
+
+/* -----------------------------
+BUTTONS
+----------------------------- */
+
+.stButton > button {
+    background: linear-gradient(
+        90deg,
+        #ffc107,
+        #ff9800
+    );
+
+    color: black !important;
+
+    border: none;
+
+    border-radius: 16px;
+
+    padding: 14px 26px;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    transition: 0.3s ease;
+
+    box-shadow:
+        0 8px 25px rgba(255,193,7,0.25);
+}
+
+.stButton > button:hover {
+    transform: translateY(-3px);
+}
+
+/* -----------------------------
+SEARCH
+----------------------------- */
+
+.stTextInput input {
+    background: rgba(255,255,255,0.06) !important;
+
+    border-radius: 16px !important;
+
+    border: 1px solid rgba(255,255,255,0.1) !important;
+
+    color: white !important;
+
+    height: 55px !important;
+}
+
+/* -----------------------------
+CARDS
+----------------------------- */
+
+.card {
+    background:
+        linear-gradient(
+        145deg,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.02)
+    );
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.25);
+
+    transition: 0.3s ease;
+
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255,193,7,0.4);
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.card-text {
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* -----------------------------
+STATS
+----------------------------- */
+
+.stat-card {
+    background:
+        linear-gradient(
+        145deg,
+        rgba(255,255,255,0.04),
+        rgba(255,255,255,0.02)
+    );
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.stat-number {
+    font-size: 54px;
+    font-weight: 900;
+    color: white;
+}
+
+.stat-label {
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
+}
+
+/* -----------------------------
+SECTION TITLE
+----------------------------- */
+
+.section-title {
+    font-size: 42px;
+    font-weight: 900;
+    margin-top: 50px;
+    margin-bottom: 25px;
+}
+
+/* -----------------------------
+FOOTER
+----------------------------- */
+
+.footer-box {
+    margin-top: 60px;
+
+    background:
+        linear-gradient(
+        145deg,
+        rgba(255,193,7,0.08),
+        rgba(255,255,255,0.02)
+    );
+
+    border-radius: 24px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-text {
+    font-size: 24px;
+    color: #ffd54f;
+    font-weight: 800;
+}
+
+/* -----------------------------
+HIDE STREAMLIT
+----------------------------- */
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# ==============================
+# HERO SECTION
+# ==============================
+
+st.markdown("""
+<div class="hero-box">
+
+<div class="hero-badge">
+🚀 A SOCIAL INITIATIVE BY DR. DNYANESHWAR GAWALIKAR
+</div>
+
+<div class="hero-title">
+Empowering Students from
+<br>
+<span class="highlight">
+Class 1 to Global Careers
+</span>
+</div>
+
+<div class="hero-subtitle">
+क्रांती शिक्षणाची, प्रगती ग्रामीण महाराष्ट्राची!
+</div>
+
+<div class="hero-description">
+AI Powered Indian Education Platform for
+School Students, NEET/JEE Aspirants,
+UPSC/MPSC Students, Scholarship Seekers,
+Research Scholars and Global Education Aspirants.
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# SEARCH
+# ==============================
+
+search = st.text_input(
+    "",
+    placeholder="🔍 Search exams, scholarships, books, careers..."
 )
+
+# ==============================
+# BUTTONS
+# ==============================
+
+c1, c2, c3 = st.columns(3)
+
+with c1:
+    st.button("📚 Explore Sections")
+
+with c2:
+    st.button("🧠 Take Free Quiz")
+
+with c3:
+    st.button("🎥 Watch Video Lessons")
+
+# ==============================
+# STATS
+# ==============================
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+s1, s2, s3, s4 = st.columns(4)
+
+with s1:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">10,000+</div>
+        <div class="stat-label">Students</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with s2:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Exams</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with s3:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Scholarships</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with s4:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Languages</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# PROBLEM STATEMENT
+# ==============================
+
+st.markdown(
+    '<div class="section-title">❗ Problem Statement</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-title">
+Educational Challenges in Rural India
+</div>
+
+<div class="card-text">
+
+• Lack of centralized educational resources  
+• Expensive coaching ecosystem  
+• Scholarship awareness issues  
+• Career guidance gap  
+• Language barriers  
+• Lack of AI-powered support systems  
+• Difficulty accessing government opportunities  
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# SOLUTION
+# ==============================
+
+st.markdown(
+    '<div class="section-title">💡 Our Solution</div>',
+    unsafe_allow_html=True
+)
+
+r1, r2, r3 = st.columns(3)
+
+with r1:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">🤖 AI Mentor</div>
+        <div class="card-text">
+        AI powered educational guidance,
+        doubt solving and career support.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with r2:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">📅 Smart Planner</div>
+        <div class="card-text">
+        Personalized timetable and
+        preparation strategies for exams.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with r3:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">🎓 Scholarship Engine</div>
+        <div class="card-text">
+        Scholarship discovery from
+        Class 1 to PhD level.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# FEATURES
+# ==============================
+
+st.markdown(
+    '<div class="section-title">⚡ Quick Access</div>',
+    unsafe_allow_html=True
+)
+
+f1, f2, f3 = st.columns(3)
+
+with f1:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">
+        📘 E-Books & Syllabus
+        </div>
+
+        <div class="card-text">
+        Direct links to books,
+        syllabus and study material.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with f2:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">
+        🧠 Practice Tests
+        </div>
+
+        <div class="card-text">
+        MCQ quizzes for NEET,
+        JEE, UPSC and MPSC.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with f3:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">
+        🎥 Video Lessons
+        </div>
+
+        <div class="card-text">
+        AI powered educational
+        videos and lectures.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# SECOND ROW
+# ==============================
+
+g1, g2, g3 = st.columns(3)
+
+with g1:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">
+        🛡 Defence & Police
+        </div>
+
+        <div class="card-text">
+        NDA, CDS, Agniveer
+        and Police Bharti guidance.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with g2:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">
+        🔬 Research Hub
+        </div>
+
+        <div class="card-text">
+        PhD research support,
+        journals and innovation tools.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with g3:
+    st.markdown("""
+    <div class="card">
+        <div class="card-title">
+        🌍 Global Education
+        </div>
+
+        <div class="card-text">
+        IELTS, TOEFL, SAT,
+        GRE and abroad scholarships.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# TECH STACK
+# ==============================
+
+st.markdown(
+    '<div class="section-title">🛠 Technology Stack</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-text">
+
+✅ Frontend → Streamlit  
+✅ Backend → Python  
+✅ AI → Google Gemini API  
+✅ Database → SQLite  
+✅ Charts → Plotly  
+✅ Deployment → Streamlit Cloud  
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# FUTURE SCOPE
+# ==============================
+
+st.markdown(
+    '<div class="section-title">🚀 Future Scope</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-text">
+
+• AI Voice Mentor  
+• Offline Rural Learning Mode  
+• Android Application  
+• AI Mock Interviews  
+• National Scholarship Engine  
+• Smart Career Recommendation System  
+• Village Learning Hub Integration  
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# IMPACT
+# ==============================
+
+st.markdown(
+    '<div class="section-title">🌍 Impact</div>',
+    unsafe_allow_html=True
+)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-text">
+
+✅ Designed for Rural India  
+✅ Multi-language Education Access  
+✅ Free Government Resources  
+✅ Competitive Exam Support  
+✅ AI Powered Learning Assistance  
+✅ Centralized Education Ecosystem  
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# FOOTER
+# ==============================
+
+st.markdown("""
+<div class="footer-box">
+
+<div class="footer-text">
+“शिका, स्पर्धा करा, यशस्वी व्हा — हेच आमचं ध्येय!”
+</div>
+
+<br>
+
+<div style="font-size:18px; color:rgba(255,255,255,0.7);">
+
+Built By Ved / Dnyaneshwar Gawalikar
+<br><br>
+Capstone Project 2026
+<br>
+AI Powered Indian Education Platform
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 # ==============================
 # MODERN GLOBAL UI DESIGN
 # ABHYAS KRANTI NEW
@@ -314,106 +981,6 @@ with c4:
     </div>
     """, unsafe_allow_html=True)
 
-# ==============================
-# FEATURES
-# ==============================
-
-st.markdown(
-    '<div class="section-title">⚡ Quick Access</div>',
-    unsafe_allow_html=True
-)
-
-f1, f2, f3 = st.columns(3)
-
-with f1:
-    st.markdown("""
-    <div class="feature-card">
-        <div class="feature-title">
-        📘 E-Books & Syllabus
-        </div>
-
-        <div class="feature-description">
-        Direct links to books, syllabus,
-        notes and study materials.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with f2:
-    st.markdown("""
-    <div class="feature-card">
-        <div class="feature-title">
-        🧠 Practice Tests
-        </div>
-
-        <div class="feature-description">
-        MCQ quizzes for NEET, JEE,
-        UPSC, MPSC and more.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with f3:
-    st.markdown("""
-    <div class="feature-card">
-        <div class="feature-title">
-        🎥 Video Lessons
-        </div>
-
-        <div class="feature-description">
-        Free educational videos,
-        lectures and AI explanations.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-# ==============================
-# SECOND ROW
-# ==============================
-
-f4, f5, f6 = st.columns(3)
-
-with f4:
-    st.markdown("""
-    <div class="feature-card">
-        <div class="feature-title">
-        🛡 Defence & Police
-        </div>
-
-        <div class="feature-description">
-        NDA, CDS, Agniveer,
-        Police Bharti preparation.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with f5:
-    st.markdown("""
-    <div class="feature-card">
-        <div class="feature-title">
-        🔬 Research Hub
-        </div>
-
-        <div class="feature-description">
-        PhD guidance, research tools,
-        journals and innovation support.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-
-with f6:
-    st.markdown("""
-    <div class="feature-card">
-        <div class="feature-title">
-        🌍 Global Education
-        </div>
-
-        <div class="feature-description">
-        IELTS, TOEFL, SAT, GRE,
-        GMAT and abroad scholarships.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
 
 # ==============================
 # FOOTER
