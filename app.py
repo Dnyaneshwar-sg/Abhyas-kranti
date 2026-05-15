@@ -1079,9 +1079,9 @@ st.markdown("""
 
 <div style="font-size:18px; color:rgba(255,255,255,0.7);">
 
-Built By Ved / Dnyaneshwar Gawalikar
+Built By Dnyaneshwar Gawalikar
 <br><br>
-Capstone Project 2026
+
 <br>
 AI Powered Indian Education Platform
 
