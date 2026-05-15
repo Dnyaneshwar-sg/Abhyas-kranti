@@ -484,7 +484,415 @@ st.markdown(
     '<div class="section-title">⚡ Quick Access</div>',
     unsafe_allow_html=True
 )
+# ==============================
+# FINAL CAPSTONE POLISH
+# ABHYAS KRANTI NEW
+# IIT PATNA CAPSTONE VERSION
+# ==============================
 
+# PASTE THIS BELOW YOUR CSS SECTION
+
+# ==============================
+# PREMIUM SIDEBAR
+# ==============================
+
+st.sidebar.markdown("""
+<div style="
+padding:20px;
+border-radius:20px;
+background:linear-gradient(
+145deg,
+rgba(255,193,7,0.12),
+rgba(255,255,255,0.03)
+);
+border:1px solid rgba(255,255,255,0.08);
+margin-bottom:20px;
+text-align:center;
+">
+
+<h1 style="
+font-size:28px;
+margin-bottom:10px;
+">
+🚀
+</h1>
+
+<h2 style="
+color:white;
+margin-bottom:10px;
+">
+Abhyas Kranti NEW
+</h2>
+
+<p style="
+color:rgba(255,255,255,0.7);
+font-size:14px;
+">
+AI Powered Indian Education Platform
+</p>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# WHY THIS MATTERS
+# ==============================
+
+st.markdown("""
+<div class="section-title">
+❤️ Why This Matters
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-text" style="
+font-size:22px;
+line-height:2;
+font-weight:600;
+text-align:center;
+">
+
+India's rural students deserve
+AI-powered educational equality.
+
+<br><br>
+
+Every student should have access to
+guidance, scholarships, AI mentorship,
+competitive exam preparation and
+global educational opportunities —
+regardless of financial background.
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# LIVE AI SECTION
+# ==============================
+
+st.markdown("""
+<div class="section-title">
+🤖 Live AI Mentor Demo
+</div>
+""", unsafe_allow_html=True)
+
+user_question = st.text_input(
+    "Ask AI Mentor",
+    placeholder="Ask anything about exams, careers, scholarships..."
+)
+
+if st.button("✨ Generate AI Answer"):
+
+    if user_question.strip() == "":
+        st.warning("Please enter a question.")
+
+    else:
+
+        with st.spinner("AI is thinking..."):
+
+            try:
+
+                model = genai.GenerativeModel(
+                    "models/gemini-1.5-flash"
+                )
+
+                response = model.generate_content(
+                    user_question
+                )
+
+                st.success(response.text)
+
+            except Exception as e:
+
+                st.error(
+                    f"AI Error: {str(e)}"
+                )
+
+# ==============================
+# ANALYTICS SECTION
+# ==============================
+
+st.markdown("""
+<div class="section-title">
+📊 Student Analytics Dashboard
+</div>
+""", unsafe_allow_html=True)
+
+chart_col1, chart_col2 = st.columns(2)
+
+with chart_col1:
+
+    progress_data = pd.DataFrame({
+        "Subject": [
+            "Physics",
+            "Chemistry",
+            "Biology",
+            "Maths"
+        ],
+        "Completion": [
+            72,
+            65,
+            88,
+            54
+        ]
+    })
+
+    fig = px.bar(
+        progress_data,
+        x="Subject",
+        y="Completion",
+        title="Subject Completion %",
+        text="Completion"
+    )
+
+    fig.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font_color="white"
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True
+    )
+
+with chart_col2:
+
+    study_data = pd.DataFrame({
+        "Day": [
+            "Mon",
+            "Tue",
+            "Wed",
+            "Thu",
+            "Fri",
+            "Sat",
+            "Sun"
+        ],
+        "Hours": [
+            4,
+            5,
+            6,
+            3,
+            7,
+            8,
+            6
+        ]
+    })
+
+    fig2 = px.line(
+        study_data,
+        x="Day",
+        y="Hours",
+        title="Weekly Study Hours",
+        markers=True
+    )
+
+    fig2.update_layout(
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font_color="white"
+    )
+
+    st.plotly_chart(
+        fig2,
+        use_container_width=True
+    )
+
+# ==============================
+# EXAM ECOSYSTEM
+# ==============================
+
+st.markdown("""
+<div class="section-title">
+🎯 Complete Exam Ecosystem
+</div>
+""", unsafe_allow_html=True)
+
+exam_col1, exam_col2, exam_col3 = st.columns(3)
+
+with exam_col1:
+
+    st.markdown("""
+    <div class="card">
+
+    <div class="card-title">
+    🏫 School & Scholarship
+    </div>
+
+    <div class="card-text">
+
+    • Class 1 to 12  
+    • SSC  
+    • HSC  
+    • Olympiads  
+    • NMMS  
+    • Scholarship Exams  
+
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+with exam_col2:
+
+    st.markdown("""
+    <div class="card">
+
+    <div class="card-title">
+    🧠 Competitive Exams
+    </div>
+
+    <div class="card-text">
+
+    • NEET  
+    • JEE  
+    • CET  
+    • UPSC  
+    • MPSC  
+    • NET / SET  
+
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+with exam_col3:
+
+    st.markdown("""
+    <div class="card">
+
+    <div class="card-title">
+    🌍 Global Education
+    </div>
+
+    <div class="card-text">
+
+    • IELTS  
+    • TOEFL  
+    • SAT  
+    • GRE  
+    • GMAT  
+    • PhD Entrance  
+
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# SECURITY FEATURES
+# ==============================
+
+st.markdown("""
+<div class="section-title">
+🔐 Security & Reliability
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-text">
+
+✅ Hidden API Keys  
+✅ File Validation  
+✅ Upload Restrictions  
+✅ Error Handling  
+✅ Session State Protection  
+✅ SQLite Database Security  
+✅ Streamlit Cloud Deployment  
+✅ HTTPS Ready Infrastructure  
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# PRESENTATION READY SECTION
+# ==============================
+
+st.markdown("""
+<div class="section-title">
+🎤 Capstone Highlights
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="card">
+
+<div class="card-text">
+
+✅ Real-world Educational Problem Solving  
+✅ AI Powered Student Assistance  
+✅ Rural India Focused Innovation  
+✅ Multi-language Accessibility  
+✅ Centralized Educational Ecosystem  
+✅ Scalable Cloud Deployment  
+✅ IIT-Level Product Design Thinking  
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# FINAL FOOTER
+# ==============================
+
+st.markdown("""
+<div style="
+margin-top:70px;
+padding:45px;
+border-radius:28px;
+
+background:
+linear-gradient(
+145deg,
+rgba(255,193,7,0.08),
+rgba(255,255,255,0.03)
+);
+
+border:1px solid rgba(255,255,255,0.08);
+
+text-align:center;
+">
+
+<h1 style="
+color:#ffd54f;
+font-size:34px;
+margin-bottom:25px;
+">
+“शिका, स्पर्धा करा, यशस्वी व्हा — हेच आमचं ध्येय!”
+</h1>
+
+<h2 style="
+color:white;
+margin-bottom:12px;
+">
+Dnyaneshwar Gawalikar
+</h2>
+
+<p style="
+color:rgba(255,255,255,0.75);
+font-size:20px;
+line-height:1.8;
+">
+
+Capstone Project — IIT Patna
+
+<br>
+
+AI Powered Indian Education Platform
+
+</p>
+
+</div>
+""", unsafe_allow_html=True)
 f1, f2, f3 = st.columns(3)
 
 with f1:
