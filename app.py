@@ -13,7 +13,518 @@ st.set_page_config(
     page_icon="📘",
     layout="wide"
 )
+# ==============================
+# MODERN GLOBAL UI DESIGN
+# ABHYAS KRANTI NEW
+# Paste this BELOW st.set_page_config()
+# ==============================
 
+st.markdown("""
+<style>
+
+/* ------------------------------
+MAIN APP
+------------------------------ */
+
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #050816 0%,
+        #0b1023 40%,
+        #111827 100%
+    );
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ------------------------------
+SIDEBAR
+------------------------------ */
+
+section[data-testid="stSidebar"] {
+    background: rgba(5, 10, 25, 0.95);
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* ------------------------------
+HERO SECTION
+------------------------------ */
+
+.hero-container {
+    background:
+        radial-gradient(circle at top right, rgba(255,193,7,0.20), transparent 30%),
+        linear-gradient(135deg,#081120,#0d132b,#10172f);
+
+    border-radius: 30px;
+    padding: 60px;
+    border: 1px solid rgba(255,255,255,0.08);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.4);
+
+    margin-bottom: 40px;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+
+    background: rgba(255,193,7,0.08);
+
+    border: 1px solid rgba(255,193,7,0.35);
+
+    color: #ffc107;
+    font-size: 14px;
+    font-weight: 700;
+
+    margin-bottom: 25px;
+}
+
+.hero-title {
+    font-size: 68px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 18px;
+}
+
+.hero-highlight {
+    color: #ffc107;
+}
+
+.hero-subtitle {
+    font-size: 30px;
+    color: #ffd54f;
+    font-weight: 700;
+    margin-bottom: 22px;
+}
+
+.hero-description {
+    font-size: 20px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.8;
+    max-width: 1000px;
+    margin-bottom: 35px;
+}
+
+/* ------------------------------
+BUTTONS
+------------------------------ */
+
+.stButton > button {
+    background: linear-gradient(
+        90deg,
+        #ffc107,
+        #ff9800
+    );
+
+    color: black !important;
+
+    border: none;
+    border-radius: 14px;
+
+    padding: 14px 28px;
+
+    font-size: 17px;
+    font-weight: 800;
+
+    transition: 0.3s ease;
+
+    box-shadow:
+        0 8px 25px rgba(255,193,7,0.25);
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 12px 30px rgba(255,193,7,0.4);
+}
+
+/* ------------------------------
+SEARCH BOX
+------------------------------ */
+
+.stTextInput input {
+    background: rgba(255,255,255,0.06) !important;
+
+    border: 1px solid rgba(255,255,255,0.12) !important;
+
+    border-radius: 16px !important;
+
+    color: white !important;
+
+    height: 55px !important;
+
+    font-size: 16px !important;
+}
+
+/* ------------------------------
+STAT CARDS
+------------------------------ */
+
+.stat-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.04),
+            rgba(255,255,255,0.02)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 24px;
+
+    padding: 35px;
+
+    text-align: center;
+
+    transition: 0.3s ease;
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 6px 20px rgba(0,0,0,0.35);
+}
+
+.stat-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,193,7,0.4);
+}
+
+.stat-number {
+    font-size: 52px;
+    font-weight: 900;
+    color: white;
+}
+
+.stat-label {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+}
+
+/* ------------------------------
+FEATURE CARDS
+------------------------------ */
+
+.feature-card {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,0.04),
+            rgba(255,255,255,0.02)
+        );
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 24px;
+
+    padding: 28px;
+
+    transition: 0.3s ease;
+
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(255,193,7,0.35);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.35);
+}
+
+.feature-title {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.feature-description {
+    color: rgba(255,255,255,0.72);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+/* ------------------------------
+SECTION TITLE
+------------------------------ */
+
+.section-title {
+    font-size: 42px;
+    font-weight: 900;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+/* ------------------------------
+FOOTER
+------------------------------ */
+
+.footer-box {
+    margin-top: 50px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,193,7,0.08),
+            rgba(255,255,255,0.03)
+        );
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 22px;
+    color: #ffd54f;
+    font-weight: 700;
+}
+
+/* ------------------------------
+HIDE STREAMLIT
+------------------------------ */
+
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+# ==============================
+# HERO SECTION
+# ==============================
+
+st.markdown("""
+<div class="hero-container">
+
+<div class="hero-badge">
+🚀 A SOCIAL INITIATIVE BY DR. DNYANESHWAR GAWALIKAR
+</div>
+
+<div class="hero-title">
+Empowering Students from
+<br>
+<span class="hero-highlight">
+Class 1 to Global Careers
+</span>
+</div>
+
+<div class="hero-subtitle">
+क्रांती शिक्षणाची, प्रगती ग्रामीण महाराष्ट्राची!
+</div>
+
+<div class="hero-description">
+Free resources, AI mentorship, scholarship guidance,
+competitive exam support and global education access
+for every student across India.
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# ==============================
+# SEARCH BAR
+# ==============================
+
+search = st.text_input(
+    "",
+    placeholder="🔍 Search exams, scholarships, books, careers..."
+)
+
+# ==============================
+# ACTION BUTTONS
+# ==============================
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.button("📚 Explore Sections")
+
+with col2:
+    st.button("🧠 Take Free Quiz")
+
+with col3:
+    st.button("🎥 Watch Video Lessons")
+
+# ==============================
+# STATISTICS CARDS
+# ==============================
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+c1, c2, c3, c4 = st.columns(4)
+
+with c1:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">10,000+</div>
+        <div class="stat-label">Students</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with c2:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Exams</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with c3:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Scholarships</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with c4:
+    st.markdown("""
+    <div class="stat-card">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Free Access</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# FEATURES
+# ==============================
+
+st.markdown(
+    '<div class="section-title">⚡ Quick Access</div>',
+    unsafe_allow_html=True
+)
+
+f1, f2, f3 = st.columns(3)
+
+with f1:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-title">
+        📘 E-Books & Syllabus
+        </div>
+
+        <div class="feature-description">
+        Direct links to books, syllabus,
+        notes and study materials.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with f2:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-title">
+        🧠 Practice Tests
+        </div>
+
+        <div class="feature-description">
+        MCQ quizzes for NEET, JEE,
+        UPSC, MPSC and more.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with f3:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-title">
+        🎥 Video Lessons
+        </div>
+
+        <div class="feature-description">
+        Free educational videos,
+        lectures and AI explanations.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# SECOND ROW
+# ==============================
+
+f4, f5, f6 = st.columns(3)
+
+with f4:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-title">
+        🛡 Defence & Police
+        </div>
+
+        <div class="feature-description">
+        NDA, CDS, Agniveer,
+        Police Bharti preparation.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with f5:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-title">
+        🔬 Research Hub
+        </div>
+
+        <div class="feature-description">
+        PhD guidance, research tools,
+        journals and innovation support.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with f6:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-title">
+        🌍 Global Education
+        </div>
+
+        <div class="feature-description">
+        IELTS, TOEFL, SAT, GRE,
+        GMAT and abroad scholarships.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ==============================
+# FOOTER
+# ==============================
+
+st.markdown("""
+<div class="footer-box">
+
+<div class="footer-text">
+“शिका, स्पर्धा करा, यशस्वी व्हा — हेच आमचं ध्येय!”
+</div>
+
+<br>
+
+<div style="color: rgba(255,255,255,0.7); font-size:18px;">
+— Dr. Dnyaneshwar Gawalikar
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 # ---------------- GEMINI SETUP ----------------
 
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
@@ -340,109 +851,7 @@ elif menu == "Progress Dashboard":
 
         st.plotly_chart(fig, use_container_width=True)# ---------------- MODERN UI ----------------
 
-st.markdown("""
-<style>
 
-#MainMenu {
-    visibility: hidden;
-}
-
-footer {
-    visibility: hidden;
-}
-
-header {
-    visibility: hidden;
-}
-
-.block-container {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-}
-
-.stApp {
-    background: linear-gradient(
-        135deg,
-        #0f172a,
-        #111827,
-        #1e293b
-    );
-    color: white;
-}
-
-h1, h2, h3, h4, h5 {
-    color: white !important;
-    font-weight: 700;
-}
-
-p, label, div {
-    color: #e5e7eb !important;
-}
-
-section[data-testid="stSidebar"] {
-    background: rgba(15, 23, 42, 0.95);
-    border-right: 1px solid rgba(255,255,255,0.1);
-}
-
-.stButton > button {
-    width: 100%;
-    border-radius: 14px;
-    height: 3rem;
-    border: none;
-    background: linear-gradient(
-        90deg,
-        #2563eb,
-        #7c3aed
-    );
-    color: white;
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.stTextInput > div > div > input {
-    border-radius: 12px;
-    background-color: rgba(255,255,255,0.08);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.1);
-}
-
-.stSelectbox > div > div {
-    border-radius: 12px;
-}
-
-.metric-card {
-    background: rgba(255,255,255,0.08);
-    padding: 25px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.08);
-    text-align: center;
-}
-
-.hero-box {
-    background: linear-gradient(
-        135deg,
-        rgba(37,99,235,0.25),
-        rgba(124,58,237,0.25)
-    );
-    padding: 40px;
-    border-radius: 25px;
-    border: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 30px;
-}
-
-.feature-card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.08);
-    margin-bottom: 15px;
-}
-
-</style>
-""", unsafe_allow_html=True)
 MAX_FILE_SIZE = 5 * 1024 * 1024
 
 ALLOWED_EXTENSIONS = ["pdf"]
