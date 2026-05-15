@@ -291,9 +291,7 @@ elif menu == "Progress Dashboard":
     with st.form("student_form"):
 
         name = st.text_input("Student Name")
-if name.strip() == "":
 
-    st.warning("Please enter student name.")
         exam = st.text_input("Exam")
 
         study_hours = st.slider("Study Hours", 1, 12, 5)
