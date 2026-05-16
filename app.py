@@ -895,8 +895,9 @@ with f1:
     st.markdown("""
     <div class="card">
       <div class="card-title">
-📘 E-Books & Syllabus
-</div> 
+<div class="card-title">
+E-Books & Syllabus
+</div>
 
         <div class="card-text">
         Direct links to books,
