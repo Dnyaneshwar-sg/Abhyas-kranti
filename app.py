@@ -1100,7 +1100,7 @@ MAIN APP
 
 .stApp {
     background: linear-gradient(
-      background: linear-gradient(135deg, rgba(255,193,7,0.08), rgba(255,255,255,0.03));
+     
         #050816 0%,
         #0b1023 40%,
         #111827 100%
@@ -1114,7 +1114,26 @@ SIDEBAR
 ------------------------------ */
 
 section[data-testid="stSidebar"] {
-    background: rgba(5, 10, 25, 0.95);
+    background: rgba(5, 10, 25, 0.95);st.markdown("""
+<style>
+
+.footer-box {
+    margin-top: 50px;
+    background: linear-gradient(135deg, rgba(255,193,7,0.08), rgba(255,255,255,0.03));
+    border-radius: 24px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.08);
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 22px;
+    color: #ffd54f;
+    font-weight: bold;
+}
+
+</style>
+""", unsafe_allow_html=True)
     border-right: 1px solid rgba(255,255,255,0.08);
 }
 
