@@ -867,17 +867,16 @@ st.markdown("""
     text-align: center;
 }
 
-
-
-
-
-background: linear-gradient(145deg, rgba(255,193,7,0.08), rgba(255,255,255,0.03));
-border:1px solist.markdown("""
-<div style='text-align:center; padding:30px; color:white;'>
-<h2>Dnyaneshwar Gawalikar</h2>
-<p>Capstone Project - IIT Patna</p>
+st.markdown("""
+<div class="footer-box">
+    <h2>Dnyaneshwar Gawalikar</h2>
+    <p>Capstone Project - IIT Patna</p>
 </div>
-""", unsafe_allow_html=True)d rgba(255,255,255,0.08);
+""", unsafe_allow_html=True)
+
+
+
+
 
 
 <h1 style="color:#FFD54F; font-size:42px;">
