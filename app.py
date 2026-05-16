@@ -846,7 +846,11 @@ st.markdown("""
 # ==============================
 
 st.markdown("""
-<div style="
+<div style='text-align:center; padding:30px; color:white;'>
+<h2>Dnyaneshwar Gawalikar</h2>
+<p>Capstone Project - IIT Patna</p>
+</div>
+""", unsafe_allow_html=True)
 margin-top:70px;
 padding:45px;
 border-radius:28px;
