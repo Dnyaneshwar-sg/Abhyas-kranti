@@ -995,12 +995,12 @@ st.markdown("""
 
 <div class="card-text">
 
-✅ Frontend → Streamlit  
-✅ Backend → Python  
-✅ AI → Google Gemini API  
-✅ Database → SQLite  
-✅ Charts → Plotly  
-✅ Deployment → Streamlit Cloud  
+Frontend → Streamlit
+Backend → Python
+AI → Google Gemini API
+Database → SQLite
+Charts → Plotly
+Deployment → Streamlit Cloud  
 
 </div>
 
