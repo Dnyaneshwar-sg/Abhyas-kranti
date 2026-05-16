@@ -866,21 +866,7 @@ st.markdown("""
 
     text-align: center;
 }
-linear-gradient(135deg,
-        rgba(255,193,7,0.08),
-        rgba(255,255,255,0.03));
 
-    border:1px solid rgba(255,255,255,0.08);
-
-    text-align:center;
-}
-}
-  
- 
-    border:1px solid rgba(255,255,255,0.08);
-
-    text-align:center;
-}
 
 
 
