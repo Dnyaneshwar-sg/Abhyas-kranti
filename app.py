@@ -909,7 +909,7 @@ with f2:
     st.markdown("""
     <div class="card">
         <div class="card-title">
-        🧠 Practice Tests
+         Practice Tests
         </div>
 
         <div class="card-text">
@@ -923,7 +923,7 @@ with f3:
     st.markdown("""
     <div class="card">
         <div class="card-title">
-        🎥 Video Lessons
+         Video Lessons
         </div>
 
         <div class="card-text">
@@ -957,7 +957,7 @@ with g2:
     st.markdown("""
     <div class="card">
         <div class="card-title">
-        🔬 Research Hub
+         Research Hub
         </div>
 
         <div class="card-text">
@@ -971,7 +971,7 @@ with g3:
     st.markdown("""
     <div class="card">
         <div class="card-title">
-        🌍 Global Education
+         Global Education
         </div>
 
         <div class="card-text">
