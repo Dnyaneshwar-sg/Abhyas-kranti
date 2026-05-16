@@ -1021,13 +1021,13 @@ st.markdown("""
 
 <div class="card-text">
 
-• AI Voice Mentor  
-• Offline Rural Learning Mode  
-• Android Application  
-• AI Mock Interviews  
-• National Scholarship Engine  
-• Smart Career Recommendation System  
-• Village Learning Hub Integration  
+ AI Voice Mentor  
+ Offline Rural Learning Mode  
+ Android Application  
+ AI Mock Interviews  
+ National Scholarship Engine  
+ Smart Career Recommendation System  
+ Village Learning Hub Integration  
 
 </div>
 
@@ -1048,12 +1048,12 @@ st.markdown("""
 
 <div class="card-text">
 
-✅ Designed for Rural India  
-✅ Multi-language Education Access  
-✅ Free Government Resources  
-✅ Competitive Exam Support  
-✅ AI Powered Learning Assistance  
-✅ Centralized Education Ecosystem  
+ Designed for Rural India  
+ Multi-language Education Access  
+ Free Government Resources  
+ Competitive Exam Support  
+ AI Powered Learning Assistance  
+ Centralized Education Ecosystem  
 
 </div>
 
