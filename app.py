@@ -851,7 +851,7 @@ st.markdown("""
 <p>Capstone Project - IIT Patna</p>
 </div>
 """, unsafe_allow_html=True)
-margin-top:70px;
+
 padding:45px;
 border-radius:28px;
 
@@ -1270,7 +1270,11 @@ FOOTER
 ------------------------------ */
 
 .footer-box {
-    margin-top: 50px;
+    margin-top:70px;
+    padding:30px;
+    border-radius:20px;
+}
+   
 
   background: linear-gradient(135deg, rgba(255,193,7,0.08), rgba(255,255,255,0.03));
 
