@@ -853,6 +853,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 .footer-box {
     margin-top:70px;
+}
     padding:30px;
     border-radius:24px;
 
