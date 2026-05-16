@@ -852,6 +852,7 @@ padding:45px;
 border-radius:28px;
 
 st.markdown("""
+st.markdown("""
 <div style="
 background: linear-gradient(145deg, rgba(255,193,7,0.08), rgba(255,255,255,0.03));
 border:1px solid rgba(255,255,255,0.08);
@@ -861,20 +862,25 @@ text-align:center;
 margin-top:40px;
 ">
 
-<h1 style="color:#FFD54F;">
+<h1 style="color:#FFD54F; font-size:42px;">
 “शिका, स्पर्धा करा, यशस्वी व्हा — हेच आमचं ध्येय!”
 </h1>
 
-<h2 style="color:white;">
+<h2 style="color:white; margin-top:20px;">
 Dnyaneshwar Gawalikar
 </h2>
 
-<p style="color:#cccccc;">
+<p style="color:#cccccc; font-size:18px;">
 Capstone Project — IIT Patna
+</p>
+
+<p style="color:#aaaaaa;">
+AI Powered Indian Education Platform
 </p>
 
 </div>
 """, unsafe_allow_html=True)
+
 <br>
 
 AI Powered Indian Education Platform
