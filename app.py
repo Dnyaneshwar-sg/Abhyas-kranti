@@ -904,7 +904,6 @@ with f1:
         </div>
     </div>
     """, unsafe_allow_html=True)
-
 with f2:
     st.markdown("""
     <div class="card">
