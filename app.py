@@ -767,7 +767,7 @@ with exam_col3:
     <div class="card">
 
     <div class="card-title">
-    🌍 Global Education
+     Global Education
     </div>
 
     <div class="card-text">
@@ -799,14 +799,14 @@ st.markdown("""
 
 <div class="card-text">
 
-✅ Hidden API Keys  
-✅ File Validation  
-✅ Upload Restrictions  
-✅ Error Handling  
-✅ Session State Protection  
-✅ SQLite Database Security  
-✅ Streamlit Cloud Deployment  
-✅ HTTPS Ready Infrastructure  
+ Hidden API Keys  
+ File Validation  
+ Upload Restrictions  
+ Error Handling  
+ Session State Protection  
+ SQLite Database Security  
+ Streamlit Cloud Deployment  
+ HTTPS Ready Infrastructure  
 
 </div>
 
@@ -828,13 +828,13 @@ st.markdown("""
 
 <div class="card-text">
 
-✅ Real-world Educational Problem Solving  
-✅ AI Powered Student Assistance  
-✅ Rural India Focused Innovation  
-✅ Multi-language Accessibility  
-✅ Centralized Educational Ecosystem  
-✅ Scalable Cloud Deployment  
-✅ IIT-Level Product Design Thinking  
+ Real-world Educational Problem Solving  
+ AI Powered Student Assistance  
+ Rural India Focused Innovation  
+ Multi-language Accessibility  
+ Centralized Educational Ecosystem  
+ Scalable Cloud Deployment  
+ IIT-Level Product Design Thinking  
 
 </div>
 
@@ -995,12 +995,12 @@ st.markdown("""
 
 <div class="card-text">
 
-Frontend → Streamlit
-Backend → Python
-AI → Google Gemini API
-Database → SQLite
-Charts → Plotly
-Deployment → Streamlit Cloud  
+Frontend - Streamlit
+Backend - Python
+AI - Google Gemini API
+Database - SQLite
+Charts - Plotly
+Deployment - Streamlit Cloud  
 
 </div>
 
