@@ -1057,7 +1057,7 @@ st.markdown("""
 
 </div>
 
-</div>
+</div>"Shika, Spardha Kara, Yashasvi Vha - Hech Aamcha Dhyey!"
 """, unsafe_allow_html=True)
 
 # ==============================
