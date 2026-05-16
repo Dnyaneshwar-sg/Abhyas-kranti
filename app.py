@@ -1132,14 +1132,12 @@ section[data-testid="stSidebar"] {
     font-weight: bold;
 }
 
-</style>
+st.markdown("""
+<div style='text-align:center; padding:30px; color:white;'>
+<h2>Dnyaneshwar Gawalikar</h2>
+<p>Capstone Project - IIT Patna</p>
+</div>
 """, unsafe_allow_html=True)
-    border-right: 1px solid rgba(255,255,255,0.08);
-}
-
-section[data-testid="stSidebar"] * {
-    color: white !important;
-}
 
 /* ------------------------------
 
