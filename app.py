@@ -943,7 +943,7 @@ with g1:
     st.markdown("""
     <div class="card">
         <div class="card-title">
-        🛡 Defence & Police
+         Defence & Police
         </div>
 
         <div class="card-text">
