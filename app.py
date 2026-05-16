@@ -851,9 +851,21 @@ st.markdown("""
 <p>Capstone Project - IIT Patna</p>
 </div>
 """, unsafe_allow_html=True)
+.footer-box {
+    margin-top:70px;
+    padding:30px;
+    border-radius:24px;
+
+    background: linear-gradient(135deg,
+        rgba(255,193,7,0.08),
+        rgba(255,255,255,0.03));
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    text-align:center;
+}
 
 
-border-radius:28px;
 
 
 background: linear-gradient(145deg, rgba(255,193,7,0.08), rgba(255,255,255,0.03));
@@ -863,11 +875,7 @@ border:1px solist.markdown("""
 <p>Capstone Project - IIT Patna</p>
 </div>
 """, unsafe_allow_html=True)d rgba(255,255,255,0.08);
-padding:40px;
-border-radius:25px;
-text-align:center;
-margin-top:40px;
-">
+
 
 <h1 style="color:#FFD54F; font-size:42px;">
 “शिका, स्पर्धा करा, यशस्वी व्हा — हेच आमचं ध्येय!”
