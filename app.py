@@ -11,7 +11,7 @@ import google.generativeai as genai
 
 st.set_page_config(
     page_title="Abhyas Kranti NEW",
-    page_icon="📘",
+    page_icon="",
     layout="wide"
 )# ==============================
 # ABHYAS KRANTI NEW
@@ -312,7 +312,7 @@ st.markdown("""
 <div class="hero-box">
 
 <div class="hero-badge">
-🚀 A SOCIAL INITIATIVE BY DR. DNYANESHWAR GAWALIKAR
+ A SOCIAL INITIATIVE BY DR. DNYANESHWAR GAWALIKAR
 </div>
 
 <div class="hero-title">
@@ -343,7 +343,7 @@ Research Scholars and Global Education Aspirants.
 
 search = st.text_input(
     "Search",
-    placeholder="🔍 Search exams, scholarships, books, careers...",
+    placeholder=" Search exams, scholarships, books, careers...",
     key="main_search_box"
 )
 
@@ -354,13 +354,13 @@ search = st.text_input(
 c1, c2, c3 = st.columns(3)
 
 with c1:
-    st.button("📚 Explore Sections")
+    st.button(" Explore Sections")
 
 with c2:
-    st.button("🧠 Take Free Quiz")
+    st.button(" Take Free Quiz")
 
 with c3:
-    st.button("🎥 Watch Video Lessons")
+    st.button(" Watch Video Lessons")
 
 # ==============================
 # STATS
@@ -407,7 +407,7 @@ with s4:
 # ==============================
 
 st.markdown(
-    '<div class="section-title">❗ Problem Statement</div>',
+    '<div class="section-title"> Problem Statement</div>',
     unsafe_allow_html=True
 )
 
@@ -438,7 +438,7 @@ Educational Challenges in Rural India
 # ==============================
 
 st.markdown(
-    '<div class="section-title">💡 Our Solution</div>',
+    '<div class="section-title"> Our Solution</div>',
     unsafe_allow_html=True
 )
 
@@ -447,7 +447,7 @@ r1, r2, r3 = st.columns(3)
 with r1:
     st.markdown("""
     <div class="card">
-        <div class="card-title">🤖 AI Mentor</div>
+        <div class="card-title"> AI Mentor</div>
         <div class="card-text">
         AI powered educational guidance,
         doubt solving and career support.
@@ -458,7 +458,7 @@ with r1:
 with r2:
     st.markdown("""
     <div class="card">
-        <div class="card-title">📅 Smart Planner</div>
+        <div class="card-title"> Smart Planner</div>
         <div class="card-text">
         Personalized timetable and
         preparation strategies for exams.
@@ -469,7 +469,7 @@ with r2:
 with r3:
     st.markdown("""
     <div class="card">
-        <div class="card-title">🎓 Scholarship Engine</div>
+        <div class="card-title"> Scholarship Engine</div>
         <div class="card-text">
         Scholarship discovery from
         Class 1 to PhD level.
@@ -482,7 +482,7 @@ with r3:
 # ==============================
 
 st.markdown(
-    '<div class="section-title">⚡ Quick Access</div>',
+    '<div class="section-title"> Quick Access</div>',
     unsafe_allow_html=True
 )
 # ==============================
@@ -515,7 +515,7 @@ text-align:center;
 font-size:28px;
 margin-bottom:10px;
 ">
-🚀
+
 </h1>
 
 <h2 style="
@@ -541,7 +541,7 @@ AI Powered Indian Education Platform
 
 st.markdown("""
 <div class="section-title">
-❤️ Why This Matters
+ Why This Matters
 </div>
 """, unsafe_allow_html=True)
 
@@ -577,7 +577,7 @@ regardless of financial background.
 
 st.markdown("""
 <div class="section-title">
-🤖 Live AI Mentor Demo
+ Live AI Mentor Demo
 </div>
 """, unsafe_allow_html=True)
 
@@ -586,7 +586,7 @@ user_question = st.text_input(
     placeholder="Ask anything about exams, careers, scholarships..."
 )
 
-if st.button("✨ Generate AI Answer"):
+if st.button(" Generate AI Answer"):
 
     if user_question.strip() == "":
         st.warning("Please enter a question.")
@@ -619,7 +619,7 @@ if st.button("✨ Generate AI Answer"):
 
 st.markdown("""
 <div class="section-title">
-📊 Student Analytics Dashboard
+ Student Analytics Dashboard
 </div>
 """, unsafe_allow_html=True)
 
@@ -709,7 +709,7 @@ with chart_col2:
 
 st.markdown("""
 <div class="section-title">
-🎯 Complete Exam Ecosystem
+ Complete Exam Ecosystem
 </div>
 """, unsafe_allow_html=True)
 
@@ -721,7 +721,7 @@ with exam_col1:
     <div class="card">
 
     <div class="card-title">
-    🏫 School & Scholarship
+     School & Scholarship
     </div>
 
     <div class="card-text">
@@ -744,7 +744,7 @@ with exam_col2:
     <div class="card">
 
     <div class="card-title">
-    🧠 Competitive Exams
+     Competitive Exams
     </div>
 
     <div class="card-text">
@@ -790,7 +790,7 @@ with exam_col3:
 
 st.markdown("""
 <div class="section-title">
-🔐 Security & Reliability
+ Security & Reliability
 </div>
 """, unsafe_allow_html=True)
 
@@ -819,7 +819,7 @@ st.markdown("""
 
 st.markdown("""
 <div class="section-title">
-🎤 Capstone Highlights
+ Capstone Highlights
 </div>
 """, unsafe_allow_html=True)
 
@@ -986,7 +986,7 @@ with g3:
 # ==============================
 
 st.markdown(
-    '<div class="section-title">🛠 Technology Stack</div>',
+    '<div class="section-title"> Technology Stack</div>',
     unsafe_allow_html=True
 )
 
@@ -1012,7 +1012,7 @@ st.markdown("""
 # ==============================
 
 st.markdown(
-    '<div class="section-title">🚀 Future Scope</div>',
+    '<div class="section-title"> Future Scope</div>',
     unsafe_allow_html=True
 )
 
@@ -1039,7 +1039,7 @@ st.markdown("""
 # ==============================
 
 st.markdown(
-    '<div class="section-title">🌍 Impact</div>',
+    '<div class="section-title"> Impact</div>',
     unsafe_allow_html=True
 )
 
@@ -1297,7 +1297,7 @@ st.markdown("""
 <div class="hero-container">
 
 <div class="hero-badge">
-🚀 A SOCIAL INITIATIVE BY DR. DNYANESHWAR GAWALIKAR
+ A SOCIAL INITIATIVE BY DR. DNYANESHWAR GAWALIKAR
 </div>
 
 <div class="hero-title">
@@ -1327,7 +1327,7 @@ for every student across India.
 
 search = st.text_input(
     "",
-    placeholder="🔍 Search exams, scholarships, books, careers..."
+    placeholder=" Search exams, scholarships, books, careers..."
 )
 
 # ==============================
@@ -1337,13 +1337,13 @@ search = st.text_input(
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.button("📚 Explore Sections")
+    st.button(" Explore Sections")
 
 with col2:
-    st.button("🧠 Take Free Quiz")
+    st.button(" Take Free Quiz")
 
 with col3:
-    st.button("🎥 Watch Video Lessons")
+    st.button(" Watch Video Lessons")
 
 # ==============================
 # STATISTICS CARDS
@@ -1429,7 +1429,7 @@ conn.commit()
 
 # ---------------- SIDEBAR ----------------
 
-st.sidebar.title("📘 Abhyas Kranti NEW")
+st.sidebar.title(" Abhyas Kranti NEW")
 
 menu = st.sidebar.radio(
     "Navigation",
@@ -1448,7 +1448,7 @@ menu = st.sidebar.radio(
 
 if menu == "Home":
 
-    st.title("🚀 Abhyas Kranti NEW")
+    st.title(" Abhyas Kranti NEW")
 
     st.subheader("AI Powered Indian Education Platform")
 
@@ -1480,7 +1480,7 @@ if menu == "Home":
 
 elif menu == "AI Mentor":
 
-    st.title("🤖 AI Mentor")
+    st.title(" AI Mentor")
 
     user_input = st.text_input("Ask your question")
 
@@ -1507,7 +1507,7 @@ elif menu == "AI Mentor":
 
 elif menu == "Study Planner":
 
-    st.title("📅 Study Planner")
+    st.title(" Study Planner")
 
     exam = st.selectbox(
         "Select Exam",
@@ -1551,7 +1551,7 @@ elif menu == "Study Planner":
 
 elif menu == "Exams":
 
-    st.title("📝 Exams")
+    st.title(" Exams")
 
     exams = [
         "SSC",
@@ -1584,7 +1584,7 @@ elif menu == "Exams":
 
 elif menu == "Scholarships":
 
-    st.title("🎓 Scholarships")
+    st.title(" Scholarships")
 
     scholarships = [
         "Class 1-12 Scholarships",
@@ -1603,7 +1603,7 @@ elif menu == "Scholarships":
 
 elif menu == "Notes":
 
-    st.title("📚 Notes")
+    st.title(" Notes")
 
     Path("notes").mkdir(exist_ok=True)
 
@@ -1612,7 +1612,7 @@ elif menu == "Notes":
 
 elif menu == "Notes":
 
-    st.title("📚 Notes")
+    st.title(" Notes")
 
     Path("notes").mkdir(exist_ok=True)
 
@@ -1677,7 +1677,7 @@ elif menu == "Notes":
 
 elif menu == "Progress Dashboard":
 
-    st.title("📊 Progress Dashboard")
+    st.title(" Progress Dashboard")
 
     with st.form("student_form"):
 
