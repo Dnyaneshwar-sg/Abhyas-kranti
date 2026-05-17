@@ -390,20 +390,22 @@ Capstone Project — IIT Patna
 </div>
 st.markdown('<div class="section-title">🎯 Objectives</div>', unsafe_allow_html=True)
 
+st.markdown('<div class="section-title">🎯 Objectives</div>', unsafe_allow_html=True)
+
 st.markdown("""
 <div class="card">
-<div class="card-text">
+    <div class="card-text">
 
-<p>
-Centralized education ecosystem<br>
-AI-powered student guidance<br>
-Scholarship awareness<br>
-Competitive exam support<br>
-Rural India accessibility<br>
-Multi-language learning support
-</p>
+        <p>
+        Centralized education ecosystem<br>
+        AI-powered student guidance<br>
+        Scholarship awareness<br>
+        Competitive exam support<br>
+        Rural India accessibility<br>
+        Multi-language learning support
+        </p>
 
-</div>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
