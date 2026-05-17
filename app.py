@@ -388,7 +388,7 @@ Dnyaneshwar Gawalikar
 <div class="footer-sub">
 Capstone Project — IIT Patna
 </div>
-st.subheader("Objectives")
+""", unsafe_allow_html=True)
 
 st.write("""
 - Centralized education ecosystem
