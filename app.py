@@ -395,12 +395,12 @@ st.markdown("""
 <div class="card-text">
 
 <p>
-✅ Centralized education ecosystem<br>
-✅ AI-powered student guidance<br>
-✅ Scholarship awareness<br>
-✅ Competitive exam support<br>
-✅ Rural India accessibility<br>
-✅ Multi-language learning support
+Centralized education ecosystem<br>
+AI-powered student guidance<br>
+Scholarship awareness<br>
+Competitive exam support<br>
+Rural India accessibility<br>
+Multi-language learning support
 </p>
 
 </div>
