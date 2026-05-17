@@ -398,5 +398,5 @@ st.write("""
 - Rural India accessibility
 - Multi-language learning support
 """
-
+""")
 
