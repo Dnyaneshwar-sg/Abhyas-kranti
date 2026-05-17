@@ -390,8 +390,6 @@ Capstone Project — IIT Patna
 </div>
 st.markdown('<div class="section-title">🎯 Objectives</div>', unsafe_allow_html=True)
 
-st.markdown('<div class="section-title">🎯 Objectives</div>', unsafe_allow_html=True)
-
 st.markdown("""
 <div class="card">
     <div class="card-text">
