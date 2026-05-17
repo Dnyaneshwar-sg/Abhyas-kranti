@@ -397,6 +397,6 @@ st.write("""
 - Competitive exam support
 - Rural India accessibility
 - Multi-language learning support
-""")
+"""
 
 
