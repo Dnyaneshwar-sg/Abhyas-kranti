@@ -393,7 +393,6 @@ st.markdown('<div class="section-title">🎯 Objectives</div>', unsafe_allow_htm
 st.markdown("""
 <div class="card">
     <div class="card-text">
-
         <p>
         Centralized education ecosystem<br>
         AI-powered student guidance<br>
@@ -402,7 +401,6 @@ st.markdown("""
         Rural India accessibility<br>
         Multi-language learning support
         </p>
-
     </div>
 </div>
 """, unsafe_allow_html=True)
