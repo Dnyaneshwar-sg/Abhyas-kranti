@@ -395,7 +395,7 @@ st.markdown("""
 
 <div class="card-text">
 
-✅ Centralized education ecosystem<br>
+st.write("✅ Centralized education ecosystem")
 ✅ AI-powered student guidance<br>
 ✅ Scholarship awareness<br>
 ✅ Competitive exam support<br>
