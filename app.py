@@ -388,20 +388,15 @@ Dnyaneshwar Gawalikar
 <div class="footer-sub">
 Capstone Project — IIT Patna
 </div>
-st.subheader("🎯 Objectives")
+st.subheader("Objectives")
 
 st.write("""
-• Centralized education ecosystem
-
-• AI-powered student guidance
-
-• Scholarship awareness
-
-• Competitive exam support
-
-• Rural India accessibility
-
-• Multi-language learning support
+- Centralized education ecosystem
+- AI-powered student guidance
+- Scholarship awareness
+- Competitive exam support
+- Rural India accessibility
+- Multi-language learning support
 """)
 
 
