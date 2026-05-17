@@ -15,7 +15,7 @@ st.set_page_config(
 st.markdown("""
     <style>
     /* Import Premium Font */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
     
     * {
         font-family: 'Inter', sans-serif;
@@ -23,158 +23,178 @@ st.markdown("""
 
     /* Main App Background */
     .stApp {
-        background: radial-gradient(circle at 50% 50%, #121620 0%, #08090c 100%);
-        color: #e2e8f0;
+        background: radial-gradient(circle at 50% 50%, #0f121d 0%, #050608 100%);
+        color: #f1f5f9;
     }
 
-    /* Global Title Styling Override */
-    h1, h2, h3, h4 {
-        color: #ffffff !important;
-        font-weight: 700 !important;
-    }
-
-    /* Gradient Text */
-    .gradient-text {
+    /* Fix for Big Heading and visibility issues */
+    .main-title {
         background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800;
-        font-size: 3.5rem;
-        margin-bottom: 0px;
+        font-size: 3.8rem;
+        margin-bottom: 5px;
         line-height: 1.2;
+        display: block;
+    }
+
+    /* Global Title Styling Override */
+    h1, h2, h3, h4, h5 {
+        color: #ffffff !important;
+        font-weight: 700 !important;
     }
 
     /* Glassmorphism Cards */
     .glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.09);
         border-radius: 16px;
         padding: 25px;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        transition: transform 0.3s ease, border-color 0.3s ease;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
         margin-bottom: 20px;
+        height: 100%;
     }
     
     .glass-card:hover {
         transform: translateY(-5px);
-        border-color: rgba(255, 215, 0, 0.4);
+        border-color: rgba(255, 215, 0, 0.5);
+        background: rgba(255, 255, 255, 0.06);
     }
 
     /* Feature Icon/Badge Style */
     .accent-icon {
         color: #FFD700;
-        font-size: 1.8rem;
-        margin-bottom: 10px;
+        font-size: 2rem;
+        margin-bottom: 15px;
     }
 
     /* Premium Vision Callout Box */
     .vision-box {
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(255, 165, 0, 0.02) 100%);
-        border-left: 5px solid #FFD700;
-        border-radius: 8px;
-        padding: 30px;
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 165, 0, 0.03) 100%);
+        border-left: 6px solid #FFD700;
+        border-radius: 12px;
+        padding: 35px;
         text-align: center;
         margin: 40px 0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
 
     .vision-title {
-        font-size: 2rem;
-        font-weight: 700;
+        font-size: 1.8rem;
+        font-weight: 800;
         color: #FFD700 !important;
-        letter-spacing: 1px;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
     }
 
     /* Workflow Architecture Flow */
     .arch-step {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px dashed rgba(255, 215, 0, 0.3);
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px dashed rgba(255, 215, 0, 0.4);
         border-radius: 12px;
-        padding: 15px;
+        padding: 18px;
         text-align: center;
         font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .arch-arrow {
         text-align: center;
         font-size: 2rem;
         color: #FFD700;
-        line-height: 2.5;
+        line-height: 2.2;
     }
 
     /* Buttons Styling Customizations */
     .div-cta-container {
         display: flex;
+        flex-wrap: wrap;
         gap: 15px;
         margin-top: 25px;
         margin-bottom: 40px;
     }
 
     .cta-button {
-        padding: 10px 24px;
+        padding: 12px 28px;
         border-radius: 30px;
         font-weight: 600;
         text-decoration: none;
         display: inline-block;
         text-align: center;
         transition: all 0.3s ease;
+        font-size: 0.95rem;
     }
 
     .cta-primary {
         background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-        color: #08090c !important;
+        color: #050608 !important;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
     }
 
     .cta-primary:hover {
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-        transform: scale(1.03);
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+        transform: scale(1.05);
     }
 
     .cta-secondary {
-        background: transparent;
+        background: rgba(255, 255, 255, 0.03);
         color: #ffffff !important;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .cta-secondary:hover {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.08);
         border-color: #FFD700;
+        transform: translateY(-2px);
     }
 
-    /* Table Styling for Dark Theme */
-    .dataframe {
-        width: 100% !important;
-        background-color: rgba(255, 255, 255, 0.02) !important;
-        color: #e2e8f0 !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    /* CRITICAL FIX: Table Styling for Visibility */
+    .stTable table {
+        background-color: rgba(255, 255, 255, 0.03) !important;
+        color: #ffffff !important;
+        border-collapse: collapse;
         border-radius: 8px;
+        overflow: hidden;
     }
     
-    th {
-        background-color: rgba(255, 215, 0, 0.1) !important;
+    .stTable td {
+        color: #e2e8f0 !important;
+        font-size: 0.95rem !important;
+        padding: 15px !important;
+        background-color: rgba(15, 18, 29, 0.6) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+    
+    .stTable th {
+        background-color: rgba(255, 215, 0, 0.15) !important;
         color: #FFD700 !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
+        padding: 15px !important;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
     }
 
     /* Footer Section */
     .footer-container {
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        padding-top: 30px;
-        margin-top: 60px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 35px;
+        margin-top: 70px;
         text-align: center;
-        color: #a0aec0;
+        color: #94a3b8;
         font-size: 0.95rem;
     }
 
-    /* Custom spacing */
     .section-spacing {
-        padding-top: 50px;
-        padding-bottom: 20px;
+        padding-top: 40px;
     }
     
     hr {
-        border-color: rgba(255, 255, 255, 0.05) !important;
+        border-color: rgba(255, 255, 255, 0.08) !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -182,14 +202,14 @@ st.markdown("""
 # ==========================================
 # 1. HERO SECTION
 # ==========================================
-st.markdown('<p class="gradient-text">Abhyas Kranti NEW</p>', unsafe_allow_html=True)
+st.markdown('<span class="main-title">Abhyas Kranti NEW</span>', unsafe_allow_html=True)
 st.markdown('### AI Powered Educational Ecosystem for Rural India')
-st.markdown('<p style="color: #a0aec0; font-size: 1.1rem; margin-top: -10px;">Capstone Project — IIT Patna Generative AI Sprint 2026</p>', unsafe_allow_html=True)
+st.markdown('<p style="color: #94a3b8; font-size: 1.15rem; margin-top: -10px;">Capstone Project — IIT Patna Generative AI Sprint 2026</p>', unsafe_allow_html=True)
 
-# Modern Interactive CTA Section using Streamlit columns & anchor styling
+# Modern Interactive CTA Buttons
 st.markdown("""
     <div class="div-cta-container">
-        <a class="cta-button cta-primary" href="#features-section">Explore Features</a>
+        <a class="cta-button cta-primary" href="#explore-features">Explore Features</a>
         <a class="cta-button cta-secondary" href="#architecture-section">View Architecture</a>
         <a class="cta-button cta-secondary" href="#demo-section">Interactive Demo</a>
         <a class="cta-button cta-secondary" href="https://github.com" target="_blank">🔗 GitHub Repository</a>
@@ -203,7 +223,7 @@ st.markdown("---")
 # ==========================================
 st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## 🛑 The Core Problem in Rural Education')
-st.markdown('Despite technological advancements, rural ecosystems face systemic bottlenecks that restrict student growth:')
+st.markdown('<p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 25px;">Despite technological advancements, rural ecosystems face systemic bottlenecks that restrict student growth:</p>', unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns(3)
 
@@ -212,14 +232,14 @@ with col1:
         <div class="glass-card">
             <div class="accent-icon">🗂️</div>
             <h4>Resource Fragmentation</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem;">Lack of centralized educational resources, forcing students to rely on scattered, unverified study materials.</p>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Lack of centralized educational resources, forcing students to rely on scattered, unverified study materials.</p>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("""
         <div class="glass-card">
             <div class="accent-icon">🗣️</div>
             <h4>Language Barriers</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem;">High-quality cutting-edge academic context is often locked behind English proficiency, sidelining vernacular students.</p>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">High-quality cutting-edge academic context is often locked behind English proficiency, sidelining vernacular students.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -228,14 +248,14 @@ with col2:
         <div class="glass-card">
             <div class="accent-icon">💰</div>
             <h4>Hyper-Inflationary Coaching</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem;">Premium competitive coaching formats are commercially gated and financially unviable for rural households.</p>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Premium competitive coaching formats are commercially gated and financially unviable for rural households.</p>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("""
         <div class="glass-card">
             <div class="accent-icon">🤖</div>
             <h4>Technological Deficit</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem;">Absence of real-time, personalized AI-driven guidance systems optimized for low-bandwidth zones.</p>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Absence of real-time, personalized AI-driven guidance systems optimized for low-bandwidth zones.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -244,14 +264,14 @@ with col3:
         <div class="glass-card">
             <div class="accent-icon">🎓</div>
             <h4>Information Asymmetry</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem;">Critical state merit scholarships and corporate financial assistance programs remain completely unnoticed.</p>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Critical state merit scholarships and corporate financial assistance programs remain completely unnoticed.</p>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("""
         <div class="glass-card">
             <div class="accent-icon">🧭</div>
             <h4>The Guidance Gap</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem;">A complete lack of structured data insights to steer students toward modern alternative career trajectories.</p>
+            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">A complete lack of structured data insights to steer students toward modern alternative career trajectories.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -261,10 +281,10 @@ with col3:
 st.markdown("""
     <div class="vision-box">
         <div class="vision-title">THE CAPSTONE VISION</div>
-        <p style="font-size: 1.5rem; color: #ffffff; margin-top: 10px; font-weight: 300;">
+        <p style="font-size: 1.6rem; color: #ffffff; margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">
             “To democratize quality education using AI.”
         </p>
-        <p style="color: #a0aec0; font-size: 0.95rem; max-width: 700px; margin: 0 auto;">
+        <p style="color: #94a3b8; font-size: 1rem; max-width: 800px; margin: 15px auto 0 auto; line-height: 1.6;">
             Bridging the socio-economic and geographical divides by deploying context-aware, low-latency infrastructure built specifically for the needs of upcoming leaders in rural communities.
         </p>
     </div>
@@ -273,19 +293,21 @@ st.markdown("""
 # ==========================================
 # 4. OBJECTIVES SECTION
 # ==========================================
+st.markdown('<div id="explore-features"></div>', unsafe_allow_html=True)
 st.markdown('## 🎯 Core Project Objectives')
+st.write("")
 obj_col1, obj_col2, obj_col3, obj_col4, obj_col5 = st.columns(5)
 
 with obj_col1:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 15px;"><div class="accent-icon">🧠</div><h5>AI Mentor</h5><p style="font-size:0.85rem; color:#cbd5e1;">24/7 on-demand localized tutoring</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🧠</div><h5>AI Mentor</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">24/7 on-demand localized tutoring</p></div>', unsafe_allow_html=True)
 with obj_col2:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 15px;"><div class="accent-icon">📅</div><h5>Smart Planner</h5><p style="font-size:0.85rem; color:#cbd5e1;">Hyper-tailored dynamic learning timetables</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">📅</div><h5>Smart Planner</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Hyper-tailored dynamic timetables</p></div>', unsafe_allow_html=True)
 with obj_col3:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 15px;"><div class="accent-icon">🛡️</div><h5>Scholarship</h5><p style="font-size:0.85rem; color:#cbd5e1;">Predictive financial discovery engines</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🛡️</div><h5>Scholarship</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Predictive financial discovery</p></div>', unsafe_allow_html=True)
 with obj_col4:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 15px;"><div class="accent-icon">🛣️</div><h5>Career Guide</h5><p style="font-size:0.85rem; color:#cbd5e1;">Mapping alternate modern trajectories</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🛣️</div><h5>Career Guide</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Mapping alternate modern paths</p></div>', unsafe_allow_html=True)
 with obj_col5:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 15px;"><div class="accent-icon">🌐</div><h5>Multi-Lingual</h5><p style="font-size:0.85rem; color:#cbd5e1;">Deep local vernacular adaptations</p></div>', unsafe_allow_html=True)
+    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🌐</div><h5>Multi-Lingual</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Deep local vernacular adaptations</p></div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
@@ -294,36 +316,37 @@ st.markdown("---")
 # ==========================================
 st.markdown('<div id="architecture-section" class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## 🏗️ End-to-End Solution Architecture')
-st.markdown('The system utilizes a modern decouple workflow that safely handles inputs, processing pipelines, and personalized generation tracking:')
+st.markdown('<p style="color: #cbd5e1; margin-bottom: 25px;">The system utilizes a modern decoupled workflow that safely handles inputs, processing pipelines, and personalized generation tracking:</p>', unsafe_allow_html=True)
 
-a_col1, a_arr1, a_col2, a_arr2, a_col3, a_arr3, a_col4 = st.columns([2, 0.5, 2, 0.5, 2, 0.5, 2])
+a_col1, a_arr1, a_col2, a_arr2, a_col3, a_arr3, a_col4 = st.columns([2, 0.4, 2, 0.4, 2, 0.4, 2])
 
 with a_col1:
-    st.markdown('<div class="arch-step">🧑‍🎓 Rural Student<br><span style="font-size:0.8rem; color:#a0aec0; font-weight:400;">Web Interface Inputs</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="arch-step">🧑‍🎓 Rural Student<br><span style="font-size:0.8rem; color:#94a3b8; font-weight:400; display:block; margin-top:5px;">Web Interface Inputs</span></div>', unsafe_allow_html=True)
 with a_arr1:
     st.markdown('<div class="arch-arrow">→</div>', unsafe_allow_html=True)
 with a_col2:
-    st.markdown('<div class="arch-step" style="border-color:#FFD700;">⚙️ GenAI Orchestrator<br><span style="font-size:0.8rem; color:#FFD700; font-weight:400;">LLM Frameworks</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="arch-step" style="border-color:#FFD700; background: rgba(255,215,0,0.02);">⚙️ GenAI Orchestrator<br><span style="font-size:0.8rem; color:#FFD700; font-weight:400; display:block; margin-top:5px;">LLM Frameworks</span></div>', unsafe_allow_html=True)
 with a_arr2:
     st.markdown('<div class="arch-arrow">→</div>', unsafe_allow_html=True)
 with a_col3:
-    st.markdown('<div class="arch-step">📊 Personalized Core<br><span style="font-size:0.8rem; color:#a0aec0; font-weight:400;">Context Tuning Matrices</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="arch-step">📊 Personalized Core<br><span style="font-size:0.8rem; color:#94a3b8; font-weight:400; display:block; margin-top:5px;">Context Tuning Matrices</span></div>', unsafe_allow_html=True)
 with a_arr3:
     st.markdown('<div class="arch-arrow">→</div>', unsafe_allow_html=True)
 with a_col4:
-    st.markdown('<div class="arch-step" style="background:rgba(255,215,0,0.05);">🏆 Continuous Success<br><span style="font-size:0.8rem; color:#FFD700; font-weight:400;">Exams / Scholarships</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="arch-step" style="background:rgba(255,215,0,0.05); border-style: solid;">🏆 Continuous Success<br><span style="font-size:0.8rem; color:#FFD700; font-weight:400; display:block; margin-top:5px;">Exams / Scholarships</span></div>', unsafe_allow_html=True)
 
 # ==========================================
 # 6. TECHNOLOGY STACK
 # ==========================================
 st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## 💻 Standardized Enterprise Tech Stack')
+st.write("")
 
 tech_col1, tech_col2, tech_col3, tech_col4 = st.columns(4)
 
 with tech_col1:
     st.markdown('🗣️ **Frontend UI Framework**')
-    st.markdown('* Streamlit (Rapid App Prototyping)\n* Advanced Custom CSS / Glassmorphism UI Components')
+    st.markdown('* Streamlit (Rapid App Prototyping)\n* Advanced Custom CSS / Glassmorphism')
     st.markdown('🐍 **Core Logic Programming**')
     st.markdown('* Python 3.11+\n* Async Operations Pipelines')
 
@@ -337,7 +360,7 @@ with tech_col3:
     st.markdown('☁️ **Cloud Database Layer**')
     st.markdown('* Supabase Security Matrix Integration')
     st.markdown('💳 **Gateway Adaptations**')
-    st.markdown('* Razorpay Webhooks (For micro-grants access)')
+    st.markdown('* Razorpay Webhooks (Micro-grants access)')
 
 with tech_col4:
     st.markdown('🚀 **Deployment Vectors**')
@@ -348,7 +371,10 @@ st.markdown("---")
 # ==========================================
 # 7. CAPSTONE TIMELINE
 # ==========================================
+st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## 📅 Capstone Execution Timeline')
+st.write("")
+
 timeline_data = {
     "Phase / Week": ["Week 1", "Week 2", "Week 3", "Week 4"],
     "Milestone Core Subject Focus": ["Ideation & Planning", "MVP Development", "AI Integration", "Final Deployment"],
@@ -366,10 +392,9 @@ st.table(timeline_df)
 # ==========================================
 # 8. LIVE FUNCTIONAL FEATURES (INTERACTIVE DEMO)
 # ==========================================
-st.markdown('<div id="features-section"></div>', unsafe_allow_html=True)
 st.markdown('<div id="demo-section" class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## ⚡ Live Mock Capstone Feature Sandbox')
-st.markdown('Select an AI sub-engine option to evaluate systemic mock data processing configurations:')
+st.markdown('<p style="color: #cbd5e1; margin-bottom: 20px;">Select an AI sub-engine option to evaluate systemic mock data processing configurations:</p>', unsafe_allow_html=True)
 
 feature_tab = st.selectbox(
     "Choose Platform Action Layer:",
@@ -383,6 +408,7 @@ feature_tab = st.selectbox(
     ]
 )
 
+st.write("")
 if "1." in feature_tab:
     st.markdown("### 🧠 AI Powered Doubt Solver Hub")
     st.info("Simulated Environment Engine running real-time context maps.")
@@ -433,6 +459,7 @@ st.markdown("---")
 # ==========================================
 st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## 📈 Project Impact Matrix (Rural India Target Outcomes)')
+st.write("")
 
 imp_col1, imp_col2 = st.columns(2)
 
@@ -440,13 +467,13 @@ with imp_col1:
     st.markdown("""
         <div class="glass-card">
             <h4>💡 High Socio-Economic Upskilling</h4>
-            <p style="color: #cbd5e1;">By making complex engineering, medical, and public service entrance methodologies accessible directly at zero cost barrier locations, structural wealth disparity impacts are negated over performance cycles.</p>
+            <p style="color: #cbd5e1; line-height: 1.6;">By making complex engineering, medical, and public service entrance methodologies accessible directly at zero cost barrier locations, structural wealth disparity impacts are negated over performance cycles.</p>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("""
         <div class="glass-card">
             <h4>🤝 Scholarship Discovery Optimization</h4>
-            <p style="color: #cbd5e1;">Converts hidden financial channels into actionable assets. Ensures deserving talent lines get immediate state-backed educational support without agent exploitation networks.</p>
+            <p style="color: #cbd5e1; line-height: 1.6;">Converts hidden financial channels into actionable assets. Ensures deserving talent lines get immediate state-backed educational support without agent exploitation networks.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -454,13 +481,13 @@ with imp_col2:
     st.markdown("""
         <div class="glass-card">
             <h4>📉 Radical Coaching Overhead Reductions</h4>
-            <p style="color: #cbd5e1;">Removes the logistical imperative for students to migrate to premium urban tier centers by creating top-tier cognitive AI mentors directly in localized village nodes.</p>
+            <p style="color: #cbd5e1; line-height: 1.6;">Removes the logistical imperative for students to migrate to premium urban tier centers by creating top-tier cognitive AI mentors directly in localized village nodes.</p>
         </div>
     """, unsafe_allow_html=True)
     st.markdown("""
         <div class="glass-card">
             <h4>🪐 Democratization of Advanced LLM Technologies</h4>
-            <p style="color: #cbd5e1;">Synthesizes complex algorithmic frameworks into simple accessible interfaces, turning bleeding-edge technology into functional civic utilities for the segments that need it most.</p>
+            <p style="color: #cbd5e1; line-height: 1.6;">Synthesizes complex algorithmic frameworks into simple accessible interfaces, turning bleeding-edge technology into functional civic utilities for the segments that need it most.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -469,6 +496,7 @@ with imp_col2:
 # ==========================================
 st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
 st.markdown('## 🚀 Future Roadmap & Scaling Vectors')
+st.write("")
 
 f_col1, f_col2, f_col3 = st.columns(3)
 with f_col1:
@@ -509,13 +537,13 @@ st.markdown("""
 # ==========================================
 st.markdown("""
     <div class="footer-container">
-        <p style="font-size: 1.1rem; color: #ffffff; font-weight: 600; margin-bottom: 5px;">
+        <p style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin-bottom: 5px;">
             Developed by Ved (Dnyaneshwar Gawalikar)
         </p>
-        <p style="color: #FFD700; font-weight: 500; margin-bottom: 20px;">
+        <p style="color: #FFD700; font-weight: 600; margin-bottom: 20px; font-size: 0.95rem; letter-spacing: 0.5px;">
             Professor & Head of Department
         </p>
-        <p style="font-size: 0.85rem; color: #718096;">
+        <p style="font-size: 0.85rem; color: #64748b;">
             Capstone Project — IIT Patna Generative AI Sprint 2026
         </p>
     </div>
