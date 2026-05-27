@@ -54,17 +54,18 @@ init_db()
 
 # --- AI CORE: GEMINI API INTEGRATION ---
 def ask_gemini_ai(prompt_text):
-    # 🔴 महत्त्वाचा बदल: खालील ओळीत तुमचा मूळ API Key डबल कोट्सच्या मध्ये पेस्ट करा!
-    api_key = "AIzaSyCy5U-yywLer03Z0Cqf0OCf34qdB0uGaHg"
+    # तुमची मूळ API Key खालील अवतरण चिन्हात टाकू शकता
+    api_key = "YOUR_FREE_GEMINI_API_KEY_HERE"
     
-    # जर वरील की बदलला नसेल तर बॅकअप म्हणून Streamlit Secrets तपासणे
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" and "GEMINI_API_KEY" in st.secrets:
         api_key = st.secrets["GEMINI_API_KEY"]
         
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" or not api_key:
-        return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी API Key मिळालेला नाही. कृपया app.py मध्ये ओळ ५७ तपासा."
+        return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी API Key मिळालेला नाही. कृपया तुमची सेटिंग्स तपासा."
 
-   url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
+    # अधिकृत आणि स्थिर स्थिर एंडपॉईंट (v1)
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
+    headers = {'Content-Type': 'application/json'}
     
     system_instruction = "You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, suitable for rural Indian students. Use Marathi or simple English."
     
@@ -78,7 +79,7 @@ def ask_gemini_ai(prompt_text):
             result = response.json()
             return result['candidates'][0]['content']['parts'][0]['text']
         else:
-            return f"गुगल एआय सर्व्हरने त्रुटी दिली (Status Code: {response.status_code}). कृपया तुमचा API Key वैध असल्याची खात्री करा."
+            return f"गुगल एआय सर्व्हरने त्रुटी दिली (Status Code: {response.status_code}). कृपया तुमचा API Key तपासा."
     except Exception as e:
         return f"कनेक्शन त्रुटी आढळली: {str(e)}"
 
@@ -180,7 +181,7 @@ else:
     with choice[2]:
         st.markdown("<div class='card'><h3>🎓 शिष्यवृत्ती आणि करिअर मार्गदर्शन</h3>", unsafe_allow_html=True)
         income_bracket = st.selectbox("तुमच्या कुटुंबाचे वार्षिक उत्पन्न निवडा:", 
-                                      ["१ लाखापेक्षा कमी", "१ ते ३ लाख", "३ ते ८ lakh", "८ लाखांपेक्षा जास्त"])
+                                      ["१ लाखापेक्षा कमी", "१ ते ३ लाख", "३ ते ८ लाख", "८ लाखांपेक्षा जास्त"])
         
         if st.button("योग्य योजना शोधा"):
             with st.spinner("शोधत आहे..."):
