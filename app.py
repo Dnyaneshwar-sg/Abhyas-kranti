@@ -1,49 +1,49 @@
 import streamlit as st
-import google.generativeai as genai
-import os
+import requests
+import json
 
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="Abhyas Kranti NEW", page_icon="🚀", layout="wide")
 
-# --- AI CORE: GOOGLE OFFICIAL SDK (UPDATED FOR NO MORE V1BETA ERROR) ---
+# --- AI CORE: DIRECT API CALL (NO LIBRARIES, NO VERSION ERRORS) ---
 def ask_gemini_ai(prompt_text):
-    # १. सर्वप्रथम Streamlit Secrets मधून की मिळवणे
+    # Streamlit Secrets मधून की मिळवणे
     api_key = st.secrets.get("GEMINI_API_KEY", None)
     
-    # २. जर सिक्रेट्समध्ये नसेल तर एन्व्हायर्नमेंट तपासणे
     if not api_key:
-        api_key = os.environ.get("GEMINI_API_KEY", None)
-        
-    # ३. की नसेल तर त्रुटी दाखवणे
-    if not api_key or api_key == "YOUR_FREE_GEMINI_API_KEY_HERE":
         return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी वैध API Key मिळालेला नाही. कृपया Streamlit Secrets तपासा."
 
+    # गुगलचा थेट आणि सर्वात नवीन अधिकृत v1 एंडपॉइंट (यात कधीही ४०४ एरर येत नाही)
+    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
+    
+    headers = {'Content-Type': 'application/json'}
+    
+    # सोप्या मराठी उत्तरांसाठी सिस्टीम इंस्ट्रक्शन थेट पेलोडमध्ये समाविष्ट
+    payload = {
+        "contents": [{
+            "parts": [{
+                "text": f"You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, suitable for school students in Marathi language only. Context: {prompt_text}"
+            }]
+        }]
+    }
+
     try:
-        # नवीन लायब्ररी कॉन्फिगरेशन
-        genai.configure(api_key=api_key)
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        response_data = response.json()
         
-        # एआय मेंटॉरसाठी सिस्टीम इंस्ट्रक्शन
-        system_instruction = (
-            "You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, "
-            "suitable for school students in Marathi language only."
-        )
-        
-        # जुन्या व्हर्जनचा एरर टाळण्यासाठी थेट जनरेटिव्ह मॉडेल ऑब्जेक्ट कॉल
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            system_instruction=system_instruction
-        )
-        
-        # एआय सर्व्हरकडून प्रतिसाद मिळवणे
-        response = model.generate_content(prompt_text)
-        return response.text
-        
+        # एआय कडून आलेले उत्तर वाचणे
+        if response.status_code == 200:
+            return response_data['candidates'][0]['content']['parts'][0]['text']
+        else:
+            error_msg = response_data.get('error', {}).get('message', 'Unknown Error')
+            return f"त्रुटी (Status {response.status_code}): {error_msg}"
+            
     except Exception as e:
-        return f"गुगल एआय कडून प्रतिसाद मिळाला नाही. त्रुटी: {str(e)}"
+        return f"कनेक्शन होऊ शकले नाही. त्रुटी: {str(e)}"
 
 # --- APP HEADER ---
 st.title("🚀 Abhyas Kranti NEW")
-st.subheader("AI-Powered Educational Ecosystem")
+st.subheader("AI-Powered Educational Ecosystem for Rural India")
 st.markdown("---")
 
 # --- LOGIN / SESSION STATE ---
@@ -83,7 +83,7 @@ with tab1:
     st.write("विज्ञान, गणित किंवा सामान्य ज्ञानाचा कोणताही प्रश्न विचारा, एआय तुम्हाला सोप्या भाषेत समजून सांगेल.")
     
     user_question = st.text_input(
-        "तुमचा प्रश्न इथे टाईप करा (उदा. प्रकाश संश्लेषण म्हणजे काय? / Newton's Laws):",
+        "तुमचा प्रश्न इथे टाईप करा (उदा. प्रकाश संश्लेषण म्हणजे काय?):",
         key="ai_question_input"
     )
     
@@ -93,10 +93,8 @@ with tab1:
         elif not user_question.strip():
             st.warning("कृपया आधी तुमचा प्रश्न टाईप करा.")
         else:
-            with st.spinner("एआय उत्तर तयार करत आहे..."):
-                full_prompt = f"Student Target: {st.session_state.exam_target}. Question: {user_question}"
-                answer = ask_gemini_ai(full_prompt)
-                
+            with st.spinner("एआय उत्तर तयार करत आहे... कृपया वाट पाहा..."):
+                answer = ask_gemini_ai(user_question)
                 st.markdown("### 📝 उत्तर / Response:")
                 st.info(answer)
 
@@ -110,7 +108,7 @@ with tab2:
             st.warning("कृपया आधी लॉगिन करा!")
         else:
             with st.spinner("वेळापत्रक बनवत आहे..."):
-                planner_prompt = f"Create a daily timetable for {st.session_state.exam_target} student with {available_hours} hours study time. Output in Marathi."
+                planner_prompt = f"Create a daily study timetable for {st.session_state.exam_target} student with {available_hours} hours study time in Marathi."
                 plan_result = ask_gemini_ai(planner_prompt)
                 st.success(plan_result)
 
@@ -124,6 +122,6 @@ with tab3:
             st.warning("कृपया आधी लॉगिन करा!")
         else:
             with st.spinner("माहिती गोळा करत आहे..."):
-                scholarship_prompt = f"List government scholarships in Maharashtra for {st.session_state.exam_target} student with family income {family_income}. Provide in Marathi."
+                scholarship_prompt = f"List government scholarships in Maharashtra for {st.session_state.exam_target} student with family income {family_income} in Marathi."
                 scholarship_result = ask_gemini_ai(scholarship_prompt)
                 st.warning(scholarship_result)
