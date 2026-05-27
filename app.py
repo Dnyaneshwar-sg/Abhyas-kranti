@@ -111,26 +111,16 @@ with tab2:
                 planner_prompt = f"Create a daily study timetable for {st.session_state.exam_target} student with {available_hours} hours study time in Marathi."
                 plan_result = ask_gemini_ai(planner_prompt)
                 st.success(plan_result)
-
-# --- TAB 3: SCHOLARSHIP & CAREERS ---
 with tab3:
-    st.header("🎓 शिष्यवृत्ती आणि करिअर मार्गदर्शन")
-    family_income = st.selectbox("कुटुंबाचे वार्षिक उत्पन्न गट निवडा:", ["१ लाखापेक्षा कमी", "१ ते ३ लाख", "३ ते ८ लाख", "८ लाखांपेक्षा जास्त"])
-    
-    if st.button("योग्य योजना शोधा (Find Schemes)"):
-        if not st.session_state.logged_in:
-            st.warning("कृपया आधी लॉगिन करा!")
-        else:
-            with st.spinner("माहिती गोळा करत आहे..."):
-                scholarship_prompt = f"List government scholarships in Maharashtra for {st.session_state.exam_target} student with family income {family_income} in Marathi."
-                scholarship_result = ask_gemini_ai(scholarship_prompt)
-                import google.generativeai as genai
+        st.header("🎓 शिष्यवृत्ती आणि करिअर मार्गदर्शन")
+        family_income = st.selectbox("कुटुंबाचे वार्षिक उत्पन्न गट निवडा:", ["१ लाखापेक्षा कमी", "१ ते ३ लाख", "३ ते ८ लाख", "८ लाखापेक्षा जास्त"])
+        
+        if st.button("योग्य योजना शोधा (Find Schemes)"):
+            if not st.session_state.logged_in:
+                st.warning("कृपया आधी लॉगिन करा!")
+            else:
+                with st.spinner("माहिती गोळा करत आहे..."):
+                    scholarship_prompt = f"List government scholarships in Maharashtra for {st.session_state.exam_target} student with family income {family_income} in Marathi."
+                    scholarship_result = ask_gemini_ai(scholarship_prompt)
+                    st.warning(scholarship_result) # <--- ही लाईन आता योग्य जागी आली आहे
 
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-# v1beta व्हर्जन वापरून मॉडेल कॉल करणे
-model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
-    generation_config={"response_mime_type": "text/plain"}
-)
-                st.warning(scholarship_result)
