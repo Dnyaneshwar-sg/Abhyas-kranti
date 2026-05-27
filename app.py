@@ -64,8 +64,7 @@ def ask_gemini_ai(prompt_text):
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" or not api_key:
         return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी API Key मिळालेला नाही. कृपया app.py मध्ये ओळ ५७ तपासा."
 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
-    headers = {'Content-Type': 'application/json'}
+   url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
     
     system_instruction = "You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, suitable for rural Indian students. Use Marathi or simple English."
     
