@@ -52,39 +52,21 @@ def init_db():
 
 init_db()
 
-# --- AUTOMATION: MAKE.COM WEBHOOK FUNCTION ---
-def send_to_make_webhook(name, mobile, exam):
-    # तुमची मेक.कॉमची webhook लिंक खालील अवतरण चिन्हात (quotes) टाका
-    MAKE_WEBHOOK_URL = "https://hook.us1.make.com/your_actual_webhook_id_here"
-    
-    payload = {
-        "student_name": name,
-        "mobile_number": mobile,
-        "target_exam": exam,
-        "status": "Registered"
-    }
-    try:
-        # बॅकग्राउंडमध्ये मेक.कॉमला डेटा पाठवणे
-        requests.post(MAKE_WEBHOOK_URL, json=payload, timeout=5)
-    except Exception:
-        pass # इंटरनेट किंवा लिंक नसेल तर ॲप क्रॅश होणार नाही
-
 # --- AI CORE: GEMINI API INTEGRATION ---
 def ask_gemini_ai(prompt_text):
-    # Streamlit Secrets मधून किंवा थेट API Key मिळवणे
-    if "GEMINI_API_KEY" in st.secrets:
+    # 🔴 महत्त्वाचा बदल: खालील ओळीत तुमचा मूळ API Key डबल कोट्सच्या मध्ये पेस्ट करा!
+    api_key = "YOUR_FREE_GEMINI_API_KEY_HERE"
+    
+    # जर वरील की बदलला नसेल तर बॅकअप म्हणून Streamlit Secrets तपासणे
+    if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" and "GEMINI_API_KEY" in st.secrets:
         api_key = st.secrets["GEMINI_API_KEY"]
-    else:
-        # जर सिक्रेट्समध्ये नसेल तर तात्पुरता थेट वापरण्यासाठी (इथे तुमचा मूळ की टाकू शकता)
-        api_key = "YOUR_FREE_GEMINI_API_KEY_HERE"
         
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" or not api_key:
-        return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी API Key आवश्यक आहे. कृपया प्रगत सेटिंग्ज तपासा."
+        return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी API Key मिळालेला नाही. कृपया app.py मध्ये ओळ ५७ तपासा."
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     headers = {'Content-Type': 'application/json'}
     
-    # ग्रामीण विद्यार्थ्यांना समजेल अशा सोप्या मराठी/इंग्रजी भाषेत उत्तर देण्यासाठी एआयला ट्यून केले आहे
     system_instruction = "You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, suitable for rural Indian students. Use Marathi or simple English."
     
     data = {
@@ -92,14 +74,28 @@ def ask_gemini_ai(prompt_text):
     }
     
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=10)
+        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=15)
         if response.status_code == 200:
             result = response.json()
             return result['candidates'][0]['content']['parts'][0]['text']
         else:
-            return "सर््हरशी संपर्क होऊ शकला नाही. कृपया थोड्या वेळाने पुन्हा प्रयत्न करा."
+            return f"गुगल एआय सर्व्हरने त्रुटी दिली (Status Code: {response.status_code}). कृपया तुमचा API Key वैध असल्याची खात्री करा."
     except Exception as e:
-        return f"त्रुटी आढळली: {str(e)}"
+        return f"कनेक्शन त्रुटी आढळली: {str(e)}"
+
+# --- AUTOMATION: MAKE.COM WEBHOOK FUNCTION ---
+def send_to_make_webhook(name, mobile, exam):
+    MAKE_WEBHOOK_URL = "https://hook.us1.make.com/your_actual_webhook_id_here"
+    payload = {
+        "student_name": name,
+        "mobile_number": mobile,
+        "target_exam": exam,
+        "status": "Registered"
+    }
+    try:
+        requests.post(MAKE_WEBHOOK_URL, json=payload, timeout=5)
+    except Exception:
+        pass
 
 # --- APPLICATION FLOW / SESSION STATE ---
 if 'logged_in' not in st.session_state:
@@ -124,14 +120,12 @@ if not st.session_state.logged_in:
     
     if st.button("ॲप सुरू करा (Enter Ecosystem)"):
         if student_name and len(student_mobile) == 10:
-            # लोकल डेटाबेसमध्ये सेव्ह करा
             conn = sqlite3.connect('abhyas_kranti.db')
             c = conn.cursor()
             c.execute("INSERT INTO students VALUES (?, ?, ?)", (student_name, student_mobile, target_exam))
             conn.commit()
             conn.close()
             
-            # ऑटोमेशनसाठी मेक.कॉमला डेटा पाठवा
             send_to_make_webhook(student_name, student_mobile, target_exam)
             
             st.session_state.logged_in = True
@@ -177,22 +171,21 @@ else:
         
         if st.button("माझा अभ्यासाचा प्लॅन तयार करा"):
             with st.spinner("तुमचे वेळापत्रक तयार होत आहे..."):
-                planner_prompt = f"Create a practical dynamic study timetable for a student preparing for {st.session_state.exam} who can study {daily_hours} hours a day. Give specific breakdown of subjects and breaks."
+                planner_prompt = f"Create a practical dynamic study timetable for a student preparing for {st.session_state.exam} who can study {daily_hours} hours a day. Give specific breakdown of subjects and breaks in Marathi language."
                 ai_plan = ask_gemini_ai(planner_prompt)
-                st.markdown("#### 📋 तुमच्यासाठी बनवलेले वेळा转换 वेळापत्रक:")
+                st.markdown("#### 📋 तुमच्यासाठी बनवलेले वेळापत्रक:")
                 st.write(ai_plan)
         st.markdown("</div>", unsafe_allow_html=True)
 
     # TAB 3: SCHOLARSHIP AND CAREERS
     with choice[2]:
         st.markdown("<div class='card'><h3>🎓 शिष्यवृत्ती आणि करिअर मार्गदर्शन</h3>", unsafe_allow_html=True)
-        
         income_bracket = st.selectbox("तुमच्या कुटुंबाचे वार्षिक उत्पन्न निवडा:", 
-                                      ["१ लाखापेक्षा कमी", "१ ते ३ लाख", "३ ते ८ लाख", "८ लाखांपेक्षा जास्त"])
+                                      ["१ लाखापेक्षा कमी", "१ ते ३ लाख", "३ ते ८ lakh", "८ लाखांपेक्षा जास्त"])
         
         if st.button("योग्य योजना शोधा"):
             with st.spinner("शोधत आहे..."):
-                scholarship_prompt = f"List the top 3 central or state government scholarships or financial aids available for a student in Maharashtra with an annual family income of {income_bracket} preparing for {st.session_state.exam}."
+                scholarship_prompt = f"List the top 3 central or state government scholarships or financial aids available for a student in Maharashtra with an annual family income of {income_bracket} preparing for {st.session_state.exam}. Explain in Marathi."
                 scholarship_data = ask_gemini_ai(scholarship_prompt)
                 st.markdown("#### 🌟 तुमच्यासाठी उपलब्ध असणाऱ्या योजना:")
                 st.write(scholarship_data)
