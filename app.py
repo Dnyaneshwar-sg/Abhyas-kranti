@@ -538,7 +538,7 @@ st.markdown("""
 st.markdown("""
     <div class="footer-container">
         <p style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin-bottom: 5px;">
-            Developed by Ved (Dnyaneshwar Gawalikar)
+            Developed by  (Dnyaneshwar Gawalikar)
         </p>
         <p style="color: #FFD700; font-weight: 600; margin-bottom: 20px; font-size: 0.95rem; letter-spacing: 0.5px;">
             Professor & Head of Department
