@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
-import requests
-import json
+import google.generativeai as genai
 import sqlite3
 
 # --- CONSTANTS & CONFIGURATION ---
@@ -41,7 +40,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- LOCAL DATABASE SETUP (For Students Data) ---
+# --- LOCAL DATABASE SETUP ---
 def init_db():
     conn = sqlite3.connect('abhyas_kranti.db')
     c = conn.cursor()
@@ -52,50 +51,32 @@ def init_db():
 
 init_db()
 
-# --- AI CORE: GEMINI API INTEGRATION ---
+# --- AI CORE: GOOGLE OFFICIAL SDK INTEGRATION ---
 def ask_gemini_ai(prompt_text):
-    # तुमची मूळ API Key खालील अवतरण चिन्हात टाकू शकता
-    api_key = "YOUR_FREE_GEMINI_API_KEY_HERE"
+    # 🔴 महत्त्वाचा बदल: तुमच्या Google AI Studio चा मूळ की खालील अवतरण चिन्हात टाका!
+    api_key = "AIzaSyCy5U-yywLer03Z0Cqf0OCf34qdB0uGaHg"
     
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" and "GEMINI_API_KEY" in st.secrets:
         api_key = st.secrets["GEMINI_API_KEY"]
         
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" or not api_key:
-        return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी API Key मिळालेला नाही. कृपया तुमची सेटिंग्स तपासा."
+        return "क्षमस्व, एआय सिस्टीम जोडण्यासाठी वैध API Key मिळालेला नाही."
 
-    # अधिकृत आणि स्थिर स्थिर एंडपॉईंट (v1)
-    url = f"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key={api_key}"
-    headers = {'Content-Type': 'application/json'}
-    
-    system_instruction = "You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, suitable for rural Indian students. Use Marathi or simple English."
-    
-    data = {
-        "contents": [{"parts": [{"text": f"{system_instruction}\n\nQuestion: {prompt_text}"}]}]
-    }
-    
     try:
-        response = requests.post(url, headers=headers, data=json.dumps(data), timeout=15)
-        if response.status_code == 200:
-            result = response.json()
-            return result['candidates'][0]['content']['parts'][0]['text']
-        else:
-            return f"गुगल एआय सर्व्हरने त्रुटी दिली (Status Code: {response.status_code}). कृपया तुमचा API Key तपासा."
+        # अधिकृत गुगल एसडीके कॉन्फिगरेशन
+        genai.configure(api_key=api_key)
+        
+        system_instruction = "You are Abhyas Kranti AI Mentor. Explain topics simply using local analogies, suitable for rural Indian students. Use Marathi language predominantly or simple English."
+        
+        model = genai.GenerativeModel(
+            model_name="gemini-1.5-flash",
+            system_instruction=system_instruction
+        )
+        
+        response = model.generate_content(prompt_text)
+        return response.text
     except Exception as e:
-        return f"कनेक्शन त्रुटी आढळली: {str(e)}"
-
-# --- AUTOMATION: MAKE.COM WEBHOOK FUNCTION ---
-def send_to_make_webhook(name, mobile, exam):
-    MAKE_WEBHOOK_URL = "https://hook.us1.make.com/your_actual_webhook_id_here"
-    payload = {
-        "student_name": name,
-        "mobile_number": mobile,
-        "target_exam": exam,
-        "status": "Registered"
-    }
-    try:
-        requests.post(MAKE_WEBHOOK_URL, json=payload, timeout=5)
-    except Exception:
-        pass
+        return f"गुगल एआय कडून प्रतिसाद मिळाला नाही. त्रुटी: {str(e)}"
 
 # --- APPLICATION FLOW / SESSION STATE ---
 if 'logged_in' not in st.session_state:
@@ -125,8 +106,6 @@ if not st.session_state.logged_in:
             c.execute("INSERT INTO students VALUES (?, ?, ?)", (student_name, student_mobile, target_exam))
             conn.commit()
             conn.close()
-            
-            send_to_make_webhook(student_name, student_mobile, target_exam)
             
             st.session_state.logged_in = True
             st.session_state.username = student_name
@@ -166,7 +145,7 @@ else:
 
     # TAB 2: SMART STUDY PLANNER
     with choice[1]:
-        st.markdown("<div class='card'><h3>📅 स्मार्ट स्टडी प्लॅनर (AI Timetable)</h3>", unsafe_allow_html=True)
+        st.markdown("<div class='card'><h3>📅 स्मार्ट STUDY प्लॅनर (AI Timetable)</h3>", unsafe_allow_html=True)
         daily_hours = st.slider("तुम्ही रोज किती तास अभ्यास करू शकता?", 1, 12, 4)
         
         if st.button("माझा अभ्यासाचा प्लॅन तयार करा"):
@@ -185,7 +164,7 @@ else:
         
         if st.button("योग्य योजना शोधा"):
             with st.spinner("शोधत आहे..."):
-                scholarship_prompt = f"List the top 3 central or state government scholarships or financial aids available for a student in Maharashtra with an annual family income of {income_bracket} preparing for {st.session_state.exam}. Explain in Marathi."
+                scholarship_prompt = f"List the top 3 central or state government scholarships available for a student in Maharashtra with an annual family income of {income_bracket} preparing for {st.session_state.exam}. Explain in Marathi."
                 scholarship_data = ask_gemini_ai(scholarship_prompt)
                 st.markdown("#### 🌟 तुमच्यासाठी उपलब्ध असणाऱ्या योजना:")
                 st.write(scholarship_data)
