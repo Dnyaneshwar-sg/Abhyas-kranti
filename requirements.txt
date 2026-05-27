@@ -1,4 +1,2 @@
-google-generativeai
-streamlit-option-menu
-plotly
-google-generativeai
+streamlit
+requests
