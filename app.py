@@ -55,7 +55,7 @@ init_db()
 # --- AI CORE: GEMINI API INTEGRATION ---
 def ask_gemini_ai(prompt_text):
     # 🔴 महत्त्वाचा बदल: खालील ओळीत तुमचा मूळ API Key डबल कोट्सच्या मध्ये पेस्ट करा!
-    api_key = "YOUR_FREE_GEMINI_API_KEY_HERE"
+    api_key = "AIzaSyCy5U-yywLer03Z0Cqf0OCf34qdB0uGaHg"
     
     # जर वरील की बदलला नसेल तर बॅकअप म्हणून Streamlit Secrets तपासणे
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" and "GEMINI_API_KEY" in st.secrets:
