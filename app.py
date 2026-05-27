@@ -124,4 +124,13 @@ with tab3:
             with st.spinner("माहिती गोळा करत आहे..."):
                 scholarship_prompt = f"List government scholarships in Maharashtra for {st.session_state.exam_target} student with family income {family_income} in Marathi."
                 scholarship_result = ask_gemini_ai(scholarship_prompt)
+                import google.generativeai as genai
+
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+
+# v1beta व्हर्जन वापरून मॉडेल कॉल करणे
+model = genai.GenerativeModel(
+    model_name="gemini-1.5-flash",
+    generation_config={"response_mime_type": "text/plain"}
+)
                 st.warning(scholarship_result)
