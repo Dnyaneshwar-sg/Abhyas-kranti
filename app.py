@@ -54,7 +54,7 @@ init_db()
 # --- AI CORE: GOOGLE OFFICIAL SDK INTEGRATION ---
 def ask_gemini_ai(prompt_text):
     # 🔴 महत्त्वाचा बदल: तुमच्या Google AI Studio चा मूळ की खालील अवतरण चिन्हात टाका!
-    api_key = "AIzaSyCy5U-yywLer03Z0Cqf0OCf34qdB0uGaHg"
+    api_key = "AIzaSyAaLvSlQNWnEIljMlBzSve37SKM97SWLZw"
     
     if api_key == "YOUR_FREE_GEMINI_API_KEY_HERE" and "GEMINI_API_KEY" in st.secrets:
         api_key = st.secrets["GEMINI_API_KEY"]
