@@ -43,11 +43,11 @@ def ask_gemini_ai(prompt_text):
     if not api_key:
         return "क्षमस्व, वैध API Key मिळालेला नाही. कृपया Streamlit Secrets तपासा."
 
-    # गुगलचा थेट आणि सर्वात सुरक्षित v1beta एंडपॉइंट
+    # गूगलचा थेट आणि सर्वात सुरक्षित v1beta एंडपॉइंट
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     headers = {'Content-Type': 'application/json'}
-    
-   payload = {
+
+    payload = {
         "contents": [
             {
                 "parts": [
