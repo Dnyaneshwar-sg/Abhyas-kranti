@@ -19,4 +19,4 @@ def ask_ai(question):
 
     except Exception as e:
 
-        return f"Error: {str(e)}"
+        return str(e)
