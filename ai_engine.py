@@ -11,12 +11,8 @@ model = genai.GenerativeModel(
 
 def ask_ai(question):
 
-    try:
+    response = model.generate_content(
+        question
+    )
 
-        response = model.generate_content(question)
-
-        return response.text
-
-    except Exception as e:
-
-        return str(e)
+    return response.text
