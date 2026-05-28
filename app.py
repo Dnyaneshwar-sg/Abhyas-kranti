@@ -47,14 +47,17 @@ def ask_gemini_ai(prompt_text):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
     headers = {'Content-Type': 'application/json'}
     
-    payload = {
-        "contents": [{
-            "parts": [{
-                "text": f"You are Abhyas Kranti AI Mentor. Answer the request thoroughly and clearly in Marathi language only, suitable for students. Request: {prompt_text}"
-            }]
-        }]
+   payload = {
+        "contents": [
+            {
+                "parts": [
+                    {
+                        "text": f"You are Abhyas Kranti AI Mentor. Answer the request thoroughly and clearly in Marathi language only. User Request: {prompt_text}"
+                    }
+                ]
+            }
+        ]
     }
-
     try:
         response = requests.post(url, headers=headers, json=payload)
         if response.status_code == 200:
