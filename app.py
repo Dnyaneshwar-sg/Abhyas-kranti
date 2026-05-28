@@ -8,22 +8,32 @@ st.set_page_config(page_title="Abhyas Kranti", page_icon="🎓", layout="wide")
 # --- CUSTOM CSS FOR BEAUTIFUL LOOK ---
 st.markdown("""
     <style>
-    .main { background-color: #f0f2f6; }
+    /* संपूर्ण ॲपची पार्श्वभूमी काळी करणे */
+    .stApp {
+        background-color: #111111 !important;
+        color: #FFFFFF !important;
+    }
+    
+    /* मुख्य मथळे पिवळ्या रंगात दिसण्यासाठी */
+    h1, h2, h3 {
+        color: #FFD700 !important;
+    }
+    
+    /* बटनांची स्टाईल (काळा आणि पिवळा लूक) */
     .stButton>button {
-        background-color: #4FFFB0;
-        color: black;
+        background-color: #FFD700 !important;
+        color: black !important;
         font-weight: bold;
         border-radius: 10px;
         border: none;
         padding: 10px 24px;
         transition: 0.3s;
     }
+    
     .stButton>button:hover {
-        background-color: #3ddda0;
-        color: black;
+        background-color: #CCAC00 !important;
+        color: black !important;
     }
-    h1 { color: #1E3A8A; font-family: 'Helvetica Neue', sans-serif; }
-    h3 { color: #0D9488; }
     </style>
 """, unsafe_allow_html=True)
 
