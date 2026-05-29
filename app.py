@@ -425,7 +425,7 @@ if "1." in feature_tab:
     
     if st.button("Initialize Generative Response Inference"):
         if user_query.strip() == "":
-   else:
+ else:
         with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
             try:
                 # Groq API की आणि युआरएल सेट करणे
@@ -461,6 +461,7 @@ if "1." in feature_tab:
                 import json
 
                 response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
+
                 if response.status_code == 200:
                     res_json = response.json()
                     ai_response = res_json["choices"][0]["message"]["content"]
@@ -469,15 +470,21 @@ if "1." in feature_tab:
                     st.success("उत्तर तयार आहे:")
                     st.write(ai_response)
                     
-                    # सुपाबेसमध्ये डेटा सेव्ह करण्याचा तुमचा कोड इथून पुढे सुरू होईल:
-                    # (नमुना अलाईनमेंट - तुमच्या कोडनुसार ओळी व्यवस्थित ४ स्पेसेस पुढे ठेवा)
+                    # सुपाबेसमध्ये डेटा सेव्ह करणे
                     try:
                         data = {
                             "query": user_query,
                             "response": ai_response
                         }
                         supabase.table("search_history").insert(data).execute()
-                    except Exception as e:
+                    except Exception as db_err:
+                        st.warning(f"डेटाबेस सेव्हिंग एरर: {db_err}")
+                        
+                else:
+                    st.error(f"Groq API एरर आला आहे: {response.status_code}")
+
+            except Exception as e:
+                st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
                         st.warning(f"डेटाबेस सेव्हिंग एरर: {e}")
                         
                 else:
