@@ -4,18 +4,6 @@ from groq import Groq
 
 # 1. ॲपची प्राथमिक मांडणी (Page Configuration)
 st.set_page_config(page_title="अभ्यास क्रांती AI", page_icon="📚", layout="centered")
-
-# --- साईडबार (Sidebar) मधील फीचर्स ---
-st.sidebar.title("⚙️ नियंत्रण पॅनेल")
-# चॅट हिस्ट्री रिसेट करण्यासाठी बटण
-if st.sidebar.button("🧹 चॅट इतिहास पुसा (Clear Chat)"):
-    st.session_state.chat_history = []
-    st.rerun()
-
-st.sidebar.markdown("---")
-st.sidebar.info("💡 **अभ्यास क्रांती AI** - विद्यार्थ्यांच्या शंकांचे सोपे आणि अचूक निरसन करण्यासाठी तयार केलेले खास ॲप.")
-
-# मुख्य स्क्रीनची शीर्षके
 st.title("📚 अभ्यास क्रांती AI")
 st.subheader("विद्यार्थ्यांच्या शंकांचे सोपे निरसन!")
 
@@ -51,7 +39,7 @@ if query := st.chat_input("तुमचा शैक्षणिक प्रश
     # 6. Groq AI कडून उत्तर मिळवणे
     try:
         completion = groq_client.chat.completions.create(
-            model="llama3-8b-8192",  # तुमचा मॉडेल आयडी
+            model="llama3-8b-8192",  # तुमचा आवडता मॉडेल आयडी
             messages=[
                 {"role": "system", "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ मार्गदर्शक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे मराठीत, सोप्या आणि शुद्ध भाषेत द्या."},
                 *st.session_state.chat_history,
@@ -70,16 +58,16 @@ if query := st.chat_input("तुमचा शैक्षणिक प्रश
     st.session_state.chat_history.append({"role": "user", "content": query})
     st.session_state.chat_history.append({"role": "assistant", "content": ai_response})
 
-    # 8. सुपाबेस डेटाबेसमध्ये सुरक्षित बॅकअप नोंदवणे (Safe Database Block)
+    # 8. सुपाबेस डेटाबेसमध्ये सुरक्षित बॅकअप नोंदवणे (कोणताही एरर न येणारा सुरक्षित ब्लॉक)
     try:
         data = {
             "query": query,
             "response": ai_response
         }
-        # सुपाबेसमध्ये डेटा सुरक्षित सेव्ह करणे
+        # तुमच्या सुपाबेस टेबलचे नाव 'search_history' किंवा 'doubt_logs' जे असेल ते इथे वापरा
         supabase.table("search_history").insert(data).execute()
     except Exception as db_err:
-        # डेटाबेसमध्ये टेबल किंवा कॉलम जुळला नाही तरी ॲप क्रॅश होणार नाही
+        # डेटाबेसमध्ये काही चूक झाली तरी ॲप क्रॅश होणार नाही, फक्त खाली एक छोटी टीप दिसेल
         st.caption("ℹ️ डेटाबेस बॅकअप नोंदवला गेला नाही, पण ॲप कार्यरत आहे.")
 
     # स्क्रीन रिफ्रेश करणे
