@@ -432,27 +432,47 @@ if "1." in feature_tab:
     st.markdown("### 🧠 AI Powered Doubt Solver Hub")
     st.info("Simulated Environment Engine running real-time context maps.")
     
-    # युझर कडून प्रश्न घेणे
-    user_query = st.text_input("Enter a complex question (e.g., 'Explain Photosynthesis'):", key="doubt_query")
+    user_query = st.text_input("Enter a complex question (e.g., 'Explain Photosynthesis'):", key="doubt_solver_input")
     
     if st.button("Initialize Generative Response Inference"):
-        if user_query:
-            with st.spinner("जेमिनी एआय उत्तर तयार करत आहे..."):
+        if user_query.strip() == "":
+            st.warning("कृपया आधी तुमचा प्रश्न टाईप करा!")
+        else:
+            with st.spinner("जेमिनी कडून उत्तर आणत आहे..."):
                 try:
-                    # क) जेमिनी API कडून खरोखरचे उत्तर मिळवणे
+                    # १. खऱ्या जेमिनी API कडून उत्तर जनरेट करणे
+                    # सुरक्षिततेसाठी की पुन्हा एकदा इथे स्पष्टपणे कॉन्फिगर करत आहोत
+                    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
+                    model = genai.GenerativeModel('gemini-1.5-flash')
+                    
                     response = model.generate_content(user_query)
-                    ai_response_text = response.text
+                    ai_output = response.text  # जेमिनीने दिलेले खरे उत्तर
                     
                     # स्क्रीनवर उत्तर दाखवणे
-                    st.success(f"**AI Response Ecosystem for query '{user_query}':**")
-                    st.write(ai_response_text)
+                    st.success(ai_output)
                     
-                    # ख) सुपाबेसमध्ये पाठवण्यासाठी डेटा तयार करणे
-                    row_data = {
-                        "student_id": "STU_RURAL_01",  # विद्यार्थ्याचा डमी आयडी
-                        "query_text": user_query,      # युझरचा प्रश्न
-                        "ai_response": ai_response_text, # जेमिनीचे उत्तर
-                        "status": "completed"
+                    # २. सुपाबेसमध्ये डेटा सुरक्षितपणे सेव्ह करणे
+                    try:
+                        url = st.secrets["SUPABASE_URL"]
+                        key = st.secrets["SUPABASE_KEY"]
+                        supabase_client = create_client(url, key)
+                        
+                        doubt_data = {
+                            "student_id": "STU_RURAL_01",
+                            "query_text": user_query,
+                            "ai_response": ai_output,
+                            "status": "completed"
+                        }
+                        
+                        # सुपाबेसच्या doubt_logs टेबलमध्ये डेटा इन्सर्ट करणे
+                        supabase_client.table("doubt_logs").insert(doubt_data).execute()
+                        st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
+                        
+                    except Exception as e_supabase:
+                        st.error(f"सुपाबेस डेटाबेस एरर: {e_supabase}")
+                        
+                except Exception as e_gemini:
+                    st.error(f"जेमिनी API एरर: {e_gemini}")
                     }
                     
                     # ग) सुपाबेस टेबलमध्ये डेटा इन्सर्ट करणे
