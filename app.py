@@ -1,4 +1,11 @@
 import streamlit as st
+from supabase import create_client, Client
+import streamlit as st
+
+# सुपाबेस कनेक्शन तयार करणे (Secrets मधून कीज वाचून)
+url = st.secrets["SUPABASE_URL"]
+key = st.secrets["SUPABASE_KEY"]
+supabase: Client = create_client(url, key)
 import pandas as pd
 
 # ==========================================
