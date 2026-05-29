@@ -9,7 +9,7 @@ SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
 # २. जेमिनी आणि सुपाबेस क्लायंट कॉन्फिगर करणे
 genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-pro')
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 from supabase import create_client, Client
 import streamlit as st
