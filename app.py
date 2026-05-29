@@ -485,8 +485,6 @@ else:
 
             except Exception as e:
                 st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
-                else:
-                    st.error(f"Groq API एरर आला आहे: {response.status_code}")
 
             except Exception as e:
                 st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
