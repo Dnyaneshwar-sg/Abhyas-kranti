@@ -1,4 +1,16 @@
 import streamlit as st
+import google.generativeai as genai
+from supabase import create_client, Client
+
+# १. Secrets मधून चाव्या (Keys) लोड करणे
+GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+SUPABASE_URL = st.secrets["SUPABASE_URL"]
+SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+
+# २. जेमिनी आणि सुपाबेस क्लायंट कॉन्फिगर करणे
+genai.configure(api_key=GEMINI_API_KEY)
+model = genai.GenerativeModel('gemini-1.5-flash')
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 from supabase import create_client, Client
 import streamlit as st
 
@@ -417,38 +429,41 @@ feature_tab = st.selectbox(
 
 st.write("")
 if "1." in feature_tab:
-        st.markdown("### 🧠 AI Powered Doubt Solver Hub")
-        st.info("Simulated Environment Engine running real-time context maps.")
-        user_query = st.text_input("Enter a complex question (e.g., 'Explain Photosynthesis'):")
-        
-        if st.button("Initialize Generative Response Inference"):
-            # १. आधी एआयचे उत्तर एका व्हेरिएबलमध्ये साठवून स्क्रीनवर दाखवूया
-            ai_output = f"AI Response Ecosystem for query '{user_query}': This system processes the requested concept step-by-step using local vernacular examples and simplistic physical real-world analogs tailored to maximize retention profiles without heavy jargon."
-            st.success(ai_output)
-            
-            # २. आता हा डेटा सुपाबेसमध्ये पाठवूया (योग्य ८-स्पेस इंडेंटेशनसह)
-            try:
-                from supabase import create_client, Client
-                
-                # सिक्रेट्समधून कीज लोड करणे
-                url = st.secrets["SUPABASE_URL"]
-                key = st.secrets["SUPABASE_KEY"]
-                supabase: Client = create_client(url, key)
-                
-                # डेटाबेस टेबल फॉरमॅटनुसार डेटा मॅप करणे
-                doubt_data = {
-                    "student_id": "STU_RURAL_01",
-                    "query_text": user_query,       # युझरने टाईप केलेला प्रश्न
-                    "ai_response": ai_output,       # वर जनरेट झालेले उत्तर
-                    "status": "completed"
-                }
-                
-                # सुपाबेसमध्ये डेटा इन्सर्ट करणे
-                supabase.table("doubt_logs").insert(doubt_data).execute()
-                st.toast("डेटा सुपाबेसमध्ये यशस्वीरित्या सेव्ह झाला! 📊", icon="✅")
-                
-            except Exception as e:
-                st.error(f"डेटाबेस कनेक्टिव्हिटी एरर: {e}")
+    st.markdown("### 🧠 AI Powered Doubt Solver Hub")
+    st.info("Simulated Environment Engine running real-time context maps.")
+    
+    # युझर कडून प्रश्न घेणे
+    user_query = st.text_input("Enter a complex question (e.g., 'Explain Photosynthesis'):", key="doubt_query")
+    
+    if st.button("Initialize Generative Response Inference"):
+        if user_query:
+            with st.spinner("जेमिनी एआय उत्तर तयार करत आहे..."):
+                try:
+                    # क) जेमिनी API कडून खरोखरचे उत्तर मिळवणे
+                    response = model.generate_content(user_query)
+                    ai_response_text = response.text
+                    
+                    # स्क्रीनवर उत्तर दाखवणे
+                    st.success(f"**AI Response Ecosystem for query '{user_query}':**")
+                    st.write(ai_response_text)
+                    
+                    # ख) सुपाबेसमध्ये पाठवण्यासाठी डेटा तयार करणे
+                    row_data = {
+                        "student_id": "STU_RURAL_01",  # विद्यार्थ्याचा डमी आयडी
+                        "query_text": user_query,      # युझरचा प्रश्न
+                        "ai_response": ai_response_text, # जेमिनीचे उत्तर
+                        "status": "completed"
+                    }
+                    
+                    # ग) सुपाबेस टेबलमध्ये डेटा इन्सर्ट करणे
+                    supabase.table("doubt_logs").insert(row_data).execute()
+                    st.toast("डेटा सुपाबेस बॅकएंडमध्ये यशस्वीरित्या सेव्ह झाला! 🚀", icon="✅")
+                    
+                except Exception as e:
+                    st.error(f"त्रुटी (Error) आली: {e}")
+        else:
+            st.warning("कृपया सर्च करण्यापूर्वी तुमचा प्रश्न टाईप करा.")
+       
 elif "2." in feature_tab:
     st.markdown("### 📅 Personalized Localized Study Planner")
     exam_target = st.text_input("Target Examination Track:", "MPSC Civil Services 2026")
