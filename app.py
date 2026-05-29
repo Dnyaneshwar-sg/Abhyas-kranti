@@ -428,8 +428,8 @@ if "1." in feature_tab:
             st.warning("कृपया आधी तुमचा प्रश्न टाईप करा!")
         else:
             with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
-              try:
-                # १. Groq API ला थेट वेब कॉल (requests) द्वारे जोडणे
+             try:
+                # Groq API की आणि युआरएल सेट करणे
                 groq_api_key = st.secrets["GROQ_API_KEY"]
                 groq_url = "https://api.groq.com/openai/v1/chat/completions"
 
@@ -438,6 +438,7 @@ if "1." in feature_tab:
                     "Content-Type": "application/json"
                 }
 
+                # AI ला लूपमध्ये जाण्यापासून रोखण्यासाठी सिस्टीम प्रॉम्ट
                 messages = [
                     {
                         "role": "system", 
@@ -455,11 +456,12 @@ if "1." in feature_tab:
                     "temperature": 0.3,
                     "max_tokens": 800
                 }
-                    # Groq कडून रिस्पॉन्स मिळवणे
-                    import requests
-                    import json
-                    
-                    response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
+
+                # Groq कडून रिस्पॉन्स मिळवणे
+                import requests
+                import json
+
+                response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
                     
                     if response.status_code == 200:
                         result = response.json()
