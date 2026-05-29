@@ -464,13 +464,13 @@ if "1." in feature_tab:
                 response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
 
                 if response.status_code == 200:
-                        result = response.json()
-                        ai_output = result['choices'][0]['message']['content']
+                    result = response.json()
+                    ai_output = result['choices'][0]['message']['content']
                         
-                        # स्क्रीनवर उत्तर दाखवणे
-                        st.success(ai_output)
+                    # स्क्रीनवर उत्तर दाखवणे
+                    st.success(ai_output)
                         
-                        # २. सुपाबेस डेटाबेसमध्ये एंट्री सेव्ह करणे
+                     # २. सुपाबेस डेटाबेसमध्ये एंट्री सेव्ह करणे
                         try:
                             url = st.secrets["SUPABASE_URL"]
                             key = st.secrets["SUPABASE_KEY"]
