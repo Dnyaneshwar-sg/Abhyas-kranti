@@ -425,7 +425,7 @@ if "1." in feature_tab:
     
     if st.button("Initialize Generative Response Inference"):
         if user_query.strip() == "":
- else:
+else:
         with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
             try:
                 # Groq API की आणि युआरएल सेट करणे
@@ -480,6 +480,11 @@ if "1." in feature_tab:
                     except Exception as db_err:
                         st.warning(f"डेटाबेस सेव्हिंग एरर: {db_err}")
                         
+                else:
+                    st.error(f"Groq API एरर आला आहे: {response.status_code}")
+
+            except Exception as e:
+                st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
                 else:
                     st.error(f"Groq API एरर आला आहे: {response.status_code}")
 
