@@ -1,5 +1,8 @@
 import streamlit as st
 from supabase import create_client, Client
+import pandas as pd
+import requests
+import json
 
 # १. Secrets मधून सुपाबेसच्या चाव्या (Keys) लोड करणे
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
@@ -7,7 +10,6 @@ SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
 # २. सुपाबेस क्लायंट कॉन्फिगर करणे
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-import pandas as pd
 
 # ==========================================
 # CONSTANTS & CONFIGURATION
@@ -425,103 +427,68 @@ if "1." in feature_tab:
     
     if st.button("Initialize Generative Response Inference"):
         if user_query.strip() == "":
-else:
-        with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
-            try:
-                # Groq API की आणि युआरएल सेट करणे
-                groq_api_key = st.secrets["GROQ_API_KEY"]
-                groq_url = "https://api.groq.com/openai/v1/chat/completions"
+            st.warning("कृपया तुमचा प्रश्न टाईप करा!")
+        else:
+            with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
+                try:
+                    # Groq API की आणि युआरएल सेट करणे
+                    groq_api_key = st.secrets["GROQ_API_KEY"]
+                    groq_url = "https://api.groq.com/openai/v1/chat/completions"
 
-                headers = {
-                    "Authorization": f"Bearer {groq_api_key}",
-                    "Content-Type": "application/json"
-                }
-
-                # सिस्टीम प्रॉम्ट - उत्तरे अचूक मिळवण्यासाठी
-                messages = [
-                    {
-                        "role": "system", 
-                        "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ आणि मार्गदर्शक शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. कोणत्याही शब्दाची किंवा वाक्याची वारंवार पुनरावृत्ती करू नका. उत्तर संक्षिप्त, सुंदर आणि स्पष्ट ठेवा."
-                    },
-                    {
-                        "role": "user", 
-                        "content": user_query
+                    headers = {
+                        "Authorization": f"Bearer {groq_api_key}",
+                        "Content-Type": "application/json"
                     }
-                ]
 
-                payload = {
-                    "model": "llama-3.3-70b-versatile",
-                    "messages": messages,
-                    "temperature": 0.3,
-                    "max_tokens": 800
-                }
-
-                # Groq कडून रिस्पॉन्स मिळवणे
-                import requests
-                import json
-
-                response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
-
-                if response.status_code == 200:
-                    res_json = response.json()
-                    ai_response = res_json["choices"][0]["message"]["content"]
-                    
-                    # उत्तर स्क्रीनवर दाखवणे
-                    st.success("उत्तर तयार आहे:")
-                    st.write(ai_response)
-                    
-                    # सुपाबेसमध्ये डेटा सेव्ह करणे
-                    try:
-                        data = {
-                            "query": user_query,
-                            "response": ai_response
+                    # सिस्टीम प्रॉम्ट - उत्तरे अचूक मिळवण्यासाठी
+                    messages = [
+                        {
+                            "role": "system", 
+                            "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ आणि मार्गदर्शक शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. कोणत्याही शब्दाची किंवा वाक्याची वारंवार पुनरावृत्ती करू नका. उत्तर संक्षिप्त, सुंदर आणि स्पष्ट ठेवा."
+                        },
+                        {
+                            "role": "user", 
+                            "content": user_query
                         }
-                        supabase.table("search_history").insert(data).execute()
-                    except Exception as db_err:
-                        st.warning(f"डेटाबेस सेव्हिंग एरर: {db_err}")
-                        
-                else:
-                    st.error(f"Groq API एरर आला आहे: {response.status_code}")
+                    ]
 
-            except Exception as e:
-                st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
+                    payload = {
+                        "model": "llama-3.3-70b-versatile",
+                        "messages": messages,
+                        "temperature": 0.3,
+                        "max_tokens": 800
+                    }
 
-            except Exception as e:
-                st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
-                        st.warning(f"डेटाबेस सेव्हिंग एरर: {e}")
-                        
-                else:
-                    st.error(f"Groq API एरर: {response.status_code}")
+                    # Groq कडून रिस्पॉन्स मिळवणे
+                    response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
 
-            except Exception as e:
-                st.error(f"काहीतरी त्रुटी आली: {e}")
+                    if response.status_code == 200:
+                        res_json = response.json()
+                        ai_response = res_json["choices"][0]["message"]["content"]
                         
-                    # स्क्रीनवर उत्तर दाखवणे
-                    st.success(ai_output)
+                        # उत्तर स्क्रीनवर दाखवणे
+                        st.success("उत्तर तयार आहे:")
+                        st.write(ai_response)
                         
-                     # २. सुपाबेस डेटाबेसमध्ये एंट्री सेव्ह करणे
+                        # सुपाबेसमध्ये डेटा सेव्ह करणे
                         try:
-                            url = st.secrets["SUPABASE_URL"]
-                            key = st.secrets["SUPABASE_KEY"]
-                            supabase_client = create_client(url, key)
-                            
-                            doubt_data = {
-                                "student_id": "STU_RURAL_01",
-                                "query_text": user_query,
-                                "ai_response": ai_output,
-                                "status": "completed"
+                            data = {
+                                "query": user_query,
+                                "response": ai_response
                             }
-                            
-                            supabase_client.table("doubt_logs").insert(doubt_data).execute()
+                            supabase.table("search_history").insert(data).execute()
                             st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
+                        except Exception as db_err:
+                            st.warning(f"डेटाबेस सेव्हिंग एरर: {db_err}")
                             
-                        except Exception as e_supabase:
-                            st.error(f"सुपाबेस डेटाबेस एरर: {e_supabase}")
                     else:
-                        st.error(f"Groq API एरर (कोड {response.status_code}): {response.text}")
-                        
-                except Exception as e_groq:
-                    st.error(f"सिस्टम एरर: {e_groq}")
+                        st.error(f"Groq API एरर आला आहे: {response.status_code}")
+
+                except Exception as e:
+                    st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
+
+elif "2." in feature_tab:
+    st.markdown("### 📅 Personalized Study Planner")
     exam_target = st.text_input("Target Examination Track:", "MPSC Civil Services 2026")
     available_hours = st.slider("Daily Available Study Windows (Hours):", 1, 8, 4)
     if st.button("Generate Optimized Study Blueprint"):
@@ -642,7 +609,7 @@ st.markdown("""
 st.markdown("""
     <div class="footer-container">
         <p style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin-bottom: 5px;">
-            Developed by  (Dnyaneshwar Gawalikar)
+            Developed by (Dnyaneshwar Gawalikar)
         </p>
         <p style="color: #FFD700; font-weight: 600; margin-bottom: 20px; font-size: 0.95rem; letter-spacing: 0.5px;">
             Professor & Head of Department
