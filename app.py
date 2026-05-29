@@ -428,45 +428,33 @@ if "1." in feature_tab:
             st.warning("कृपया आधी तुमचा प्रश्न टाईप करा!")
         else:
             with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
-                try:
-                    # १. Groq API ला थेट वेब कॉल (requests) द्वारे जोडणे (कोणत्याही लायब्ररीशिवाय)
-                    groq_api_key = st.secrets["GROQ_API_KEY"]
-                    groq_url = "https://api.groq.com/openai/v1/chat/completions"
-                    
-                    headers = {
-                        "Authorization": f"Bearer {groq_api_key}",
-                        "Content-Type": "application/json"
-                    }
-                    
-                 messages = [
-    {
-        "role": "system", 
-        "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ आणि मार्गदर्शक शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. कोणत्याही शब्दाची किंवा वाक्याची वारंवार पुनरावृत्ती करू नका. उत्तर संक्षिप्त, सुंदर आणि स्पष्ट ठेवा."
-    },
-    {
-        "role": "user", 
-        "content": user_query
-    }
-]
+              try:
+                # १. Groq API ला थेट वेब कॉल (requests) द्वारे जोडणे
+                groq_api_key = st.secrets["GROQ_API_KEY"]
+                groq_url = "https://api.groq.com/openai/v1/chat/completions"
 
-messages = [
-                        {
-                            "role": "system", 
-                            "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ आणि मार्गदर्शक शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. कोणत्याही शब्दाची किंवा वाक्याची वारंवार推रवृत्ती करू नका. उत्तर संक्षिप्त, सुंदर आणि स्पष्ट ठेवा."
-                        },
-                        {
-                            "role": "user", 
-                            "content": user_query
-                        }
-                    ]
+                headers = {
+                    "Authorization": f"Bearer {groq_api_key}",
+                    "Content-Type": "application/json"
+                }
 
-                    payload = {
-                        "model": "llama-3.3-70b-versatile",
-                        "messages": messages,
-                        "temperature": 0.3,
-                        "max_tokens": 800
+                messages = [
+                    {
+                        "role": "system", 
+                        "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ आणि मार्गदर्शक शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. कोणत्याही शब्दाची किंवा वाक्याची वारंवार पुनरावृत्ती करू नका. उत्तर संक्षिप्त, सुंदर आणि स्पष्ट ठेवा."
+                    },
+                    {
+                        "role": "user", 
+                        "content": user_query
                     }
-                    
+                ]
+
+                payload = {
+                    "model": "llama-3.3-70b-versatile",
+                    "messages": messages,
+                    "temperature": 0.3,
+                    "max_tokens": 800
+                }
                     # Groq कडून रिस्पॉन्स मिळवणे
                     import requests
                     import json
