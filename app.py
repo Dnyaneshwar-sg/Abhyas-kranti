@@ -426,10 +426,10 @@ if "1." in feature_tab:
     if st.button("Initialize Generative Response Inference"):
         if user_query.strip() == "":
             st.warning("कृपया आधी तुमचा प्रश्न टाईप करा!")
-      else:
+     else:
         with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
             try:
-                # १. Groq API ला थेट वेब कॉल (requests) द्वारे जोडणे
+                # Groq API की आणि युआरएल सेट करणे
                 groq_api_key = st.secrets["GROQ_API_KEY"]
                 groq_url = "https://api.groq.com/openai/v1/chat/completions"
 
@@ -438,7 +438,7 @@ if "1." in feature_tab:
                     "Content-Type": "application/json"
                 }
 
-                # AI ला लूपमध्ये जाण्यापासून रोखण्यासाठी सिस्टीम प्रॉम्ट
+                # सिस्टीम प्रॉम्ट - उत्तरे अचूक आणि बुलेट पॉईंट्समध्ये मिळवण्यासाठी
                 messages = [
                     {
                         "role": "system", 
@@ -462,19 +462,8 @@ if "1." in feature_tab:
                 import json
 
                 response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
-                "model": "llama-3.3-70b-versatile",
-                "messages": messages,
-                "temperature": 0.3,
-                "max_tokens": 800
-            }
 
-            # Groq कडून रिस्पॉन्स मिळवणे
-            import requests
-            import json
-
-            response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
-
-            if response.status_code == 200:
+                if response.status_code == 200:
                         result = response.json()
                         ai_output = result['choices'][0]['message']['content']
                         
