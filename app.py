@@ -1,23 +1,12 @@
 import streamlit as st
-import google.generativeai as genai
 from supabase import create_client, Client
 
-# १. Secrets मधून चाव्या (Keys) लोड करणे
-GEMINI_API_KEY = st.secrets["GEMINI_API_KEY"]
+# १. Secrets मधून सुपाबेसच्या चाव्या (Keys) लोड करणे
 SUPABASE_URL = st.secrets["SUPABASE_URL"]
 SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
 
-# २. जेमिनी आणि सुपाबेस क्लायंट कॉन्फिगर करणे
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+# २. सुपाबेस क्लायंट कॉन्फिगर करणे
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-from supabase import create_client, Client
-import streamlit as st
-
-# सुपाबेस कनेक्शन तयार करणे (Secrets मधून कीज वाचून)
-url = st.secrets["SUPABASE_URL"]
-key = st.secrets["SUPABASE_KEY"]
-supabase: Client = create_client(url, key)
 import pandas as pd
 
 # ==========================================
