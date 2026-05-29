@@ -473,17 +473,6 @@ if "1." in feature_tab:
                         
                 except Exception as e_gemini:
                     st.error(f"जेमिनी API एरर: {e_gemini}")
-                    }
-                    
-                    # ग) सुपाबेस टेबलमध्ये डेटा इन्सर्ट करणे
-                    supabase.table("doubt_logs").insert(row_data).execute()
-                    st.toast("डेटा सुपाबेस बॅकएंडमध्ये यशस्वीरित्या सेव्ह झाला! 🚀", icon="✅")
-                    
-                except Exception as e:
-                    st.error(f"त्रुटी (Error) आली: {e}")
-        else:
-            st.warning("कृपया सर्च करण्यापूर्वी तुमचा प्रश्न टाईप करा.")
-       
 elif "2." in feature_tab:
     st.markdown("### 📅 Personalized Localized Study Planner")
     exam_target = st.text_input("Target Examination Track:", "MPSC Civil Services 2026")
