@@ -429,7 +429,7 @@ feature_tab = st.selectbox(
 
 st.write("")
 if "1." in feature_tab:
-    st.markdown("### 🧠 AI Powered Doubt Solver Hub")
+    st.markdown("### 🧠 AI Powered Doubt Solver Hub (Powered by Groq)")
     st.info("Simulated Environment Engine running real-time context maps.")
     
     user_query = st.text_input("Enter a complex question (e.g., 'Explain Photosynthesis'):", key="doubt_solver_input")
@@ -438,43 +438,58 @@ if "1." in feature_tab:
         if user_query.strip() == "":
             st.warning("कृपया आधी तुमचा प्रश्न टाईप करा!")
         else:
-            with st.spinner("जेमिनी कडून उत्तर आणत आहे..."):
+            with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
                 try:
-                    # १. खऱ्या जेमिनी API कडून उत्तर जनरेट करणे
-                    # सुरक्षिततेसाठी की पुन्हा एकदा इथे स्पष्टपणे कॉन्फिगर करत आहोत
-                    genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-                    model = genai.GenerativeModel('gemini-1.5-flash')
+                    # १. Groq API ला थेट वेब कॉल (requests) द्वारे जोडणे (कोणत्याही लायब्ररीशिवाय)
+                    groq_api_key = st.secrets["GROQ_API_KEY"]
+                    groq_url = "https://api.groq.com/openai/v1/chat/completions"
                     
-                    response = model.generate_content(user_query)
-                    ai_output = response.text  # जेमिनीने दिलेले खरे उत्तर
+                    headers = {
+                        "Authorization": f"Bearer {groq_api_key}",
+                        "Content-Type": "application/json"
+                    }
                     
-                    # स्क्रीनवर उत्तर दाखवणे
-                    st.success(ai_output)
+                    payload = {
+                        "model": "llama-3.3-70b-versatile",  # Groq चे सर्वोत्तम आणि मोफत मॉडेल
+                        "messages": [{"role": "user", "content": user_query}]
+                    }
                     
-                    # २. सुपाबेसमध्ये डेटा सुरक्षितपणे सेव्ह करणे
-                    try:
-                        url = st.secrets["SUPABASE_URL"]
-                        key = st.secrets["SUPABASE_KEY"]
-                        supabase_client = create_client(url, key)
+                    # Groq कडून रिस्पॉन्स मिळवणे
+                    import requests
+                    import json
+                    
+                    response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
+                    
+                    if response.status_code == 200:
+                        result = response.json()
+                        ai_output = result['choices'][0]['message']['content']
                         
-                        doubt_data = {
-                            "student_id": "STU_RURAL_01",
-                            "query_text": user_query,
-                            "ai_response": ai_output,
-                            "status": "completed"
-                        }
+                        # स्क्रीनवर उत्तर दाखवणे
+                        st.success(ai_output)
                         
-                        # सुपाबेसच्या doubt_logs टेबलमध्ये डेटा इन्सर्ट करणे
-                        supabase_client.table("doubt_logs").insert(doubt_data).execute()
-                        st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
+                        # २. सुपाबेस डेटाबेसमध्ये एंट्री सेव्ह करणे
+                        try:
+                            url = st.secrets["SUPABASE_URL"]
+                            key = st.secrets["SUPABASE_KEY"]
+                            supabase_client = create_client(url, key)
+                            
+                            doubt_data = {
+                                "student_id": "STU_RURAL_01",
+                                "query_text": user_query,
+                                "ai_response": ai_output,
+                                "status": "completed"
+                            }
+                            
+                            supabase_client.table("doubt_logs").insert(doubt_data).execute()
+                            st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
+                            
+                        except Exception as e_supabase:
+                            st.error(f"सुपाबेस डेटाबेस एरर: {e_supabase}")
+                    else:
+                        st.error(f"Groq API एरर (कोड {response.status_code}): {response.text}")
                         
-                    except Exception as e_supabase:
-                        st.error(f"सुपाबेस डेटाबेस एरर: {e_supabase}")
-                        
-                except Exception as e_gemini:
-                    st.error(f"जेमिनी API एरर: {e_gemini}")
-elif "2." in feature_tab:
-    st.markdown("### 📅 Personalized Localized Study Planner")
+                except Exception as e_groq:
+                    st.error(f"सिस्टम एरर: {e_groq}")
     exam_target = st.text_input("Target Examination Track:", "MPSC Civil Services 2026")
     available_hours = st.slider("Daily Available Study Windows (Hours):", 1, 8, 4)
     if st.button("Generate Optimized Study Blueprint"):
