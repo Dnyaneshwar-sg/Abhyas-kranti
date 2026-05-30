@@ -10,7 +10,7 @@ try:
     SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
     supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 except Exception as e:
-    st.error("कृपया Streamlit Secrets मध्ये SUPABASE_URL आणि SUPABASE_KEY सेट करा.")
+    st.error("कृपया Streamlit Secrets मध्ये SUPABASE_URL आणि SUPABASE_KEY SET करा.")
 
 # --- २. पेज कॉन्फिगरेशन ---
 st.set_page_config(
@@ -96,7 +96,7 @@ def fetch_ai_response(prompt_text, system_setting):
             "Content-Type": "application/json"
         }
         payload = {
-            "model": "llama3-8b-8192",
+            "model": "llama-3.3-70b-versatile",  # येथे नवीन आणि प्रगत मॉडेल अपडेट केले आहे
             "messages": [
                 {"role": "system", "content": system_setting},
                 {"role": "user", "content": prompt_text}
@@ -215,7 +215,7 @@ elif app_mode == "⚡ AI प्रगत फीचर्स सँडबॉक�
                     st.success("🎯 AI Mentor कडून आलेले उत्तर:")
                     st.write(ai_response)
                     
-                    # डेटाबेस सेव्ह करताना 'query_text' चा अचूक वापर
+                    # डेटाबेस सेव्ह करताना 'query_text' का अचूक वापर
                     try:
                         supabase.table("search_history").insert({"query_text": user_query, "response": ai_response}).execute()
                         st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
