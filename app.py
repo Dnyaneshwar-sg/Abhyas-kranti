@@ -4,617 +4,292 @@ import pandas as pd
 import requests
 import json
 
-# १. Secrets मधून सुपाबेसच्या चाव्या (Keys) लोड करणे
-SUPABASE_URL = st.secrets["SUPABASE_URL"]
-SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+# --- १. Secrets मधून सुपाबेसच्या चाव्या लोड करणे ---
+try:
+    SUPABASE_URL = st.secrets["SUPABASE_URL"]
+    SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
+    supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+except Exception as e:
+    st.error("कृपया Streamlit Secrets मध्ये SUPABASE_URL आणि SUPABASE_KEY सेट करा.")
 
-# २. सुपाबेस क्लायंट कॉन्फिगर करणे
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-# ==========================================
-# CONSTANTS & CONFIGURATION
-# ==========================================
+# --- २. पेज कॉन्फिगरेशन ---
 st.set_page_config(
     page_title="Abhyas Kranti NEW - IIT Patna Capstone",
     page_icon="🚀",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# Custom Premium CSS for Dark Theme, Glassmorphism, and Gold Accents
+# --- ३. प्रिमियम डार्क आणि गोल्ड थीम CSS (Glassmorphism) ---
 st.markdown("""
     <style>
-    /* Import Premium Font */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
-    
-    * {
-        font-family: 'Inter', sans-serif;
-    }
-
-    /* Main App Background */
+    * { font-family: 'Inter', sans-serif; }
     .stApp {
         background: radial-gradient(circle at 50% 50%, #0f121d 0%, #050608 100%);
         color: #f1f5f9;
     }
-
-    /* Fix for Big Heading and visibility issues */
     .main-title {
         background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800;
-        font-size: 3.8rem;
+        font-size: 3.2rem;
         margin-bottom: 5px;
-        line-height: 1.2;
         display: block;
     }
-
-    /* Global Title Styling Override */
-    h1, h2, h3, h4, h5 {
-        color: #ffffff !important;
-        font-weight: 700 !important;
-    }
-
-    /* Glassmorphism Cards */
+    h1, h2, h3, h4, h5 { color: #ffffff !important; font-weight: 700 !important; }
     .glass-card {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.09);
         border-radius: 16px;
-        padding: 25px;
+        padding: 22px;
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        transition: all 0.3s ease;
         margin-bottom: 20px;
-        height: 100%;
     }
-    
     .glass-card:hover {
-        transform: translateY(-5px);
         border-color: rgba(255, 215, 0, 0.5);
         background: rgba(255, 255, 255, 0.06);
     }
-
-    /* Feature Icon/Badge Style */
-    .accent-icon {
-        color: #FFD700;
-        font-size: 2rem;
-        margin-bottom: 15px;
-    }
-
-    /* Premium Vision Callout Box */
+    .accent-icon { color: #FFD700; font-size: 2rem; margin-bottom: 12px; }
     .vision-box {
         background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 165, 0, 0.03) 100%);
         border-left: 6px solid #FFD700;
         border-radius: 12px;
-        padding: 35px;
+        padding: 25px;
         text-align: center;
-        margin: 40px 0;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        margin: 30px 0;
     }
-
-    .vision-title {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: #FFD700 !important;
-        letter-spacing: 1.5px;
-        margin-bottom: 12px;
-    }
-
-    /* Workflow Architecture Flow */
+    .vision-title { font-size: 1.6rem; font-weight: 800; color: #FFD700 !important; }
     .arch-step {
         background: rgba(255, 255, 255, 0.03);
         border: 1px dashed rgba(255, 215, 0, 0.4);
         border-radius: 12px;
-        padding: 18px;
+        padding: 15px;
         text-align: center;
         font-weight: 600;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-
-    .arch-arrow {
-        text-align: center;
-        font-size: 2rem;
-        color: #FFD700;
-        line-height: 2.2;
-    }
-
-    /* Buttons Styling Customizations */
-    .div-cta-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        margin-top: 25px;
-        margin-bottom: 40px;
-    }
-
-    .cta-button {
-        padding: 12px 28px;
-        border-radius: 30px;
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
-        transition: all 0.3s ease;
-        font-size: 0.95rem;
-    }
-
-    .cta-primary {
-        background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-        color: #050608 !important;
-        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
-    }
-
-    .cta-primary:hover {
-        box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
-        transform: scale(1.05);
-    }
-
-    .cta-secondary {
-        background: rgba(255, 255, 255, 0.03);
-        color: #ffffff !important;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .cta-secondary:hover {
-        background: rgba(255, 255, 255, 0.08);
-        border-color: #FFD700;
-        transform: translateY(-2px);
-    }
-
-    /* CRITICAL FIX: Table Styling for Visibility */
     .stTable table {
         background-color: rgba(255, 255, 255, 0.03) !important;
         color: #ffffff !important;
-        border-collapse: collapse;
-        border-radius: 8px;
-        overflow: hidden;
     }
-    
-    .stTable td {
-        color: #e2e8f0 !important;
-        font-size: 0.95rem !important;
-        padding: 15px !important;
-        background-color: rgba(15, 18, 29, 0.6) !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-    }
-    
-    .stTable th {
-        background-color: rgba(255, 215, 0, 0.15) !important;
-        color: #FFD700 !important;
-        font-weight: 700 !important;
-        padding: 15px !important;
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 0.5px;
-    }
-
-    /* Footer Section */
+    .stTable td { background-color: rgba(15, 18, 29, 0.6) !important; color: #e2e8f0 !important; }
+    .stTable th { background-color: rgba(255, 215, 0, 0.15) !important; color: #FFD700 !important; }
     .footer-container {
         border-top: 1px solid rgba(255, 255, 255, 0.08);
-        padding-top: 35px;
-        margin-top: 70px;
+        padding-top: 25px;
+        margin-top: 50px;
         text-align: center;
         color: #94a3b8;
-        font-size: 0.95rem;
-    }
-
-    .section-spacing {
-        padding-top: 40px;
-    }
-    
-    hr {
-        border-color: rgba(255, 255, 255, 0.08) !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ==========================================
-# 1. HERO SECTION
-# ==========================================
-st.markdown('<span class="main-title">Abhyas Kranti NEW</span>', unsafe_allow_html=True)
-st.markdown('### AI Powered Educational Ecosystem for Rural India')
-st.markdown('<p style="color: #94a3b8; font-size: 1.15rem; margin-top: -10px;">Capstone Project — IIT Patna Generative AI Sprint 2026</p>', unsafe_allow_html=True)
-
-# Modern Interactive CTA Buttons
-st.markdown("""
-    <div class="div-cta-container">
-        <a class="cta-button cta-primary" href="#explore-features">Explore Features</a>
-        <a class="cta-button cta-secondary" href="#architecture-section">View Architecture</a>
-        <a class="cta-button cta-secondary" href="#demo-section">Interactive Demo</a>
-        <a class="cta-button cta-secondary" href="https://github.com" target="_blank">🔗 GitHub Repository</a>
-    </div>
-""", unsafe_allow_html=True)
-
-st.markdown("---")
-
-# ==========================================
-# 2. PROBLEM STATEMENT
-# ==========================================
-st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## 🛑 The Core Problem in Rural Education')
-st.markdown('<p style="color: #cbd5e1; font-size: 1.05rem; margin-bottom: 25px;">Despite technological advancements, rural ecosystems face systemic bottlenecks that restrict student growth:</p>', unsafe_allow_html=True)
-
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.markdown("""
-        <div class="glass-card">
-            <div class="accent-icon">🗂️</div>
-            <h4>Resource Fragmentation</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Lack of centralized educational resources, forcing students to rely on scattered, unverified study materials.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-        <div class="glass-card">
-            <div class="accent-icon">🗣️</div>
-            <h4>Language Barriers</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">High-quality cutting-edge academic context is often locked behind English proficiency, sidelining vernacular students.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-        <div class="glass-card">
-            <div class="accent-icon">💰</div>
-            <h4>Hyper-Inflationary Coaching</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Premium competitive coaching formats are commercially gated and financially unviable for rural households.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-        <div class="glass-card">
-            <div class="accent-icon">🤖</div>
-            <h4>Technological Deficit</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Absence of real-time, personalized AI-driven guidance systems optimized for low-bandwidth zones.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-        <div class="glass-card">
-            <div class="accent-icon">🎓</div>
-            <h4>Information Asymmetry</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">Critical state merit scholarships and corporate financial assistance programs remain completely unnoticed.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-        <div class="glass-card">
-            <div class="accent-icon">🧭</div>
-            <h4>The Guidance Gap</h4>
-            <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">A complete lack of structured data insights to steer students toward modern alternative career trajectories.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-# ==========================================
-# 3. VISION SECTION
-# ==========================================
-st.markdown("""
-    <div class="vision-box">
-        <div class="vision-title">THE CAPSTONE VISION</div>
-        <p style="font-size: 1.6rem; color: #ffffff; margin-top: 10px; font-weight: 600; letter-spacing: 0.5px;">
-            “To democratize quality education using AI.”
-        </p>
-        <p style="color: #94a3b8; font-size: 1rem; max-width: 800px; margin: 15px auto 0 auto; line-height: 1.6;">
-            Bridging the socio-economic and geographical divides by deploying context-aware, low-latency infrastructure built specifically for the needs of upcoming leaders in rural communities.
-        </p>
-    </div>
-""", unsafe_allow_html=True)
-
-# ==========================================
-# 4. OBJECTIVES SECTION
-# ==========================================
-st.markdown('<div id="explore-features"></div>', unsafe_allow_html=True)
-st.markdown('## 🎯 Core Project Objectives')
-st.write("")
-obj_col1, obj_col2, obj_col3, obj_col4, obj_col5 = st.columns(5)
-
-with obj_col1:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🧠</div><h5>AI Mentor</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">24/7 on-demand localized tutoring</p></div>', unsafe_allow_html=True)
-with obj_col2:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">📅</div><h5>Smart Planner</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Hyper-tailored dynamic timetables</p></div>', unsafe_allow_html=True)
-with obj_col3:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🛡️</div><h5>Scholarship</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Predictive financial discovery</p></div>', unsafe_allow_html=True)
-with obj_col4:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🛣️</div><h5>Career Guide</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Mapping alternate modern paths</p></div>', unsafe_allow_html=True)
-with obj_col5:
-    st.markdown('<div class="glass-card" style="text-align: center; padding: 20px;"><div class="accent-icon">🌐</div><h5>Multi-Lingual</h5><p style="font-size:0.88rem; color:#cbd5e1; margin-top:10px;">Deep local vernacular adaptations</p></div>', unsafe_allow_html=True)
-
-st.markdown("---")
-
-# ==========================================
-# 5. SOLUTION ARCHITECTURE
-# ==========================================
-st.markdown('<div id="architecture-section" class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## 🏗️ End-to-End Solution Architecture')
-st.markdown('<p style="color: #cbd5e1; margin-bottom: 25px;">The system utilizes a modern decoupled workflow that safely handles inputs, processing pipelines, and personalized generation tracking:</p>', unsafe_allow_html=True)
-
-a_col1, a_arr1, a_col2, a_arr2, a_col3, a_arr3, a_col4 = st.columns([2, 0.4, 2, 0.4, 2, 0.4, 2])
-
-with a_col1:
-    st.markdown('<div class="arch-step">🧑‍🎓 Rural Student<br><span style="font-size:0.8rem; color:#94a3b8; font-weight:400; display:block; margin-top:5px;">Web Interface Inputs</span></div>', unsafe_allow_html=True)
-with a_arr1:
-    st.markdown('<div class="arch-arrow">→</div>', unsafe_allow_html=True)
-with a_col2:
-    st.markdown('<div class="arch-step" style="border-color:#FFD700; background: rgba(255,215,0,0.02);">⚙️ GenAI Orchestrator<br><span style="font-size:0.8rem; color:#FFD700; font-weight:400; display:block; margin-top:5px;">LLM Frameworks</span></div>', unsafe_allow_html=True)
-with a_arr2:
-    st.markdown('<div class="arch-arrow">→</div>', unsafe_allow_html=True)
-with a_col3:
-    st.markdown('<div class="arch-step">📊 Personalized Core<br><span style="font-size:0.8rem; color:#94a3b8; font-weight:400; display:block; margin-top:5px;">Context Tuning Matrices</span></div>', unsafe_allow_html=True)
-with a_arr3:
-    st.markdown('<div class="arch-arrow">→</div>', unsafe_allow_html=True)
-with a_col4:
-    st.markdown('<div class="arch-step" style="background:rgba(255,215,0,0.05); border-style: solid;">🏆 Continuous Success<br><span style="font-size:0.8rem; color:#FFD700; font-weight:400; display:block; margin-top:5px;">Exams / Scholarships</span></div>', unsafe_allow_html=True)
-
-# ==========================================
-# 6. TECHNOLOGY STACK
-# ==========================================
-st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## 💻 Standardized Enterprise Tech Stack')
-st.write("")
-
-tech_col1, tech_col2, tech_col3, tech_col4 = st.columns(4)
-
-with tech_col1:
-    st.markdown('🗣️ **Frontend UI Framework**')
-    st.markdown('* Streamlit (Rapid App Prototyping)\n* Advanced Custom CSS / Glassmorphism')
-    st.markdown('🐍 **Core Logic Programming**')
-    st.markdown('* Python 3.11+\n* Async Operations Pipelines')
-
-with tech_col2:
-    st.markdown('🧠 **Core AI Orchestration**')
-    st.markdown('* Google Gemini API Framework\n* Custom Prompt Injection Layers')
-    st.markdown('📦 **Data Storage Tier**')
-    st.markdown('* SQLite (Rapid Edge Caching Data Model)')
-
-with tech_col3:
-    st.markdown('☁️ **Cloud Database Layer**')
-    st.markdown('* Supabase Security Matrix Integration')
-    st.markdown('💳 **Gateway Adaptations**')
-    st.markdown('* Razorpay Webhooks (Micro-grants access)')
-
-with tech_col4:
-    st.markdown('🚀 **Deployment Vectors**')
-    st.markdown('* GitHub Enterprise Repositories\n* Vercel Cloud Native Edge Functions')
-
-st.markdown("---")
-
-# ==========================================
-# 7. CAPSTONE TIMELINE
-# ==========================================
-st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## 📅 Capstone Execution Timeline')
-st.write("")
-
-timeline_data = {
-    "Phase / Week": ["Week 1", "Week 2", "Week 3", "Week 4"],
-    "Milestone Core Subject Focus": ["Ideation & Planning", "MVP Development", "AI Integration", "Final Deployment"],
-    "Technical Key Deliverables": [
-        "Architecture formulation, requirements engineering, validation criteria baseline mapping.",
-        "Database provisioning via Supabase, basic web engine application components generation.",
-        "Gemini LLM pipeline API tuning, dynamic context vector injections validation testing.",
-        "UI fine tuning, platform resilience testing, staging checks, production launch on Streamlit cloud."
-    ],
-    "Status": ["✅ Completed", "✅ Completed", "✅ Completed", "⚡ Ready for Evaluation"]
-}
-timeline_df = pd.DataFrame(timeline_data)
-st.table(timeline_df)
-
-# ==========================================
-# 8. LIVE FUNCTIONAL FEATURES (INTERACTIVE DEMO)
-# ==========================================
-st.markdown('<div id="demo-section" class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## ⚡ Live Mock Capstone Feature Sandbox')
-st.markdown('<p style="color: #cbd5e1; margin-bottom: 20px;">Select an AI sub-engine option to evaluate systemic mock data processing configurations:</p>', unsafe_allow_html=True)
-
-feature_tab = st.selectbox(
-    "Choose Platform Action Layer:",
-    [
-        "1. AI Powered Doubt Solving",
-        "2. Personalized Study Planner",
-        "3. Scholarship Recommendation Engine",
-        "4. Competitive Exam Support",
-        "5. Career Guidance System",
-        "6. Multi-language Accessibility Evaluation"
-    ]
-)
-
-st.write("")
-if "1." in feature_tab:
-    st.markdown("### 🧠 AI Powered Doubt Solver Hub (Powered by Groq)")
-    st.info("Simulated Environment Engine running real-time context maps.")
-    
-    user_query = st.text_input("Enter a complex question (e.g., 'Explain Photosynthesis'):", key="doubt_solver_input")
-    
-    if st.button("Initialize Generative Response Inference"):
-        if user_query.strip() == "":
-            st.warning("कृपया तुमचा प्रश्न टाईप करा!")
+# --- ४. मोफत आणि सुरक्षित AI कॉल फंक्शन (Groq API) ---
+def fetch_ai_response(prompt_text, system_setting):
+    try:
+        groq_api_key = st.secrets["GROQ_API_KEY"]
+        groq_url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {groq_api_key}",
+            "Content-Type": "application/json"
+        }
+        payload = {
+            "model": "llama-3.3-70b-versatile",
+            "messages": [
+                {"role": "system", "content": system_setting},
+                {"role": "user", "content": prompt_text}
+            ],
+            "temperature": 0.3,
+            "max_tokens": 800
+        }
+        response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
+        if response.status_code == 200:
+            return response.json()["choices"][0]["message"]["content"]
         else:
-            with st.spinner("Groq AI कडून उत्तर आणत आहे..."):
-                try:
-                    # Groq API की आणि युआरएल सेट करणे
-                    groq_api_key = st.secrets["GROQ_API_KEY"]
-                    groq_url = "https://api.groq.com/openai/v1/chat/completions"
+            return f"API एरर आला आहे: {response.status_code}"
+    except Exception as e:
+        return f"तांत्रिक त्रुटी: {e}"
 
-                    headers = {
-                        "Authorization": f"Bearer {groq_api_key}",
-                        "Content-Type": "application/json"
-                    }
-
-                    # सिस्टीम प्रॉम्ट - उत्तरे अचूक मिळवण्यासाठी
-                    messages = [
-                        {
-                            "role": "system", 
-                            "content": "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ आणि मार्गदर्शक शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. कोणत्याही शब्दाची किंवा वाक्याची वारंवार पुनरावृत्ती करू नका. उत्तर संक्षिप्त, सुंदर आणि स्पष्ट ठेवा."
-                        },
-                        {
-                            "role": "user", 
-                            "content": user_query
-                        }
-                    ]
-
-                    payload = {
-                        "model": "llama-3.3-70b-versatile",
-                        "messages": messages,
-                        "temperature": 0.3,
-                        "max_tokens": 800
-                    }
-
-                    # Groq कडून रिस्पॉन्स मिळवणे
-                    response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
-
-                    if response.status_code == 200:
-                        res_json = response.json()
-                        ai_response = res_json["choices"][0]["message"]["content"]
-                        
-                        # उत्तर स्क्रीनवर दाखवणे
-                        st.success("उत्तर तयार आहे:")
-                        st.write(ai_response)
-                        
-                        # सुपाबेसमध्ये डेटा सेव्ह करणे
-                        try:
-                            data = {
-                                "query": user_query,
-                                "response": ai_response
-                            }
-                            supabase.table("search_history").insert(data).execute()
-                            st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
-                        except Exception as db_err:
-                            st.warning(f"डेटाबेस सेव्हिंग एरर: {db_err}")
-                            
-                    else:
-                        st.error(f"Groq API एरर आला आहे: {response.status_code}")
-
-                except Exception as e:
-                    st.error(f"काहीतरी तांत्रिक त्रुटी आली: {e}")
-
-elif "2." in feature_tab:
-    st.markdown("### 📅 Personalized Study Planner")
-    exam_target = st.text_input("Target Examination Track:", "MPSC Civil Services 2026")
-    available_hours = st.slider("Daily Available Study Windows (Hours):", 1, 8, 4)
-    if st.button("Generate Optimized Study Blueprint"):
-        st.code(f"// Abhyas Kranti Generated Timeline Schedule Matrix\n- Focus Subject Area: Core State Track syllabus mapping\n- Daily Commitment Threshold: {available_hours} Hours Structured Blocks\n- Revision Ratio Target: 25% of timeline allocation\n- Automated Progression Evaluations: Alternate Sunday Mock Windows", language="markdown")
-
-elif "3." in feature_tab:
-    st.markdown("### 🛡️ Scholarship Opportunity Recommendation Engine")
-    income_level = st.selectbox("Annual Household Income Bracket Estimation:", ["Below ₹1,500,000", "₹1.5L to ₹3L", "Above ₹3L"])
-    if st.button("Query Matching Scholarship Matrices"):
-        if income_level == "Below ₹1,500,000":
-            st.markdown("""
-                * **Recommendation 1:** Post-Matric State Merit Scholarship (Covers 100% Tuition Fees)
-                * **Recommendation 2:** National Means-cum-Merit Assistance Program Alignment
-            """)
-        else:
-            st.markdown("* **Recommendation 1:** State Centralized Merit High-Performance Track Allotments")
-
-elif "4." in feature_tab:
-    st.markdown("### 🎯 Competitive Exam Support Module")
-    exam_track = st.radio("Choose Target Academic Stream Assessment:", ["NEET Medical", "JEE Engineering", "NDA Defence Forces", "MPSC/UPSC Civil Services"])
-    if st.button("Deploy Target Question Parameters"):
-        st.write(f"Loading latest standardized AI generated problem arrays for tracking **{exam_track}** matrix patterns. High weightage evaluation maps are now queued.")
-
-elif "5." in feature_tab:
-    st.markdown("### 🛣️ Alternative Career Guidance Systems")
-    interests_field = st.text_input("Input Core Student Interest Triggers:", "Agricultural Automation and Solar Grid Maintenance")
-    if st.button("Execute Strategic Career Trajectory Mapping"):
-        st.markdown(f"🚀 **Modern Career Pathways Detected for '{interests_field}':**\n1. Agro-Solar Operations Manager\n2. Rural Micro-Grid Technical Entrepreneur\n3. Precision Farming Automation Technician")
-
-elif "6." in feature_tab:
-    st.markdown("### 🌐 Multi-language Accessibility Evaluation Hub")
-    lang_selection = st.selectbox("Target Regional Localization Pipeline:", ["Marathi (मराठी)", "Hindi (हिन्दी)", "Vernacular Context Adaptations"])
-    st.write(f"System core localized translation interfaces automatically mapped to **{lang_selection}** configurations with low-latency compression layers.")
-
-st.markdown("---")
+# --- ५. मोबाईल फ्रेंडली नेव्हिगेशन मेनू (Sidebar) ---
+st.sidebar.markdown('### 📌 अभ्यास क्रांती मेनू')
+app_mode = st.sidebar.radio("विभाग निवडा:", ["🏠 मुख्य पान (Dashboard)", "⚡ AI प्रगत फीचर्स सँडबॉक्स"])
 
 # ==========================================
-# 9. IMPACT SECTION
+# विभाग १: मुख्य पान (Dashboard)
 # ==========================================
-st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## 📈 Project Impact Matrix (Rural India Target Outcomes)')
-st.write("")
+if app_mode == "🏠 मुख्य पान (Dashboard)":
+    st.markdown('<span class="main-title">Abhyas Kranti NEW</span>', unsafe_allow_html=True)
+    st.markdown('### AI Powered Educational Ecosystem for Rural India')
+    st.markdown('<p style="color: #94a3b8; font-size: 1.1rem; margin-top: -10px;">Capstone Project — IIT Patna Generative AI Sprint 2026</p>', unsafe_allow_html=True)
+    st.markdown("---")
 
-imp_col1, imp_col2 = st.columns(2)
+    # The Core Problem
+    st.markdown('## 🛑 The Core Problem in Rural Education')
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown('<div class="glass-card"><div class="accent-icon">🗂️</div><h4>Resource Fragmentation</h4><p style="color:#cbd5e1; font-size:0.9rem;">Lack of centralized educational resources.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="glass-card"><div class="accent-icon">🗣️</div><h4>Language Barriers</h4><p style="color:#cbd5e1; font-size:0.9rem;">Academic context is locked behind English proficiency.</p></div>', unsafe_allow_html=True)
+    with col2:
+        st.markdown('<div class="glass-card"><div class="accent-icon">💰</div><h4>Hyper-Inflationary Coaching</h4><p style="color:#cbd5e1; font-size:0.9rem;">Premium coaching formats are financially unviable.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="glass-card"><div class="accent-icon">🤖</div><h4>Technological Deficit</h4><p style="color:#cbd5e1; font-size:0.9rem;">Absence of real-time, personalized AI-driven guidance.</p></div>', unsafe_allow_html=True)
+    with col3:
+        st.markdown('<div class="glass-card"><div class="accent-icon">🎓</div><h4>Information Asymmetry</h4><p style="color:#cbd5e1; font-size:0.9rem;">Critical merit scholarships remain unnoticed.</p></div>', unsafe_allow_html=True)
+        st.markdown('<div class="glass-card"><div class="accent-icon">🧭</div><h4>The Guidance Gap</h4><p style="color:#cbd5e1; font-size:0.9rem;">Lack of data insights to steer trajectories.</p></div>', unsafe_allow_html=True)
 
-with imp_col1:
+    # Vision
     st.markdown("""
-        <div class="glass-card">
-            <h4>💡 High Socio-Economic Upskilling</h4>
-            <p style="color: #cbd5e1; line-height: 1.6;">By making complex engineering, medical, and public service entrance methodologies accessible directly at zero cost barrier locations, structural wealth disparity impacts are negated over performance cycles.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-        <div class="glass-card">
-            <h4>🤝 Scholarship Discovery Optimization</h4>
-            <p style="color: #cbd5e1; line-height: 1.6;">Converts hidden financial channels into actionable assets. Ensures deserving talent lines get immediate state-backed educational support without agent exploitation networks.</p>
+        <div class="vision-box">
+            <div class="vision-title">THE CAPSTONE VISION</div>
+            <p style="font-size: 1.4rem; color: #ffffff; margin-top: 5px; font-weight: 600;">“To democratize quality education using AI.”</p>
         </div>
     """, unsafe_allow_html=True)
 
-with imp_col2:
-    st.markdown("""
-        <div class="glass-card">
-            <h4>📉 Radical Coaching Overhead Reductions</h4>
-            <p style="color: #cbd5e1; line-height: 1.6;">Removes the logistical imperative for students to migrate to premium urban tier centers by creating top-tier cognitive AI mentors directly in localized village nodes.</p>
-        </div>
-    """, unsafe_allow_html=True)
-    st.markdown("""
-        <div class="glass-card">
-            <h4>🪐 Democratization of Advanced LLM Technologies</h4>
-            <p style="color: #cbd5e1; line-height: 1.6;">Synthesizes complex algorithmic frameworks into simple accessible interfaces, turning bleeding-edge technology into functional civic utilities for the segments that need it most.</p>
-        </div>
-    """, unsafe_allow_html=True)
+    # Objectives
+    st.markdown('## 🎯 Core Project Objectives')
+    obj_col1, obj_col2, obj_col3, obj_col4, obj_col5 = st.columns(5)
+    obj_col1.markdown('<div class="glass-card" style="text-align:center;"><h5>🧠 AI Mentor</h5><p style="font-size:0.8rem; color:#cbd5e1;">24/7 Localized</p></div>', unsafe_allow_html=True)
+    obj_col2.markdown('<div class="glass-card" style="text-align:center;"><h5>📅 Smart Planner</h5><p style="font-size:0.8rem; color:#cbd5e1;">Hyper-Tailored</p></div>', unsafe_allow_html=True)
+    obj_col3.markdown('<div class="glass-card" style="text-align:center;"><h5>🛡️ Scholarship</h5><p style="font-size:0.8rem; color:#cbd5e1;">Predictive</p></div>', unsafe_allow_html=True)
+    obj_col4.markdown('<div class="glass-card" style="text-align:center;"><h5>🛣️ Career Guide</h5><p style="font-size:0.8rem; color:#cbd5e1;">Modern Paths</p></div>', unsafe_allow_html=True)
+    obj_col5.markdown('<div class="glass-card" style="text-align:center;"><h5>🌐 Multi-Lingual</h5><p style="font-size:0.8rem; color:#cbd5e1;">Vernacular</p></div>', unsafe_allow_html=True)
+
+    # Architecture
+    st.markdown('## 🏗️ End-to-End Solution Architecture')
+    a_col1, a_arr1, a_col2, a_arr2, a_col3 = st.columns([2, 0.5, 2, 0.5, 2])
+    with a_col1: st.markdown('<div class="arch-step">🧑‍🎓 Rural Student<br><span style="font-size:0.75rem; color:#94a3b8;">Interface Inputs</span></div>', unsafe_allow_html=True)
+    with a_arr1: st.markdown('<h3 style="text-align:center; color:#FFD700 !important; margin-top:10px;">➔</h3>', unsafe_allow_html=True)
+    with a_col2: st.markdown('<div class="arch-step" style="border-color:#FFD700;">⚙️ GenAI Orchestrator<br><span style="font-size:0.75rem; color:#FFD700;">Groq & Llama 3</span></div>', unsafe_allow_html=True)
+    with a_arr2: st.markdown('<h3 style="text-align:center; color:#FFD700 !important; margin-top:10px;">➔</h3>', unsafe_allow_html=True)
+    with a_col3: st.markdown('<div class="arch-step">📊 Cloud Storage<br><span style="font-size:0.75rem; color:#94a3b8;">Supabase Secure Tier</span></div>', unsafe_allow_html=True)
+
+    # Tech Stack
+    st.markdown('## 💻 Standardized Enterprise Tech Stack')
+    tech_df = pd.DataFrame({
+        "Layer": ["Frontend UI", "Core Programming", "AI Orchestration", "Database Tier", "Deployment Edge"],
+        "Technology Stack Components": ["Streamlit Community Cloud & Premium CSS", "Python 3.11+ / Async Request Arrays", "Groq API (Llama 3.3 70B Model Framework)", "Supabase Secure Matrix & Cloud SQL", "GitHub Enterprise & Vercel Functions"]
+    })
+    st.table(tech_df)
+
+    # Timeline Table
+    st.markdown('## 📅 Capstone Execution Timeline')
+    timeline_data = {
+        "Phase / Week": ["Week 1", "Week 2", "Week 3", "Week 4"],
+        "Milestone Core Subject Focus": ["Ideation & Planning", "MVP Development", "AI Integration", "Final Deployment"],
+        "Status": ["✅ Completed", "✅ Completed", "✅ Completed", "⚡ Ready for Evaluation"]
+    }
+    st.table(pd.DataFrame(timeline_data))
 
 # ==========================================
-# 10. FUTURE SCOPE
+# विभाग २: AI प्रगत फीचर्स सँडबॉक्स (6-in-1 Engine)
 # ==========================================
-st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('## 🚀 Future Roadmap & Scaling Vectors')
-st.write("")
+elif app_mode == "⚡ AI प्रगत फीचर्स सँडबॉक्स":
+    st.title("⚡ अभ्यास क्रांती AI Action Sandbox")
+    st.markdown('<p style="color: #cbd5e1;">खालील ड्रॉपडाऊनमधून कोणताही एक विभाग निवडा आणि थेट AI चा अनुभव घ्या:</p>', unsafe_allow_html=True)
 
-f_col1, f_col2, f_col3 = st.columns(3)
-with f_col1:
-    st.markdown("#### 📱 Native Android Deployments")
-    st.markdown("Optimizing model quantization levels to allow local model caching layers to function smoothly on lightweight, sub-$100 smartphone chipsets under offline contexts.")
-    st.markdown("#### 🎙️ Voice-to-Voice AI Layer")
-    st.markdown("Integrating conversational voice assistants to allow low-literacy segments or younger students to naturally query tasks using simple native speech patterns.")
+    feature_tab = st.selectbox(
+        "प्लॅटफॉर्म ॲक्शन लेयर निवडा:",
+        [
+            "1. AI Powered Doubt Solving (शंका निरसन शिक्षक)",
+            "2. Personalized Study Planner (अभ्यास वेळापत्रक नियोजक)",
+            "3. Scholarship Recommendation Engine (स्कॉलरशिप शोध इंजिन)",
+            "4. Competitive Exam Support (स्पर्धा परीक्षा मदत केंद्र)",
+            "5. Career Guidance System (भविष्य करिअर मार्गदर्शक)",
+            "6. Multi-language Accessibility Evaluation (भाषा सुलभता तपासणी)"
+        ]
+    )
 
-with f_col2:
-    st.markdown("#### 🗣️ Extended Hyper-Local Dialects")
-    st.markdown("Going beyond standard regional profiles to integrate local village colloquialisms, maximizing educational comprehension metrics.")
-    st.markdown("#### 🎭 Generative Mock Interactive Panels")
-    st.markdown("Deploying advanced audio-visual AI avatars that replicate live panel interview environments to train students for elite level competitive checks.")
+    st.write("---")
 
-with f_col3:
-    st.markdown("#### 🏛️ Governance Infrastructure Integrations")
-    st.markdown("Connecting system parameters directly to local Gram Panchayat digital dashboards to systematically announce educational updates in real time.")
+    # १. AI Doubt Solving
+    if "1." in feature_tab:
+        st.markdown("### 🧠 AI Powered Doubt Solver Hub")
+        user_query = st.text_input("तुमचा कोणताही शैक्षणिक प्रश्न विचारा (उदा. 'प्रकाश संश्लेषण म्हणजे काय?'):")
+        
+        if st.button("AI उत्तर मिळवा"):
+            if user_query.strip():
+                with st.spinner("AI Mentor उत्तर तयार करत आहे..."):
+                    sys_prompt = "तुम्ही 'अभ्यास क्रांती' ॲपचे तज्ज्ञ शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे शुद्ध मराठीत, अत्यंत अचूक आणि फक्त महत्त्वाच्या ७-८ बुलेट पॉईंट्समध्ये (Bullet Points) द्या. उत्तर स्पष्ट ठेवा."
+                    ai_response = fetch_ai_response(user_query, sys_prompt)
+                    st.success("उत्तर तयार आहे:")
+                    st.write(ai_response)
+                    
+                    # डेटाबेस सेव्ह
+                    try:
+                        supabase.table("search_history").insert({"query": user_query, "response": ai_response}).execute()
+                        st.caption("🔄 डेटा सुपाबेस डेटाबेसमध्ये सुरक्षितपणे नोंदवला गेला आहे.")
+                    except Exception as db_err:
+                        pass
+            else:
+                st.warning("कृपया आधी प्रश्न टाईप करा.")
 
-# ==========================================
-# 11. PUBLIC POST SECTION
-# ==========================================
-st.markdown('<div class="section-spacing"></div>', unsafe_allow_html=True)
-st.markdown('### 📢 Capstone Public Engagement')
-st.info("🔗 **Project Publication Baseline:** Shared via institutional tracks under tracking parameters: **#IITPatnaCapstone**")
+    # २. Study Planner (Powered by AI)
+    elif "2." in feature_tab:
+        st.markdown("### 📅 Personalized Study Planner")
+        exam_target = st.text_input("तुम्ही कोणत्या परीक्षेची तयारी करत आहात?", "MPSC Civil Services 2026")
+        available_hours = st.slider("रोज अभ्यासासाठी किती तास देऊ शकता?", 1, 12, 5)
+        
+        if st.button("स्मार्ट वेळापत्रक तयार करा"):
+            with st.spinner("AI तुमच्यासाठी वेळापत्रक डिझाईन करत आहे..."):
+                sys_prompt = "तुम्ही शैक्षणिक समुपदेशक आहात. विद्यार्थ्याने दिलेल्या परीक्षेसाठी आणि वेळेसाठी १ आठवड्याचे कस्टमाइज्ड अभ्यासाचे वेळापत्रक मराठीत बुलेट पॉईंट्समध्ये तयार करा."
+                query = f"परीक्षा: {exam_target}, रोज उपलब्ध तास: {available_hours}"
+                ai_response = fetch_ai_response(query, sys_prompt)
+                st.info("🎯 तुमच्यासाठी तयार केलेले AI वेळापत्रक:")
+                st.write(ai_response)
 
-# ==========================================
-# 12. DEPLOYMENT SECTION
-# ==========================================
-st.markdown('### 🚀 Deployment Architecture Status')
-st.markdown("""
-* **Version Control Hub:** Hosted via GitHub Enterprise secure staging networks.
-* **Production Processing Web Tier:** Anchored and compiled on Streamlit Cloud clusters.
-* **Edge Routing Pipeline Integration:** Configured using Vercel serverless functions infrastructure.
-""")
+    # ३. Scholarship Recommendation Engine (Powered by AI)
+    elif "3." in feature_tab:
+        st.markdown("### 🛡️ Scholarship Recommendation Engine")
+        income_level = st.selectbox("तुमचे कौटुंबिक वार्षिक उत्पन्न निवडा:", ["₹१.५ लाखांपेक्षा कमी", "₹१.५ लाख ते ₹३ लाख", "₹३ लाखांपेक्षा जास्त"])
+        category = st.text_input("तुमचा प्रवर्ग/जात टाईप करा (उदा. Open, OBC, SC, ST):", "OBC")
+        
+        if st.button("पात्र स्कॉलरशिप शोधा"):
+            with st.spinner("डेटाबेस मॅट्रिक्स स्कॅन करत आहे..."):
+                sys_prompt = "तुम्ही भारत सरकारच्या आणि महाराष्ट्र सरकारच्या शिष्यवृत्तीचे तज्ञ आहात. विद्यार्थ्याने दिलेल्या उत्पन्न आणि प्रवर्गासाठी योग्य असणाऱ्या कमीत कमी २ मोफत सरकारी स्कॉलरशिप योजनांची नावे आणि माहिती मराठीत सांगा."
+                query = f"उत्पन्न: {income_level}, प्रवर्ग: {category}"
+                ai_response = fetch_ai_response(query, sys_prompt)
+                st.success("💡 शिफारसित स्कॉलरशिप योजना:")
+                st.write(ai_response)
 
-# ==========================================
-# 13. FINAL FOOTER
-# ==========================================
+    # ४. Competitive Exam Support
+    elif "4." in feature_tab:
+        st.markdown("### 🎯 Competitive Exam Support Module")
+        exam_track = st.radio("तुमचे ध्येय निवडा:", ["NEET Medical", "JEE Engineering", "NDA Defence Forces", "MPSC/UPSC Civil Services"])
+        
+        if st.button("महत्त्वाचे पॅटर्न प्रश्न मिळवा"):
+            with st.spinner("प्रश्न संच तयार होत आहे..."):
+                sys_prompt = f"तुम्ही {exam_track} चे वरिष्ठ प्राध्यापक आहात. या परीक्षेसाठी अत्यंत महत्त्वाचा असणारा १ नमुना बहुपर्यायी प्रश्न (MCQ) मराठीत स्पष्टीकरणासह तयार करा."
+                ai_response = fetch_ai_response("Give 1 high weightage exam question with options and correct answer in Marathi", sys_prompt)
+                st.write(ai_response)
+
+    # ५. Career Guidance System
+    elif "5." in feature_tab:
+        st.markdown("### 🛣️ Alternative Career Guidance Systems")
+        interests_field = st.text_input("विद्यार्थ्याची आवड किंवा क्षेत्र (उदा. शेती, इलेक्ट्रॉनिक्स, सोलर, टेलरिंग):", "सोलर आणि आधुनिक शेती")
+        
+        if st.button("भविष्यातील करिअर मार्ग शोधा"):
+            with st.spinner("AI करिअर ट्रॅजेक्टोरी मॅप करत आहे..."):
+                sys_prompt = "तुम्ही करिअर मार्गदर्शक आहात. ग्रामीण विद्यार्थ्यांना आधुनिक युगात (उदा. AI, सोलर, ऑटोमेशन) उपलब्ध असणाऱ्या ३ नवीन करिअर संधींची माहिती मराठीत द्या."
+                ai_response = fetch_ai_response(interests_field, sys_prompt)
+                st.markdown(ai_response)
+
+    # ६. Multi-language Accessibility
+    elif "6." in feature_tab:
+        st.markdown("### 🌐 Multi-language Accessibility Evaluation Hub")
+        st.success("सिस्टीम इंटरफेस स्वयंचलितपणे **मराठी (मराठी)** आणि स्थानिक प्रादेशिक बोलीभाषेशी सुसंगत करण्यात आला आहे.")
+        st.caption("कमी इंटरनेट बँडविड्थ (Low Bandwidth Zones) मध्येही हा इंटरफेस अतिशय वेगाने लोड होतो.")
+
+# --- ६. एकत्रित फायनल फुटर (दोन्ही पदांसह सुरक्षित) ---
 st.markdown("""
     <div class="footer-container">
-        <p style="font-size: 1.15rem; color: #ffffff; font-weight: 700; margin-bottom: 5px;">
+        <p style="font-size: 1.1rem; color: #ffffff; font-weight: 700; margin-bottom: 2px;">
             Developed by (Dnyaneshwar Gawalikar)
         </p>
-        <p style="color: #FFD700; font-weight: 600; margin-bottom: 20px; font-size: 0.95rem; letter-spacing: 0.5px;">
+        <p style="color: #FFD700; font-weight: 600; margin-bottom: 15px; font-size: 0.9rem; letter-spacing: 0.5px;">
             Professor & Head of Department
         </p>
-        <p style="font-size: 0.85rem; color: #64748b;">
+        <p style="font-size: 0.8rem; color: #64748b;">
             Capstone Project — IIT Patna Generative AI Sprint 2026
         </p>
     </div>
