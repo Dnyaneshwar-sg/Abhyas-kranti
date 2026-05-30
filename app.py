@@ -14,13 +14,40 @@ except Exception as e:
 
 # --- २. पेज कॉन्फिगरेशन ---
 st.set_page_config(
-    page_title="Abhyas Kranti Pan-India - IIT Patna Capstone",
+    page_title="Abhyas Kranti National - IIT Patna Capstone",
     page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# --- ३. हाय-कॉन्ट्रास्ट प्रीमियम डार्क आणि गोल्ड थीम CSS (Legibility Fix) ---
+# --- ३. ग्लोबल भाषा मॅपिंग (English समाविष्ट करून) ---
+languages_map = {
+    "मराठी (Marathi) - महाराष्ट्र": "Marathi",
+    "English - Pan India": "English",
+    "हिंदी (Hindi) - उत्तर प्रदेश / बिहार / दिल्ली": "Hindi",
+    "Gujarati (ગુજરાતી) - गुजरात": "Gujarati",
+    "Kannada (ಕನ್ನಡ) - कर्नाटक": "Kannada",
+    "Tamil (தமிழ்) - तमिळनाडू": "Tamil",
+    "Telugu (తెలుగు) - आंध्र / तेलंगणा": "Telugu",
+    "Malayalam (മലയാളം) - केरळ": "Malayalam",
+    "Punjabi (ਪੰਜਾਬੀ) - पंजाब": "Punjabi",
+    "Bengali (বাংলা) - पश्चिम बंगाल": "Bengali",
+    "Urdu (اردو)": "Urdu",
+    "Sanskrit (संस्कृतम्)": "Sanskrit",
+    "Konkani (कोंकणी) - गोवा": "Konkani",
+    "Assamese (অসমীয়া) - आसाम": "Assamese",
+    "Oriya (ଓଡ଼ିଆ) - ओडिशा": "Oriya",
+    "Kashmiri (कश्मीरी)": "Kashmiri",
+    "Nepali (नेपाली)": "Nepali",
+    "Sindhi (सिंधी)": "Sindhi",
+    "Manipuri (মণিপুরী)": "Manipuri",
+    "Bodo (बोडो)": "Bodo",
+    "Dogri (डोगरी)": "Dogri",
+    "Maithili (मैथिली) - बिहार": "Maithili",
+    "Santali (संथाली)": "Santali"
+}
+
+# --- ४. डाव्या बाजूच्या साईडबारसाठी विशेष हाय-विजिबिलिटी आणि प्रीमियम डार्क CSS ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap');
@@ -32,61 +59,70 @@ st.markdown("""
         color: #f0f6fc !important; 
     }
     
+    /* --- डाव्या बाजूच्या साईडबारसाठी उत्कृष्ट विजिबिलिटी फिक्स --- */
+    [data-testid="stSidebar"] {
+        background-color: #161b22 !important; /* फिकट काळा उठून दिसणारा रंग */
+        border-right: 2px solid #30363d;
+        padding-top: 20px;
+    }
+    
+    /* साईडबारमधील मजकूर मोठा, स्पष्ट आणि ठळक करण्यासाठी */
+    [data-testid="stSidebar"] label, [data-testid="stSidebar"] p {
+        color: #ffffff !important;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 8px !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+    
+    /* साईडबार मधील रेडिओ ऑप्शन्सना बॉक्समध्ये रूपांतरित करणे (बारीक पाहावे लागणार नाही) */
+    [data-testid="stSidebar"] .stRadio div[role="radiogroup"] > div {
+        background-color: #21262d !important;
+        padding: 12px 15px !important;
+        border-radius: 10px !important;
+        margin-bottom: 10px !important;
+        border: 1px solid #30363d !important;
+        transition: all 0.2s ease;
+    }
+    
+    /* सिलेक्ट केलेल्या बॉक्सला हायलाईट करणे */
+    [data-testid="stSidebar"] .stRadio div[role="radiogroup"] > div:hover {
+        border-color: #FFD700 !important;
+        background-color: #262c36 !important;
+    }
+    
+    /* ड्रॉपडाऊन सिलेक्टबॉक्स डिझाईन */
+    .stSelectbox div[data-baseweb="select"] {
+        background-color: #21262d !important;
+        border: 2px solid #ffde59 !important;
+        border-radius: 8px !important;
+    }
+
+    /* मुख्य स्क्रीन हेडर्स आणि टॅब्स */
     .main-title {
         background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 800;
         font-size: 3.2rem;
-        margin-bottom: 5px;
         display: block;
     }
     
-    h1, h2, h3, h4, h5, h6 { 
-        color: #ffffff !important; 
-        font-weight: 700 !important;
-        margin-top: 15px !important;
-    }
-    
-    .stWidgetFormLabel, label, .stSlider p, .stRadio p, .stSelectbox p {
-        color: #ffffff !important;
-        font-weight: 600 !important;
-        font-size: 1.05rem !important;
-    }
+    h1, h2, h3, h4, h5, h6 { color: #ffffff !important; font-weight: 700 !important; }
     
     .glass-card {
         background: #161b22;
         border: 1px solid #30363d;
         border-radius: 12px;
         padding: 20px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         margin-bottom: 20px;
     }
-    .glass-card:hover { border-color: #FFD700; }
     
-    .accent-icon { color: #FFD700; font-size: 2rem; margin-bottom: 12px; }
-    
-    .vision-box {
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(22, 27, 34, 1) 100%);
-        border-left: 6px solid #FFD700;
-        border-radius: 12px;
-        padding: 25px;
-        text-align: center;
-        margin: 30px 0;
-    }
-    .vision-title { font-size: 1.6rem; font-weight: 800; color: #FFD700 !important; }
-    
-    .stTable table { background-color: #161b22 !important; color: #ffffff !important; }
-    .stTable td { background-color: #0d1117 !important; color: #f0f6fc !important; border: 1px solid #30363d !important; }
-    .stTable th { background-color: #21262d !important; color: #FFD700 !important; border: 1px solid #30363d !important; }
-    
-    /* Tabs Configuration */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px;
         background-color: #161b22;
         padding: 8px;
         border-radius: 10px;
-        border: 1px solid #30363d;
     }
     .stTabs [data-baseweb="tab"] {
         height: 48px;
@@ -94,7 +130,6 @@ st.markdown("""
         border-radius: 6px;
         color: #c9d1d9 !important;
         font-weight: 600;
-        padding: 0px 18px;
     }
     .stTabs [aria-selected="true"] {
         background-color: #FFD700 !important;
@@ -112,259 +147,207 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- ४. प्रगत AI कॉल फंक्शन (Groq API) ---
-def fetch_ai_response(prompt_text, system_setting):
-    try:
-        groq_api_key = st.secrets["GROQ_API_KEY"]
-        groq_url = "https://api.groq.com/openai/v1/chat/completions"
-        headers = {
-            "Authorization": f"Bearer {groq_api_key}",
-            "Content-Type": "application/json"
-        }
-        payload = {
-            "model": "llama-3.3-70b-versatile",
-            "messages": [
-                {"role": "system", "content": system_setting},
-                {"role": "user", "content": prompt_text}
-            ],
-            "temperature": 0.4,
-            "max_tokens": 1500
-        }
-        response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
-        if response.status_code == 200:
-            return response.json()["choices"][0]["message"]["content"]
-        else:
-            return f"API त्रुटी आली आहे. कोड: {response.status_code}"
-    except Exception as e:
-        return f"तांत्रिक अडचण: {e}"
-
-# --- ५. जागतिक भाषा आणि राज्य निवड (SIDEBAR - GLOBAL STATE) ---
-st.sidebar.markdown('### 🌐 १. भाषा व राज्य निवडा (Select State & Language)')
-
-languages_map = {
-    "मराठी (Marathi) - महाराष्ट्र": "Marathi",
-    "हिंदी (Hindi) - उत्तर प्रदेश / बिहार / दिल्ली": "Hindi",
-    "गुजराती (Gujarati) - गुजरात": "Gujarati",
-    "कन्नड (Kannada) - कर्नाटक": "Kannada",
-    "तमिळ (Tamil) - तमिळनाडू": "Tamil",
-    "तेलुगू (Telugu) - आंध्र प्रदेश / तेलंगणा": "Telugu",
-    "मल्याळम (Malayalam) - केरळ": "Malayalam",
-    "पंजाबी (Punjabi) - पंजाब": "Punjabi",
-    "बंगाली (Bengali) - पश्चिम बंगाल": "Bengali",
-    "उर्दू (Urdu)": "Urdu",
-    "संस्कृत (Sanskrit)": "Sanskrit",
-    "कोंकणी (Konkani) - गोवा": "Konkani",
-    "आसामी (Assamese) - आसाम": "Assamese",
-    "ओडिया (Oriya) - ओडिशा": "Oriya",
-    "काश्मिरी (Kashmiri) - जम्मू आणि काश्मीर": "Kashmiri",
-    "नेपाळी (Nepali)": "Nepali",
-    "सिंधी (Sindhi)": "Sindhi",
-    "मणिपुरी (Manipuri)": "Manipuri",
-    "बोडो (Bodo)": "Bodo",
-    "डोगरी (Dogri)": "Dogri",
-    "मैथिली (Maithili) - बिहार": "Maithili",
-    "संथाली (Santali)": "Santali"
+# --- ५. डायनॅमिक इंटरफेस ट्रान्सलेशन मॅट्रिक्स (Dynamic UI Dictionary) ---
+UI_LANG_MATRIX = {
+    "Marathi": {
+        "menu_lbl": "🌍 १. भाषा व राज्य निवडा",
+        "nav_lbl": "📌 २. अभ्यास क्रांती मेनू",
+        "dash_menu": "🏠 मुख्य पान (Dashboard)",
+        "sandbox_menu": "⚡ AI प्रगत फीचर्स सँडबॉक्स",
+        "tabs": ["🧠 शंका निरसन शिक्षक", "📅 अभ्यास वेळापत्रक", "🛡️ स्कॉलरशिप इंजिन", "🎯 परीक्षा केंद्र", "🛣️ करिअर मार्गदर्शक", "🌐 भाषा केंद्र"],
+        "q1_lbl": "तुमचा शैक्षणिक प्रश्न विचारा:",
+        "btn1_lbl": "🚀 शंका निरसन करा",
+        "q2_lbl": "कोणत्या परीक्षेची तयारी करत आहात?",
+        "s2_lbl": "रोज अभ्यासासाठी किती तास उपलब्ध आहेत?",
+        "btn2_lbl": "🚀 स्मार्ट वेळापत्रक तयार करा",
+        "sel3_lbl": "शैक्षणिक पातळी निवडा:",
+        "inc3_lbl": "वार्षिक उत्पन्न निवडा:",
+        "cat3_lbl": "तुमचा प्रवर्ग/जात टाईप करा:",
+        "btn3_lbl": "🚀 पात्र स्कॉलरशिप शोधा",
+        "sel4_lbl": "परीक्षेची पातळी निवडा:",
+        "txt4_lbl": "थेट परीक्षेचे नाव टाईप करा:",
+        "btn4_lbl": "🚀 परीक्षा पॅटर्न व प्रश्न मिळवा",
+        "sel5_lbl": "विद्याशाखा / प्रवाह निवडा:",
+        "rad5_lbl": "करिअरची व्याप्ती:",
+        "txt5_lbl": "तुमची वैयक्तिक आवड:",
+        "btn5_lbl": "🚀 करिअर रोडमॅप व लिंक्स मिळवा"
+    },
+    "English": {
+        "menu_lbl": "🌍 1. Select Language & State",
+        "nav_lbl": "📌 2. Abhyas Kranti Menu",
+        "dash_menu": "🏠 Main Dashboard",
+        "sandbox_menu": "⚡ AI Advanced Sandbox",
+        "tabs": ["🧠 Doubt Solver", "📅 Study Planner", "🛡️ Scholarship Engine", "🎯 Exam Center", "🛣️ Career Guide", "🌐 Language Hub"],
+        "q1_lbl": "Ask your academic question here:",
+        "btn1_lbl": "🚀 Solve My Doubt",
+        "q2_lbl": "Which exam are you preparing for?",
+        "s2_lbl": "How many hours can you study daily?",
+        "btn2_lbl": "🚀 Create Smart Schedule",
+        "sel3_lbl": "Select Educational Level:",
+        "inc3_lbl": "Select Annual Family Income:",
+        "cat3_lbl": "Type your Category/Caste:",
+        "btn3_lbl": "🚀 Find Eligible Scholarships",
+        "sel4_lbl": "Select Exam Tier:",
+        "txt4_lbl": "Type Target Exam Name:",
+        "btn4_lbl": "🚀 Get Pattern & Sample Questions",
+        "sel5_lbl": "Select Academic Stream:",
+        "rad5_lbl": "Career Scope Level:",
+        "txt5_lbl": "Your Core Area of Interest:",
+        "btn5_lbl": "🚀 Generate Career Roadmap & Links"
+    },
+    "Hindi": {
+        "menu_lbl": "🌍 1. भाषा और राज्य चुनें",
+        "nav_lbl": "📌 2. अभ्यास क्रांति मेनू",
+        "dash_menu": "🏠 मुख्य डैशबोर्ड (Dashboard)",
+        "sandbox_menu": "⚡ AI एडवांस्ड सैंडबॉक्स",
+        "tabs": ["🧠 शंका समाधान शिक्षक", "📅 अध्ययन समय-सारणी", "🛡️ स्कॉलरशिप इंजन", "🎯 परीक्षा केंद्र", "🛣️ करियर मार्गदर्शक", "🌐 भाषा केंद्र"],
+        "q1_lbl": "अपना शैक्षणिक प्रश्न पूछें:",
+        "btn1_lbl": "🚀 शंका समाधान करें",
+        "q2_lbl": "आप किस परीक्षा की तैयारी कर रहे हैं?",
+        "s2_lbl": "रोजाना पढ़ाई के लिए कितने घंटे उपलब्ध हैं?",
+        "btn2_lbl": "🚀 स्मार्ट समय-सारणी बनाएं",
+        "sel3_lbl": "शैक्षणिक स्तर चुनें:",
+        "inc3_lbl": "वार्षिक पारिवारिक आय चुनें:",
+        "cat3_lbl": "अपनी श्रेणी/जाति टाइप करें:",
+        "btn3_lbl": "🚀 योग्य स्कॉलरशिप खोजें",
+        "sel4_lbl": "परीक्षा का स्तर चुनें:",
+        "txt4_lbl": "परीक्षा का नाम टाइप करें:",
+        "btn4_lbl": "🚀 परीक्षा पैटर्न और प्रश्न प्राप्त करें",
+        "sel5_lbl": "शैक्षणिक स्ट्रीम/शाखा चुनें:",
+        "rad5_lbl": "करियर का दायरा:",
+        "txt5_lbl": "आपकी व्यक्तिगत रुचि:",
+        "btn5_lbl": "🚀 करियर रोडमॅप और लिंक्स प्राप्त करें"
+    }
 }
 
+# अन्य सर्व २0 भाषांसाठी डिफॉल्ट फॉलबॅक (Fallback Setup)
+current_ui = UI_LANG_MATRIX.get(target_lang, UI_LANG_MATRIX["English"])
+
+# --- ६. साईडबार इंटरफेस ---
 selected_display_lang = st.sidebar.selectbox(
-    "ॲपची कार्यप्रणाली कोणत्या भाषेत हवी आहे?",
+    current_ui["menu_lbl"],
     list(languages_map.keys()),
     key="global_language_selector"
 )
 target_lang = languages_map[selected_display_lang]
 
-st.sidebar.markdown('---')
-st.sidebar.markdown('### 📌 २. अभ्यास क्रांती मेनू')
-app_mode = st.sidebar.radio("विभाग निवडा:", ["🏠 मुख्य पान (Dashboard)", "⚡ AI प्रगत फीचर्स सँडबॉक्स"])
+# भाषा बदलल्यास UI री-लोड करणे
+current_ui = UI_LANG_MATRIX.get(target_lang, UI_LANG_MATRIX["English"])
 
-# सर्व मॉड्यूल्ससाठी डायनॅमिक 'स्टेट-रुल' प्रॉम्ट तयार करणे
+app_mode = st.sidebar.radio(current_ui["nav_lbl"], [current_ui["dash_menu"], current_ui["sandbox_menu"]])
+
+# AI इंजिनसाठी युनिवर्सल प्रॉम्ट
 base_ai_instruction = f"""
-You are the elite AI Engine of 'Abhyas Kranti' App, a pan-India personalized educational system.
+You are the elite AI Engine of 'Abhyas Kranti' App, adapted for {target_lang}.
 CRITICAL MANDATE:
-1. You MUST generate your entire response exclusively in the language: '{target_lang}'. Do not use English text unless it is a specific technical term or web URL.
-2. DYNAMIC REGIONAL ADAPTATION: Automatically detect the Indian State/Region associated with '{selected_display_lang}'. You must align all answers, rules, criteria, and logic precisely with that specific state's education board guidelines, regional government reservations, state welfare schemes, and regional regulations, alongside national (Central Govt) and Global parameters.
+1. You MUST generate your entire response exclusively in the language: '{target_lang}'.
+2. You must align all answers, rules, and logic precisely with the specific state rules associated with '{selected_display_lang}' (e.g. State board patterns, state scholarship quotas, regional career trends).
 """
+
+def fetch_ai_response(prompt_text, system_setting):
+    try:
+        groq_api_key = st.secrets["GROQ_API_KEY"]
+        groq_url = "https://api.groq.com/openai/v1/chat/completions"
+        headers = {"Authorization": f"Bearer {groq_api_key}", "Content-Type": "application/json"}
+        payload = {
+            "model": "llama-3.3-70b-versatile",
+            "messages": [{"role": "system", "content": system_setting}, {"role": "user", "content": prompt_text}],
+            "temperature": 0.4, "max_tokens": 1500
+        }
+        response = requests.post(groq_url, headers=headers, data=json.dumps(payload))
+        return response.json()["choices"][0]["message"]["content"] if response.status_code == 200 else f"Error: {response.status_code}"
+    except Exception as e: return f"Error: {e}"
 
 # ==========================================
 # विभाग १: मुख्य पान (Dashboard)
 # ==========================================
-if app_mode == "🏠 मुख्य पान (Dashboard)":
-    st.markdown('<span class="main-title">Abhyas Kranti NEW</span>', unsafe_allow_html=True)
+if app_mode == current_ui["dash_menu"]:
+    st.markdown('<span class="main-title">Abhyas Kranti Ultimate</span>', unsafe_allow_html=True)
     st.markdown('### AI Powered Educational Ecosystem for Rural India')
-    st.markdown('<p style="color: #8b949e; font-size: 1.1rem; margin-top: -10px;">Capstone Project — IIT Patna Generative AI Sprint 2026</p>', unsafe_allow_html=True)
-    st.markdown(f"**🌍 सद्यस्थितीत सक्रिय राज्य नियम व भाषा:** `{selected_display_lang}`")
+    st.markdown(f"**🌍 Active System Rules & Language:** `{selected_display_lang}`")
     st.markdown("---")
 
-    # The Core Problem
-    st.markdown('## 🛑 The Core Problem in Rural Education')
     col1, col2, col3 = st.columns(3)
-    with col1:
-        st.markdown('<div class="glass-card"><div class="accent-icon">🗂️</div><h4>Resource Fragmentation</h4><p style="color:#c9d1d9; font-size:0.9rem;">Lack of centralized educational resources.</p></div>', unsafe_allow_html=True)
-        st.markdown('<div class="glass-card"><div class="accent-icon">🗣️</div><h4>Language Barriers</h4><p style="color:#c9d1d9; font-size:0.9rem;">Academic context is locked behind English proficiency.</p></div>', unsafe_allow_html=True)
-    with col2:
-        st.markdown('<div class="glass-card"><div class="accent-icon">💰</div><h4>Hyper-Inflationary Coaching</h4><p style="color:#c9d1d9; font-size:0.9rem;">Premium coaching formats are financially unviable.</p></div>', unsafe_allow_html=True)
-        st.markdown('<div class="glass-card"><div class="accent-icon">🤖</div><h4>Technological Deficit</h4><p style="color:#c9d1d9; font-size:0.9rem;">Absence of real-time, personalized AI-driven guidance.</p></div>', unsafe_allow_html=True)
-    with col3:
-        st.markdown('<div class="glass-card"><div class="accent-icon">🎓</div><h4>Information Asymmetry</h4><p style="color:#c9d1d9; font-size:0.9rem;">Critical merit scholarships remain unnoticed.</p></div>', unsafe_allow_html=True)
-        st.markdown('<div class="glass-card"><div class="accent-icon">🧭</div><h4>The Guidance Gap</h4><p style="color:#c9d1d9; font-size:0.9rem;">Lack of data insights to steer trajectories.</p></div>', unsafe_allow_html=True)
-
-    # Tech Stack Table
-    st.markdown('## 💻 Standardized Enterprise Tech Stack')
-    tech_df = pd.DataFrame({
-        "Layer": ["Frontend UI", "Core Programming", "AI Orchestration", "Database Tier", "Deployment Edge"],
-        "Technology Stack Components": ["Streamlit Community Cloud & High-Contrast CSS", "Python 3.11+ / Async Request Arrays", "Groq API (Llama 3.3 70B Model Framework)", "Supabase Secure Matrix & Cloud SQL", "GitHub Enterprise & Vercel Functions"]
-    })
-    st.table(tech_df)
+    with col1: st.markdown('<div class="glass-card"><h4>Resource Fragmentation</h4><p style="color:#c9d1d9;">Lack of centralized resources solved via unified UI.</p></div>', unsafe_allow_html=True)
+    with col2: st.markdown('<div class="glass-card"><h4>Language Barriers</h4><p style="color:#c9d1d9;">Bypassed using real-time dynamic interface translations.</p></div>', unsafe_allow_html=True)
+    with col3: st.markdown('<div class="glass-card"><h4>Information Gap</h4><p style="color:#c9d1d9;">State-specific criteria matched dynamically.</p></div>', unsafe_allow_html=True)
 
 # ==========================================
-# विभाग २: AI प्रगत फीचर्स सँडबॉक्स (6-in-1 Live Engine)
+# विभाग २: AI प्रगत फीचर्स सँडबॉक्स (6-in-1 Live Dynamic Engine)
 # ==========================================
-elif app_mode == "⚡ AI प्रगत फीचर्स सँडबॉक्स":
-    st.title("⚡ अभ्यास क्रांती AI Action Sandbox")
-    st.markdown(f"##### 🌍 सक्रिय प्रादेशिक भाषा आणि नियम: `{selected_display_lang}`")
-    st.markdown('<p style="color: #c9d1d9;">सर्व टॅब्समधील डेटा आता तुम्ही निवडलेल्या भाषेनुसार आणि त्या राज्याच्या शैक्षणिक नियमांनुसार स्वयंचलितपणे बदलला आहे.</p>', unsafe_allow_html=True)
+elif app_mode == current_ui["sandbox_menu"]:
+    st.title("⚡ AI Action Sandbox")
+    st.markdown(f"##### 🌍 Current Engine Interface Context: `{selected_display_lang}`")
 
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-        "🧠 शंका निरसन शिक्षक",
-        "📅 अभ्यास वेळापत्रक",
-        "🛡️ स्कॉलरशिप इंजिन",
-        "🎯 स्पर्धा परीक्षा केंद्र",
-        "🛣️ करिअर मार्गदर्शक",
-        "🌐 भाषा सुलभता (22 Languages Dashboard)"
-    ])
+    # डायनॅमिक टॅब नेम्स जे निवडलेल्या भाषेनुसार बदलतात
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(current_ui["tabs"])
 
-    # --- TAB 1: AI Doubt Solving ---
+    # --- TAB 1: Doubt Solving ---
     with tab1:
-        st.markdown(f"### 🧠 AI Powered Doubt Solver Hub ({target_lang})")
-        user_query = st.text_input("तुमचा शैक्षणिक प्रश्न विचारा / Ask your academic query:", key="q1")
-        
-        if st.button("🚀 शंका निरसन करा", key="btn1"):
-            if user_query.strip():
-                with st.spinner("AI Mentor उत्तर तयार करत आहे..."):
-                    sys_prompt = base_ai_instruction + "तुम्ही तज्ज्ञ शिक्षक आहात. विद्यार्थ्यांच्या प्रश्नांची उत्तरे स्पष्ट व अचूक ७-८ महत्त्वाच्या बुलेट पॉईंट्समध्ये (Bullet Points) निवडीच्या भाषेत द्या."
-                    ai_response = fetch_ai_response(user_query, sys_prompt)
-                    st.success("🎯 AI Mentor Response:")
-                    st.write(ai_response)
-            else:
-                st.warning("कृपया आधी प्रश्न टाईप करा.")
+        st.markdown(f"### {current_ui['tabs'][0]}")
+        user_query = st.text_input(current_ui["q1_lbl"], key="q1")
+        if st.button(current_ui["btn1_lbl"], key="btn1"):
+            with st.spinner("AI Engine Processing..."):
+                ai_response = fetch_ai_response(user_query, base_ai_instruction + "Answer the query clearly with bullet points in the selected language.")
+                st.write(ai_response)
 
     # --- TAB 2: Study Planner ---
     with tab2:
-        st.markdown(f"### 📅 Personalized Study Planner ({target_lang})")
-        exam_target = st.text_input("कोणत्या परीक्षेची तयारी करत आहात? (उदा. Board Exams, Class 10, State Exams):", "State Board Exam", key="q2")
-        available_hours = st.slider("रोज अभ्यासासाठी किती तास उपलब्ध आहेत?", 1, 12, 5, key="s2")
-        
-        if st.button("🚀 स्मार्ट वेळापत्रक तयार करा", key="btn2"):
-            with st.spinner("AI वेळापत्रक डिझाईन करत आहे..."):
-                sys_prompt = base_ai_instruction + "तुमचे काम विद्यार्थ्याला त्याच्या परीक्षेसाठी १ आठवड्याचे कस्टमाइज्ड अभ्यासाचे वेळापत्रक अत्यंत आकर्षक बुलेट पॉईंट्समध्ये संबंधित भाषेमध्ये तयार करून देणे आहे."
-                query = f"परीक्षा: {exam_target}, रोज उपलब्ध तास: {available_hours}"
-                ai_response = fetch_ai_response(query, sys_prompt)
-                st.info("🎯 AI Customized Study Schedule:")
+        st.markdown(f"### {current_ui['tabs'][1]}")
+        exam_target = st.text_input(current_ui["q2_lbl"], "Board Exams", key="q2")
+        available_hours = st.slider(current_ui["s2_lbl"], 1, 12, 5, key="s2")
+        if st.button(current_ui["btn2_lbl"], key="btn2"):
+            with st.spinner("Generating Planner..."):
+                query = f"Exam: {exam_target}, Hours: {available_hours}"
+                ai_response = fetch_ai_response(query, base_ai_instruction + "Design a detailed 7-day study plan in the chosen language.")
                 st.write(ai_response)
 
-    # --- TAB 3: Scholarship Engine (१ ली ते जागतिक शिक्षण + राज्य नियम) ---
+    # --- TAB 3: Scholarship Engine (1st to Global + State Rules) ---
     with tab3:
-        st.markdown(f"### 🛡️ Scholarship Recommendation Engine (State Specific Rules)")
-        
-        edu_level = st.selectbox(
-            "शैक्षणिक पातळी / इयत्ता निवडा:",
-            [
-                "इयत्ता १ ली ते ४ थी (प्राथमिक शाळा)",
-                "इयत्ता ५ वी ते ७ वी (उच्च प्राथमिक)",
-                "इयत्ता ८ वी ते १० वी (माध्यमिक / SSC)",
-                "इयत्ता ११ वी आणि १२ वी (ज्युनिअर कॉलेज / HSC)",
-                "पदवी शिक्षण (Undergraduate - BA, B.Sc, B.Com, B.E, MBBS इ.)",
-                "पदव्युत्तर शिक्षण (Postgraduate - MA, M.Sc, M.Tech, MBA इ.)",
-                "पीएच.डी. आणि उच्च संशोधन (Ph.D. Research)",
-                "जागतिक शिक्षण / परदेशातील उच्च शिक्षण (Global & International Studies)"
-            ],
-            key="edu_level_filter"
-        )
-        
-        income_level = st.selectbox("कौटुंबिक वार्षिक उत्पन्न निवडा:", ["₹१.५ लाखांपेक्षा कमी", "₹१.५ लाख ते ₹३ लाख", "₹३ लाख ते ₹८ लाख", "₹८ लाखांपेक्षा जास्त"], key="q3")
-        category = st.text_input("प्रवर्ग / जात / आरक्षित श्रेणी (उदा. Open, OBC, SC, ST, Minorities):", "OBC", key="c3")
-        
-        if st.button("🚀 पात्र स्कॉलरशिप शोधा", key="btn3"):
-            with st.spinner("स्थानिक राज्य शासन व जागतिक शिष्यवृत्ती डेटाबेस स्कॅन करत आहे..."):
-                sys_prompt = base_ai_instruction + """तुम्ही राष्ट्रीय आणि आंतरराष्ट्रीय शिष्यवृत्तीचे सर्वोच्च तज्ञ आहात. 
-                विद्यार्थ्याने निवडलेल्या राज्य/भाषेचे सरकारी नियम, स्थानिक शासन निर्णय (GR), तिथले उत्पन्नाचे निकष आणि मॅट्रिकपूर्व/मॅट्रिकोत्तर शिष्यवृत्ती योजनांचा प्रामुख्याने विचार करा. 
-                त्याला लागू होणाऱ्या ३ महत्त्वाच्या (लोकल राज्य शासकीय, राष्ट्रीय किंवा जागतिक) स्कॉलरशिप योजनांची नावे, अचूक पात्रता आणि अधिकृत अर्ज प्रक्रियेची माहिती अनिवार्यपणे निवडीच्या भाषेत स्पष्ट सांगा."""
-                
-                query = f"पातळी: {edu_level}, उत्पन्न: {income_level}, प्रवर्ग: {category}"
-                ai_response = fetch_ai_response(query, sys_prompt)
-                st.success("💡 Recommended Scholarships:")
+        st.markdown(f"### {current_ui['tabs'][2]}")
+        edu_level = st.selectbox(current_ui["sel3_lbl"], ["1st - 4th Grade", "5th - 10th Grade", "11th - 12th (HSC)", "Undergraduate (UG)", "Postgraduate (PG)", "Ph.D. Research", "Global/International Studies"], key="edu_lvl")
+        income_level = st.selectbox(current_ui["inc3_lbl"], ["< 1.5 Lakhs", "1.5L - 3L", "3L - 8L", "> 8 Lakhs"], key="inc_lvl")
+        category = st.text_input(current_ui["cat3_lbl"], "General/OBC", key="cat")
+        if st.button(current_ui["btn3_lbl"], key="btn3"):
+            with st.spinner("Scanning State & International Scholarship Rules..."):
+                query = f"Level: {edu_level}, Income: {income_level}, Category: {category}"
+                ai_response = fetch_ai_response(query, base_ai_instruction + "Provide 3 best scholarships (State-specific, National or Global) with official eligibility rules, text in the chosen language.")
                 st.write(ai_response)
 
-    # --- TAB 4: Competitive Exam Support (राज्य, राष्ट्रीय व जागतिक) ---
+    # --- TAB 4: Competitive Exams (State, National & Global) ---
     with tab4:
-        st.markdown("### 🎯 Competitive Exam Support Module (State, National & Global)")
-        
-        exam_level = st.selectbox(
-            "परीक्षेची पातळी निवडा:",
-            ["निवडलेल्या राज्याची राज्य पातळीवरील परीक्षा (State Govt Exams / PSC)", 
-             "राष्ट्रीय पातळीवरील परीक्षा (UPSC, NEET, JEE, NDA, SSC, Banking)", 
-             "जागतिक / आंतरराष्ट्रीय परीक्षा (GRE, GMAT, SAT, IELTS, TOEFL)"],
-            key="exam_level_select"
-        )
-        specific_exam = st.text_input("थेट परीक्षेचे नाव टाईप करा (उदा. State PSC, Civil Services, NEET):", "State PSC", key="spec_ex")
-        
-        if st.button("🚀 परीक्षा पॅटर्न आणि नमुना प्रश्न मिळवा", key="btn4"):
-            with st.spinner("परीक्षा आराखडा तयार होत आहे..."):
-                sys_prompt = base_ai_instruction + "तुम्ही स्पर्धा परीक्षांचे वरिष्ठ मार्गदर्शक आहात. विद्यार्थ्याने निवडलेल्या पातळीवरील परीक्षेचा नेमका पॅटर्न, बदललेले नियम, महत्त्वाचे विषय आणि १ उच्च दर्जाचा नमुना बहुपर्यायी प्रश्न (MCQ) उत्तरासह आणि स्पष्टीकरणासह संबंधित भाषेत द्या."
-                query = f"पातळी: {exam_level}, परीक्षा: {specific_exam}"
-                ai_response = fetch_ai_response(query, sys_prompt)
-                st.info("📝 AI Examination Insights:")
+        st.markdown(f"### {current_ui['tabs'][3]}")
+        exam_level = st.selectbox(current_ui["sel4_lbl"], ["State Government/PSC Exams", "National Level Exams (UPSC, NEET, JEE)", "International Exams (GRE, GMAT, IELTS)"], key="ex_lvl")
+        specific_exam = st.text_input(current_ui["txt4_lbl"], "State PSC", key="spec_ex")
+        if st.button(current_ui["btn4_lbl"], key="btn4"):
+            with st.spinner("Fetching Exam Blueprints..."):
+                query = f"Tier: {exam_level}, Exam: {specific_exam}"
+                ai_response = fetch_ai_response(query, base_ai_instruction + "Provide the latest structure, changes, and 1 high-yield sample MCQ with explanation in the chosen language.")
                 st.write(ai_response)
 
-    # --- TAB 5: Career Guidance (लोकल ते जागतिक + लिंक्स) ---
+    # --- TAB 5: Career Guidance (All Streams + Resource Links) ---
     with tab5:
-        st.markdown("### 🛣️ End-to-End Career Guidance System (With Official Resource Links)")
-        
-        academic_stream = st.selectbox(
-            "विद्याशाखा / प्रवाह निवडा (Select Stream):",
-            ["कला शाखा (Arts & Humanities)", 
-             "वाणिज्य शाखा (Commerce & Management)", 
-             "विज्ञान शाखा (Pure & Applied Sciences)", 
-             "तांत्रिक, इंजिनिअरिंग व मेडिकल (Technical & Medical)", 
-             "व्याวसायिक व कौशल्य विकास (Vocational, Solar, Tailoring, Agriculture)"],
-            key="stream_select"
-        )
-        
-        career_scope = st.radio("करिअरची व्याप्ती (Scope):", ["स्थानिक आणि राष्ट्रीय संधी (Local & National)", "जागतिक संधी (Global & International Opportunities)"], key="scope_rad")
-        specific_interest = st.text_input("विद्यार्थ्याची वैयक्तिक आवड (उदा. डेटा सायन्स, सोलर, शेती व्यवसाय):", "AI & Digital Skills", key="q5")
-        
-        if st.button("🚀 करिअर रोडमॅप आणि अधिकृत लिंक्स मिळवा", key="btn5"):
-            with st.spinner("करिअर ट्रॅजेक्टोरी आणि रिसोर्स लिंक्स मॅप करत आहे..."):
-                sys_prompt = base_ai_instruction + """तुम्ही जागतिक करिअर कौन्सिलर आहात. विद्यार्थ्याने निवडलेली विद्याशाखा आणि आवड यानुसार त्याला उपलब्ध असणाऱ्या ३ सर्वोत्तम करिअर संधींची माहिती द्या. 
-                या क्षेत्रांशी संबंधित अधिकृत आणि उपयुक्त संकेतस्थळांच्या लिंक्स (उदा. National Career Service, UGC, Coursera, किंवा नामांकित सरकारी वेब पोर्टल्सचे नाव व मार्गदर्शक लिंक्स format [वेबसाईटचे नाव](URL)) स्वरूपात उत्तरात अनिवार्यपणे समाविष्ट करा. उत्तर पूर्णपणे निवडलेल्या भाषेत असावे."""
-                
-                query = f"शाखा: {academic_stream}, व्याप्ती: {career_scope}, आवड: {specific_interest}"
-                ai_response = fetch_ai_response(query, sys_prompt)
-                st.success("🛣️ Customized Career Path:")
-                st.markdown(ai_response)
+        st.markdown(f"### {current_ui['tabs'][4]}")
+        academic_stream = st.selectbox(current_ui["sel5_lbl"], ["Arts & Humanities", "Commerce & Management", "Pure Sciences", "Engineering & Medical", "Vocational & Skills (Solar, Agriculture, Digital)"], key="stream")
+        career_scope = st.radio(current_ui["rad5_lbl"], ["Local & National Opportunities", "Global/International Opportunities"], key="scope")
+        specific_interest = st.text_input(current_ui["txt5_lbl"], "Automation & Technology", key="interest")
+        if st.button(current_ui["btn5_lbl"], key="btn5"):
+            with st.spinner("Mapping Career Paths..."):
+                query = f"Stream: {academic_stream}, Scope: {career_scope}, Interest: {specific_interest}"
+                ai_response = fetch_ai_response(query, base_ai_instruction + "Provide 3 futuristic career options. MANDATORY: Include clickable official resource links in markdown format [Website](URL). Text must be in the chosen language.")
+                st.write(ai_response)
 
-    # --- TAB 6: Multi-language Accessibility Dashboard ---
+    # --- TAB 6: Language Dashboard ---
     with tab6:
-        st.markdown("### 🌐 Pan-India 22 Official Languages Multi-Tenant Dashboard")
-        st.success(f"✔️ सिस्टीमचा मुख्य गाभा सध्या **'{selected_display_lang}'** वर लॉक करण्यात आला आहे.")
-        st.markdown(f"""
-        **🔄 या कोअर चेंजमुळे बॅकएंडमध्ये झालेले बदल:**
-        * **प्रादेशिक नियम फिल्टर:** AI आता विशिष्ट राज्याचे शालेय शिक्षण नियम (State Board Rules) आणि स्थानिक कायदे लागू करत आहे.
-        * **भाषेचे सुलभिकरण:** शंका निरसन, वेळापत्रक, स्कॉलरशिप, परीक्षा आणि करिअर या ५ ही मॉड्यूल्सचे इनपुट आणि जनरेट होणारे उत्तर आता थेट निवडलेल्या भाषेत परावर्तित होत आहे.
-        """)
-        st.caption("हा इंटरफेस लो-बँडविड्थ ग्रामीण भागात सर्व २२ प्रादेशिक भाषांचे फॉन्ट अतिशय वेगाने लोड करतो.")
+        st.markdown(f"### {current_ui['tabs'][5]}")
+        st.success(f"✔️ Active Language Target Context: **{selected_display_lang}**")
+        st.info("The entire UI text, labels, and underlying state configurations are now synchronized dynamically.")
 
-# --- ६. एकत्रित फायनल फुटर ---
+# --- ७. एकत्रित फायनल फुटर ---
 st.markdown("""
     <div class="footer-container">
-        <p style="font-size: 1.1rem; color: #ffffff; font-weight: 700; margin-bottom: 2px;">
-            Developed by Dnyaneshwar Gawalikar
-        </p>
-        <p style="color: #FFD700; font-weight: 600; margin-bottom: 15px; font-size: 0.9rem; letter-spacing: 0.5px;">
-            Professor & Head of Department
-        </p>
-        <p style="font-size: 0.8rem; color: #8b949e;">
-            Capstone Project — IIT Patna Generative AI Sprint 2026
-        </p>
+        <p style="font-size: 1.1rem; color: #ffffff; font-weight: 700; margin-bottom: 2px;">Developed by Dnyaneshwar Gawalikar</p>
+        <p style="color: #FFD700; font-weight: 600; margin-bottom: 15px; font-size: 0.9rem;">Professor & Head of Department</p>
+        <p style="font-size: 0.8rem; color: #8b949e;">Capstone Project — IIT Patna Generative AI Sprint 2026</p>
     </div>
 """, unsafe_allow_html=True)
