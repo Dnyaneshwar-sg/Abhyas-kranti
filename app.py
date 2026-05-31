@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- ३. ग्लोबल भाषा आणि राज्य मॅपिंग (सर्व ९ भाषा अचूक की-मॅपिंगसह) ---
+# --- ३. ग्लोबल भाषा आणि राज्य मॅपिंग ---
 languages_map = {
     "मराठी (Marathi) - महाराष्ट्र": "Marathi",
     "English - Pan India": "English",
@@ -99,14 +99,14 @@ UI_LANG_MATRIX = {
         "sandbox_menu": "⚡ 6-इन-1 AI सैंडबॉक्स",
         "doubt_menu": "🧠 शंका समाधान केंद्र",
         "login_menu": "🔐 लॉगिन / प्रोफाइल",
-        "tabs": ["🧠 शंका समाधान", "📅 समय-सारणी", "🛡️ स्कॉलरशिप इंजन", "🎯 परीक्षा केंद्र", "🏢 करियर मार्गदर्शक", "🌐 भाषा केंद्र"],
+        "tabs": ["🧠 शंका समाधान", "📅 समय-सारणी", "🛡️ स्कॉलरशिप इंजन", "🎯 परीक्षा केंद्र", "🏢关रियर मार्गदर्शक", "🌐 भाषा केंद्र"],
         "q1_lbl": "अपना शैक्षणिक प्रश्न पूछें:",
         "btn1_lbl": "🚀 शंका समाधान करें",
         "q2_lbl": "आप किस परीक्षा की तैयारी कर रहे हैं?",
         "s2_lbl": "रोजाना पढ़ाई के लिए कितने घंटे उपलब्ध हैं?",
         "btn2_lbl": "🚀 स्मार्ट समय-सारणी बनाएं",
         "sel3_lbl": "शैक्षणिक स्तर / कक्षा चुनें:",
-        "edu_opts": ["কक्षा 1 से 4", "কक्षा 5 से 7", "কक्षा 8 से 10 (SSC)", "কक्षा 11 और 12 (HSC)", "स्नातक (Undergraduate)", "स्नातकोत्तर (Postgraduate)", "पीएच.डी. अनुसंधान"],
+        "edu_opts": ["कक्षा 1 से 4", "कक्षा 5 से 7", "कक्षा 8 से 10 (SSC)", "कक्षा 11 और 12 (HSC)", "स्नातक (Undergraduate)", "स्नातकोत्तर (Postgraduate)", "पीएच.डी. अनुसंधान"],
         "inc3_lbl": "वार्षिक पारिवारिक आय चुनें:",
         "inc_opts": ["₹1.5 लाख से कम", "₹1.5 लाख से ₹3 लाख", "₹3 लाख से ₹8 लाख", "₹8 लाख से अधिक"],
         "cat3_lbl": "अपनी श्रेणी / जाति (Open, OBC, SC, ST):",
@@ -118,14 +118,14 @@ UI_LANG_MATRIX = {
         "sel5_lbl": "शैक्षणिक स्ट्रीम/शाखा चुनें:",
         "streams": ["कला शाखा (Arts)", "वाणिज्य शाखा (Commerce)", "विज्ञान शाखा (Pure Sciences)", "तकनीकी और मेडिकल", "व्यावसायिक और कौशल (Vocational/Solar)"],
         "rad5_lbl": "करियर का दायरा:",
-        "scopes": ["স্থায়ী और राष्ट्रीय अवसर", "वैश्विक अवसर"],
+        "scopes": ["स्थानीय और राष्ट्रीय अवसर", "वैश्विक अवसर"],
         "txt5_lbl": "अपनी व्यक्तिगत रुचि (जैसे सोलर, डेटा साइंस):",
         "btn5_lbl": "🚀 करियर रोडमॅप और लिंक्स प्राप्त करें"
     },
     "Gujarati": {
         "menu_lbl": "🌍 ભાષા અને રાજ્ય પસંદ કરો:",
         "dash_menu": "🏠 મુખ્ય પૃષ્ઠ (Dashboard)",
-        "sandbox_menu": "⚡ 6-ઇன்-1 AI સેન્ડબોક્સ",
+        "sandbox_menu": "⚡ 6-ઇન-1 AI સેન્ડબોક્સ",
         "doubt_menu": "🧠 શંકા નિવારણ કેન્દ્ર",
         "login_menu": "🔐 લોગિન / પ્રોફાઇલ",
         "tabs": ["🧠 શંકા નિવારણ શિક્ષક", "📅 અભ્યાસ સમયપત્રક", "🛡️ સ્કોલરશિપ એન્જિન", "🎯 પરીક્ષા કેન્દ્ર", "🏢 કરિયર માર્ગદર્શક", "🌐 ભાષા કેન્દ્ર"],
@@ -135,10 +135,10 @@ UI_LANG_MATRIX = {
         "s2_lbl": "રોજ અભ્યાસ માટે કેટલા કલાક ઉપલબ્ધ છે?",
         "btn2_lbl": "🚀 સ્માર્ટ સમયપત્રક બનાવો",
         "sel3_lbl": "વિદ્યાર્થીનું શૈક્ષણિક સ્તર પસંદ કરો:",
-        "edu_opts": ["ધોરણ 1 થી 4 (પ્રાથમિક)", "ધોરણ 5 થી 7 (ઉચ્ચ પ્રાથમિક)", "ધોરણ 8 થી 10 (SSC)", "ધોરણ 11 અને 12 (HSC)", "સ્નાતક (Undergraduate)", "અનુસ્નાતક (Postgraduate)", "પીએચ.ਡੀ. અને સંશોધન"],
+        "edu_opts": ["ધોરણ 1 થી 4 (પ્રાથમિક)", "ધોરણ 5 થી 7 (ઉચ્ચ પ્રાથમિક)", "ધોરણ 8 થી 10 (SSC)", "ધોરણ 11 અને 12 (HSC)", "સ્નાતક (Undergraduate)", "અનુસ્નાતક (Postgraduate)", "પીએચ.ડી. અને સંશોધન"],
         "inc3_lbl": "કૌટુંબિક વાર્ષિક આવક પસંદ કરો:",
         "inc_opts": ["₹1.5 લાખથી ઓછી", "₹1.5 લાખથી ₹3 લાખ", "₹3 લાખથી ₹8 લાખ", "₹8 લાખથી વધુ"],
-        "cat3_lbl": "કેટેગरी / જાતિ ટાઈપ કરો (Open, OBC, SC, ST):",
+        "cat3_lbl": "કેટેગરી / જાતિ ટાઈપ કરો (Open, OBC, SC, ST):",
         "btn3_lbl": "🚀 યોગ્ય સ્કોલરશિપ શોધો",
         "sel4_lbl": "પરીક્ષાનું સ્તર પસંદ કરો:",
         "exam_tiers": ["રાજ્ય સ્તરની સરકારી પરીક્ષા (State PSC)", "રાષ્ટ્રીય સ્તરની પરીક્ષા (UPSC, NEET, JEE)", "વૈશ્વિક પરીક્ષા (GRE, IELTS)"],
@@ -146,8 +146,8 @@ UI_LANG_MATRIX = {
         "btn4_lbl": "🚀 પરીક્ષા પેટર્ન અને પ્રશ્નો મેળવો",
         "sel5_lbl": "શૈક્ષણિક પ્રવાહ પસંદ કરો:",
         "streams": ["આર્ટસ પ્રવાહ (Arts)", "કોમર્સ પ્રવાહ (Commerce)", "સાયન્સ પ્રવાહ (Pure Sciences)", "ટેકનિકલ અને મેડિકલ", "વ્યવસાયિક અને કૌશલ્ય (Vocational/Solar)"],
-        "rad5_lbl": "ਕਰિયર ક્ષેત્ર (Scope):",
-        "scopes": ["સ્થાનિક અને રાષ્ટ્રીય તકો", "વૈશ્વિક તકો"],
+        "rad5_lbl": "करિયર ક્ષેત્ર (Scope):",
+        "scopes": ["સ્થાનિક અને રાષ્ટ્રીય તકો", "વૈશ્વಿಕ તકો"],
         "txt5_lbl": "વિદ્યાર્થીની વ્યક્તિગત રુચિ (જેમ કે સોલર, ડેટા સાયન્સ):",
         "btn5_lbl": "🚀 કરિયર રોડમેપ અને લિંક્સ મેળવો"
     },
@@ -163,7 +163,7 @@ UI_LANG_MATRIX = {
         "q2_lbl": "ನೀವು ಯಾವ ಪರೀಕ್ಷೆಗೆ ತಯಾರಿ ನಡೆಸುತ್ತಿದ್ದೀರಿ?",
         "s2_lbl": "ದಿನಕ್ಕೆ ಎಷ್ಟು ಗಂಟೆ ಓದಲು ಲಭ್ಯವಿದೆ?",
         "btn2_lbl": "🚀 ಸ್ಮಾರ್ಟ್ ವೇಳಾಪಟ್ಟಿ ರಚಿಸಿ",
-        "sel3_lbl": "ವید್ಯಾರ್ಥಿಯ ಶೈಕ್ಷಣಿಕ ಮಟ್ಟವನ್ನು ಆರಿಸಿ:",
+        "sel3_lbl": "ವಿದ್ಯಾರ್ಥಿಯ ಶೈಕ್ಷಣಿಕ ಮಟ್ಟವನ್ನು ಆರಿಸಿ:",
         "edu_opts": ["ತರಗತಿ 1 ರಿಂದ 4", "ತರಗತಿ 5 ರಿಂದ 7", "ತರಗತಿ 8 ರಿಂದ 10 (SSC)", "ತರಗತಿ 11 ಮತ್ತು 12 (HSC)", "ಪದವಿ (Undergraduate)", "ಸ್ನಾತಕೋತ್ತರ (Postgraduate)", "ಪಿಎಚ್.ಡಿ. ಸಂಶೋಧನೆ"],
         "inc3_lbl": "ಕುಟುಂಬದ ವಾರ್ಷಿಕ ಆದಾಯವನ್ನು ಆರಿಸಿ:",
         "inc_opts": ["₹1.5 ಲಕ್ಷಕ್ಕಿಂತ ಕಡಿಮೆ", "₹1.5 ಲಕ್ಷದಿಂದ ₹3 ಲಕ್ಷ", "₹3 ಲಕ್ಷದಿಂದ ₹8 ಲಕ್ಷ", "₹8 ಲಕ್ಷಕ್ಕಿಂತ ಹೆಚ್ಚು"],
@@ -172,18 +172,18 @@ UI_LANG_MATRIX = {
         "sel4_lbl": "ಪರೀಕ್ಷೆಯ ಮಟ್ಟವನ್ನು ಆಯ್ಕೆಮಾಡಿ:",
         "exam_tiers": ["ರಾಜ್ಯ ಮಟ್ಟದ ಪರೀಕ್ಷೆ (State PSC)", "ರಾಷ್ಟ್ರೀಯ ಮಟ್ಟದ ಪರೀಕ್ಷೆ (UPSC, NEET, JEE)", "ಜಾಗತಿಕ ಪರೀಕ್ಷೆ (GRE, IELTS)"],
         "txt4_lbl": "ಪರೀಕ್ಷೆಯ ಹೆಸರನ್ನು ಟೈಪ್ ಮಾಡಿ:",
-        "btn4_lbl": "🚀 ಪರೀಕ್ಷಾ ಮಾਦರಿ ಮತ್ತು ಪ್ರಶ್ನೆಗಳನ್ನು ಪಡೆಯಿರಿ",
+        "btn4_lbl": "🚀 ಪರೀಕ್ಷಾ ಮಾਦರಿ ಮತ್ತು ಪ್ರಶ್ನೆಯನ್ನು ಪಡೆಯಿರಿ",
         "sel5_lbl": "ಶೈಕ್ಷಣಿಕ ವಿಭಾಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ:",
-        "streams": ["ಕಲಾ ವಿಭಾಗ (Arts)", "ವಾಣಿಜ್ಯ ವಿಭಾಗ (Commerce)", "ವಿಜ್ಞಾನ ವಿಭಾಗ (Pure Sciences)", "ತಾಂತ್ರಿಕ ಮತ್ತು ವೈದ್ಯಕೀಯ", "ವೃತ್ತಿಪರ ಮತ್ತು ಕೌಶಲ್ಯ (Vocational/Solar)"],
+        "streams": ["ಕಲಾ ವಿಭಾಗ (Arts)", "ವಾಣಿಜ್ಯ ವಿಭಾಗ (Commerce)", "ವಿಜ್ಞಾನ ವಿಭಾಗ (Pure Sciences)", "ತಾಂತ್ರಿಕ ಮತ್ತು ವೈದ್ಯಕೀಯ", "ವೃತ್ತಿਪರ ಮತ್ತು ಕೌಶಲ್ಯ (Vocational/Solar)"],
         "rad5_lbl": "ವೃತ್ತಿ ಅವಕಾಶದ ಮಟ್ಟ (Scope):",
         "scopes": ["ಸ್ಥಳೀಯ ಮತ್ತು ರಾಷ್ಟ್ರೀಯ ಅವಕಾಶಗಳು", "ಜಾಗತಿಕ ಅವಕಾಶಗಳು"],
-        "txt5_lbl": "ವید್ಯಾರ್ಥಿಯ ವೈಯಕ್ತಿಕ ಆಸಕ್ತಿ (ಉದಾ. ಸೋಲಾರ್, ಡೇಟಾ ಸೈನ್ಸ್):",
+        "txt5_lbl": "ವಿದ್ಯಾರ್ಥಿಯ ವೈಯಕ್ತಿಕ ಆಸಕ್ತಿ (ಉದಾ. ಸೋಲಾರ್, ಡೇಟಾ ಸೈನ್ಸ್):",
         "btn5_lbl": "🚀 ವೃತ್ತಿ ಮಾರ್ಗಸೂಚಿ ಮತ್ತು ಲಿಂಕ್‌ಗಳನ್ನು ಪಡೆಯಿರಿ"
     },
     "Tamil": {
         "menu_lbl": "🌍 மொழி மற்றும் மாநிலத்தைத் தேர்ந்தெடுக்கவும்:",
         "dash_menu": "🏠 முதன்மை ட್ಯಾஷ்‌போர்ಡ್",
-        "sandbox_menu": "⚡ 6-இன்-1 AI சாண்ட்பாக்斯",
+        "sandbox_menu": "⚡ 6-இன்-1 AI சாண்ட்பாக்ஸ்",
         "doubt_menu": "🧠 சந்தேகத் தீர்வு மையம்",
         "login_menu": "🔐 உள்நுழைவு / சுயவிவரம்",
         "tabs": ["🧠 சந்தேகத் தீர்வு ஆசிரியர்", "📅 படிப்பு கால அட்டவணை", "🛡️ உதவித்தொகை எஞ்சின்", "🎯 தேர்வு மையம்", "🏢 தொழில் வழிகாட்டி", "🌐 மொழி மையம்"],
@@ -211,25 +211,25 @@ UI_LANG_MATRIX = {
     },
     "Telugu": {
         "menu_lbl": "🌍 భాష మరియు రాష్ట్రాన్ని ఎంచుకోండి:",
-        "dash_menu": "🏠 ప్రధాన డాష్board",
+        "dash_menu": "🏠 ప్రధాన డాష్‌బోర్డ్",
         "sandbox_menu": "⚡ 6-ఇన్-1 AI శాండ్‌బాక్స్",
         "doubt_menu": "🧠 సందేహ నివృత్తి కేంద్రం",
         "login_menu": "🔐 లాగిన్ / ప్రొఫైల్",
-        "tabs": ["🧠 సందేహ నివృత్తి ఉపాధ్యాయుడు", "📅 అధ్యయన ప్రణాళిక", "🛡️ స్కాలర్‌షిప్ ఇంజిన్", "🎯 పరీక్షా కేంద్రం", "🏢 కెరీర్ మార్గదర్శి", "🌐 భాషా కేంద్రం"],
+        "tabs": ["🧠 సందేహ నివృత్తి ఉపాధ్యాయుడు", "📅 అధ్యయన ప్రణాళిక", "🛡️ స్కాలర్‌షిప్ | ఇంజిన్", "🎯 పరీక్షా కేంద్రం", "🏢 కెరీర్ మార్గదర్శి", "🌐 భాషా కేంద్రం"],
         "q1_lbl": "మీ విద్యా సంబంధిత ప్రశ్నను అడగండి:",
         "btn1_lbl": "🚀 సందేహాన్ని నివృత్తి చేయండి",
-        "q2_lbl": "మీరు ఏ పరీక్షకు సిద్ధమవుతున్నారు?",
+        "q2_lbl": "మీరు ఏ परीक्षाకు సిద్ధమవుతున్నారు?",
         "s2_lbl": "రోజుకు ఎన్ని గంటలు చదవగలరు?",
         "btn2_lbl": "🚀 స్మార్ట్ టైమ్ టేబుల్ సృష్టించండి",
         "sel3_lbl": "విద్యార్థి విద్యా స్థాయిని ఎంచుకోండి:",
-        "edu_opts": ["1 నుండి 4 వ తరగతి", "5 నుండి 7 వ తరగతి", "8 నుండి 10 వ తరగతి (SSC)", "11 మరియు 12 వ తరగతి (HSC)", "డిగ్రీ (Undergraduate)", "పీజీ (Postgraduate)", "Ph.D. రీసెర్చ్"],
+        "edu_opts": ["1 నుండి 4 వ తరగతి", "5 నుండి 7 వ తరగతి", "8 నుండి 10 వ తరగతి (SSC)", "11 మరియు 12 వ తరగతి (HSC)", "డిగ్రీ (Undergraduate)", "పీజీ (Postgraduate)", "Ph.D. రీసెర్ച്ച്"],
         "inc3_lbl": "కుటుంబ వార్షిక ఆదాయాన్ని ఎంచుకోండి:",
         "inc_opts": ["₹1.5 లక్షల కంటే తక్కువ", "₹1.5 లక్షల నుండి ₹3 లక్షలు", "₹3 లక్షల నుండి ₹8 లక్షలు", "₹8 లక్షల కంటే ఎక్కువ"],
         "cat3_lbl": "కేటగిరీ / కులం టైప్ చేయండి (Open, OBC, SC, ST):",
         "btn3_lbl": "🚀 అర్హత గల స్కాలర్‌షిప్‌లను కనుగొనండి",
         "sel4_lbl": "పరీక్ష స్థాయిని ఎంచుకోండి:",
-        "exam_tiers": ["రాష్ట్ర స్థాయి పరీక్ష (State PSC)", "జాతీయ స్థాయి పరీక్ష (UPSC, NEET, JEE)", "అంతర్జాతీయ పరీక్ష (GRE, IELTS)"],
-        "txt4_lbl": "పరీక్ష పేరు టైప్ చేయండి:",
+        "exam_tiers": ["రాష్ట్ర స్థాయి పరీక్ష (State PSC)", "జాతీయ స్థాయి परीक्षा (UPSC, NEET, JEE)", "అంతర్జాతీయ పరీక్ష (GRE, IELTS)"],
+        "txt4_lbl": "पరీక్ష పేరు టైప్ చేయండి:",
         "btn4_lbl": "🚀 పరీక్షా సరళి & ప్రశ్నలను పొందండి",
         "sel5_lbl": "విద్యా విభాగాన్ని ఎంచుకోండి:",
         "streams": ["ఆర్ట్స్ (Arts)", "కామర్స్ (Commerce)", "సైన్స్ (Pure Sciences)", "టెక్నికల్ & మెడికల్", "ఒకేషనల్ & స్కిల్స్ (Vocational/Solar)"],
@@ -278,9 +278,9 @@ UI_LANG_MATRIX = {
         "btn1_lbl": "🚀 সন্দেহ নিরসন করুন",
         "q2_lbl": "আপনি কোন পরীক্ষার প্রস্তুতি নিচ্ছেন?",
         "s2_lbl": "প্রতিদিন পড়ার জন্য কত ঘন্টা সময় আছে?",
-        "btn2_lbl": "🚀スマート সময়সূচী তৈরি করুন",
+        "btn2_lbl": "🚀 স্মার্ট সময়সূচী তৈরি করুন",
         "sel3_lbl": "শিক্ষার্থীর শিক্ষাগত স্তর নির্বাচন করুন:",
-        "edu_opts": ["প্রথম থেকে চতুর্থ শ্রেণী", "পঞ্চম থেকে সপ্তম শ্রেণী", "অষ্টম থেকে দশম শ্রেণী (SSC)", "একাদশ ও দ্বাদশ শ্রেণী (HSC)", "স্নাতক (Undergraduate)", "স্নাতকোত্তর (Postgraduate)", "পিএইচডি গবেষণা"],
+        "edu_opts": ["প্রথম থেকে চতুর্থ শ্রেণী", "পঞ্চম থেকে সপ্তম শ্রেণী", "অষ্টম থেকে দশম শ্রেণী (SSC)", "একাদশ ও দ্বাদশ শ্রেণী (HSC)", "স্নাতক (Undergraduate)", "স্নাতকোর্দ্ধ (Postgraduate)", "পিএইচডি গবেষণা"],
         "inc3_lbl": "পারিবারিক বার্ষিক আয় নির্বাচন করুন:",
         "inc_opts": ["₹১.৫ লক্ষের কম", "₹১.৫ লক্ষ থেকে ₹৩ লক্ষ", "₹৩ লক্ষ থেকে ₹৮ লক্ষ", "₹৮ লক্ষের বেশি"],
         "cat3_lbl": "আপনার বিভাগ / জাতি লিখুন (Open, OBC, SC, ST):",
@@ -306,6 +306,28 @@ st.markdown("""
     
     .stApp { background: #0d1117; color: #f0f6fc !important; }
     
+    /* --- इनपुट बॉक्सेस मधील अक्षरे पांढरी व स्पष्ट दिसण्यासाठी अतिशय महत्वाचे CSS --- */
+    input[type="text"], .stTextInput input, .stSelectbox div[data-baseweb="select"] {
+        color: #ffffff !important;
+        background-color: #1f242c !important;
+        border: 1px solid #444c56 !important;
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+    }
+    
+    /* इनपुट फिल्डच्या वरच्या लेबल्सचा रंग पांढरा करणे */
+    div[data-testid="stWidgetLabel"] p, label {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 1.1rem !important;
+    }
+    
+    /* ड्रॉपडाऊनच्या आत उघडणारे पर्याय पांढरे करणे */
+    div[data-baseweb="popover"] li {
+        color: #ffffff !important;
+        background-color: #1f242c !important;
+    }
+
     /* डाव्या बाजूचा प्रीमियम विजिबिलिटी साईडबार */
     [data-testid="stSidebar"] {
         background-color: #070a0e !important; 
@@ -335,7 +357,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- ६. पहिली सुरक्षित भाषा निवड लोड करणे (मराठी डिफॉल्ट अचूक स्पेलिंगसह) ---
+# --- ६. पहिली सुरक्षित भाषा निवड लोड करणे ---
 if "global_language_selector" in st.session_state:
     selected_lang_key = st.session_state["global_language_selector"]
 else:
@@ -357,29 +379,34 @@ target_lang = languages_map[selected_display_lang]
 current_ui = UI_LANG_MATRIX.get(target_lang, UI_LANG_MATRIX["English"])
 
 # =========================================================================
-# 🔥 १००% तोडगा: मल्टिपल कॉलम्सवर आधारित अत्याधुनिक प्रोफेशनल नॅव्हिगेशन बार
+# 🔥 १००% तोडगा: स्थिर कीज (Static Keys) वर आधारित प्रगत सुरक्षित नॅव्हिगेशन बार
 # =========================================================================
-modes = [current_ui["dash_menu"], current_ui["sandbox_menu"], current_ui["doubt_menu"], current_ui["login_menu"]]
+modes_keys = ["dash", "sandbox", "doubt", "login"]
+mode_display = {
+    "dash": current_ui["dash_menu"],
+    "sandbox": current_ui["sandbox_menu"],
+    "doubt": current_ui["doubt_menu"],
+    "login": current_ui["login_menu"]
+}
 
-if "current_app_mode" not in st.session_state:
-    st.session_state["current_app_mode"] = modes[0]
+if "current_app_mode_key" not in st.session_state:
+    st.session_state["current_app_mode_key"] = "dash"
 
 # मुख्य स्क्रीनच्या वरती ४ स्वतंत्र कॉलम्स
 nav_cols = st.columns(4)
-for i, mode_name in enumerate(modes):
+for i, key in enumerate(modes_keys):
     with nav_cols[i]:
-        # जो मोड निवडीत आहे त्याला Primary (चमकदार) बटण बनवणे
-        is_active = (st.session_state["current_app_mode"] == mode_name)
+        is_active = (st.session_state["current_app_mode_key"] == key)
         if st.button(
-            mode_name, 
-            key=f"nav_premium_btn_{i}", 
+            mode_display[key], 
+            key=f"nav_premium_btn_{key}", 
             use_container_width=True, 
             type="primary" if is_active else "secondary"
         ):
-            st.session_state["current_app_mode"] = mode_name
+            st.session_state["current_app_mode_key"] = key
             st.rerun()
 
-app_mode = st.session_state["current_app_mode"]
+app_mode = st.session_state["current_app_mode_key"]
 st.markdown("---")
 
 # --- ८. AI कॉल फंक्शन (Groq API) ---
@@ -406,7 +433,7 @@ You are the elite AI Engine of 'Abhyas Kranti' App, completely customized for {t
 # ==========================================
 # विभाग १: Dashboard
 # ==========================================
-if app_mode == current_ui["dash_menu"]:
+if app_mode == "dash":
     st.markdown('<span class="main-title">Abhyas Kranti National Portal</span>', unsafe_allow_html=True)
     st.markdown('### AI Powered Educational Ecosystem for Rural India')
     st.markdown(f"**🌍 Active Language Context:** `{selected_display_lang}`")
@@ -418,9 +445,9 @@ if app_mode == current_ui["dash_menu"]:
         st.markdown('<div class="glass-card"><h3>IIT Patna Capstone</h3><p style="color:#c9d1d9;">Tailored for high-contrast accessibility in rural ecosystems.</p></div>', unsafe_allow_html=True)
 
 # ==========================================
-# विभाग २: ६-इन-१ AI सँडबॉक्स (९ ही भाषांमध्ये १००% चालणार)
+# विभाग २: ६-इन-१ AI सँडबॉक्स
 # ==========================================
-elif app_mode == current_ui["sandbox_menu"]:
+elif app_mode == "sandbox":
     st.markdown(f'<span class="main-title">{current_ui["sandbox_menu"]}</span>', unsafe_allow_html=True)
     
     tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(current_ui["tabs"])
@@ -473,7 +500,7 @@ elif app_mode == current_ui["sandbox_menu"]:
 # ==========================================
 # विभाग ३: स्वतंत्र शंका निरसन केंद्र
 # ==========================================
-elif app_mode == current_ui["doubt_menu"]:
+elif app_mode == "doubt":
     st.markdown(f'<span class="main-title">{current_ui["doubt_menu"]}</span>', unsafe_allow_html=True)
     user_query = st.text_input(current_ui["q1_lbl"], key="q1_direct")
     if st.button(current_ui["btn1_lbl"], key="btn1_direct"):
@@ -483,7 +510,7 @@ elif app_mode == current_ui["doubt_menu"]:
 # ==========================================
 # विभाग ४: लॉगिन / प्रोफाईल
 # ==========================================
-elif app_mode == current_ui["login_menu"]:
+elif app_mode == "login":
     st.markdown(f'<span class="main-title">{current_ui["login_menu"]}</span>', unsafe_allow_html=True)
     with st.form("login_form"):
         st.text_input("Username / Email:")
